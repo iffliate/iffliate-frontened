@@ -31,7 +31,7 @@ const SelectBar = ({data}) =>{
       options={data}
       onChange={handleChange}
       getOptionLabel={e => (
-        <div className='select-option' style={{ display: 'flex', alignItems: 'center','color':'white' }}>
+        <div className='select-option' style={{ display: 'flex', alignItems: 'center'}}>
           {e.icon}
           <span style={{ marginLeft: 5 }}>{e.label}</span>
         </div>

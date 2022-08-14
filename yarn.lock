@@ -2431,11 +2431,6 @@ styled-jsx@5.0.4:
   resolved "https://registry.yarnpkg.com/styled-jsx/-/styled-jsx-5.0.4.tgz#5b1bd0b9ab44caae3dd1361295559706e044aa53"
   integrity sha512-sDFWLbg4zR+UkNzfk5lPilyIgtpddfxXEULxhujorr5jtePTUqiPDc5BC0v1NRqTr/WaFBGQQUoYToGlF4B2KQ==
 
-styled-off-canvas@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/styled-off-canvas/-/styled-off-canvas-1.2.0.tgz#b55735bdef8258ca42bcc41a3f6d1fa18e2c796a"
-  integrity sha512-7mt/fY9adoJZNxM2qE8++w2ANt4lFxvRKkamGr/8qKQiK/jUd8+GqJFKuneUly4nK17MAnStG2jjhdh74QousQ==
-
 stylis@4.0.13:
   version "4.0.13"
   resolved "https://registry.yarnpkg.com/stylis/-/stylis-4.0.13.tgz#f5db332e376d13cc84ecfe5dace9a2a51d954c91"

@@ -9,6 +9,59 @@ export const IndexIntroInfo= styled.div`
   position: relative;
   border-bottom: 1px solid #e5e7eb;
 
+  .offer1 > span  img{
+    border-radius: 5px;
+ }
+ .offer2 > span img{
+  display: none !important;
+  border-radius: 5px;
+
+ }
+ .offer3 > span img{
+  display: none !important;
+  border-radius: 5px;
+}
+.offer3{
+  display: none;
+}
+.offer3{
+  display: none;
+}
+
+@media screen and (min-width:600px){
+  &> div:nth-child(1){
+    display: flex;
+    justify-content: space-between;
+    /* border: 1px solid red; */
+  }
+  
+  .offer1 {
+    width: 40% !important;
+  }
+  .offer2{
+    width: 40% !important;
+    align-self: left;
+  }
+  .offer2 > span img{
+    
+    display: block !important;
+ }
+
+}
+
+@media screen and (min-width:800px){
+  .offer1,.offer2,.offer3{
+    display: block !important;
+    width: 30% !important;
+
+  }
+  .offer2 > span img{
+  display: block !important;
+ }
+ .offer3 > span img{
+  display: block !important;
+}
+}
 `
 
 export const ImageControllerContainer= styled.div`
@@ -20,7 +73,7 @@ justify-content: space-between;
 font-size: 1.5rem;
 /* background-color:; */
 /* border: 1px solid red; */
-transform: translateY(-100px);
+transform: translateY(-120px);
 svg{
   background-color:  ${(props)=>props.theme.body};
   display: block;
@@ -37,6 +90,14 @@ svg{
   &:nth-child(2){
     transform: translateX(16px);
   }
+  }
+
+  @media screen and (min-width:600px){
+transform: translateY(-70px);
+  }
+  @media screen and (min-width:800px){
+    display: none;
+
   }
 `
 
@@ -61,4 +122,39 @@ export const FilterBtnContainer = styled.div`
 
   }
 
+`
+
+
+export const HeroSection= styled.div`
+height: 100vh;
+width: 100%;
+/* border: 1px solid red; */
+position: relative;
+
+& span img{
+  width: 100% !important;
+  height: 100% !important;
+}
+
+`
+export const HeroSectionContentBox= styled.div`
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  top: 30%;
+  /* border: 1px solid red; */
+  width: 100%;
+  text-align: center;
+  color: ${(props)=>{
+    if(props.theme.type==='light'){
+      
+      return '#1f2937'
+    }
+    return 'whitesmoke'
+  }};
+
+  h1{
+  font-size: 2.5rem;
+
+  }
 `

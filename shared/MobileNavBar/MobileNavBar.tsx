@@ -3,6 +3,7 @@ import {FaBars} from 'react-icons/fa'
 import {BiSearchAlt} from 'react-icons/bi'
 import {BiHomeCircle} from 'react-icons/bi'
 import {BsBagDash}from 'react-icons/bs'
+import { AiOutlineUser } from 'react-icons/ai'
 const MobileNavBar = ():React.ReactElement=>{
 
   return (
@@ -16,6 +17,8 @@ const MobileNavBar = ():React.ReactElement=>{
         </p>
         <BsBagDash/>
       </CartBagStyleInMobileNav>
+
+      <AiOutlineUser/>
     </MobileNavBarContainer>
   )
 }
