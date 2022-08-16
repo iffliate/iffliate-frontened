@@ -44,3 +44,28 @@ border-radius:50%;
 color:white;
 }
 `
+
+
+export const MobileNavLinkContainer= styled.ul`
+
+/* border: 1px solid red; */
+font-size: 1.1rem;
+list-style-type: none;
+margin-top: 30px;
+li{
+  padding: .6rem 1.5rem;
+  text-align: left;
+}
+svg{
+  margin-right: .3rem;
+}
+a{
+  text-decoration: none;
+  color: ${(props)=>props.theme.type==='light'?'#4b5563':'white'};
+  transition: .4s color ease-in-out;
+}
+a:hover{
+  color: ${(props)=>props.theme.main_color};
+  
+}
+`

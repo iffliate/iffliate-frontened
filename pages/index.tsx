@@ -10,7 +10,7 @@ import {AiOutlineArrowLeft} from 'react-icons/ai'
 import Button from '../shared/Button/Button'
 import {RiFilterFill, RiShoppingBagFill} from 'react-icons/ri'
 import SelectBar from '../shared/SelectBar/SelectBar'
-import {GiAmpleDress, GiAppleSeeds, GiOfficeChair} from 'react-icons/gi'
+import {GiAmpleDress, GiAppleSeeds, GiDiscGolfBag, GiOfficeChair} from 'react-icons/gi'
 import {GiSlicedBread} from 'react-icons/gi'
 import { FaPaintBrush } from 'react-icons/fa'
 import { BiBookReader } from 'react-icons/bi'
@@ -21,6 +21,8 @@ import { IndexIntroInfo,
 } from '../pageStyles/index/index.style'
 import HeroImage from '../assets/cloths.webp'
 import HeroSearchBar from '../shared/HeroSearchBar/HeroSearchBar'
+import OffCanvas from '../shared/OffCanvas/OffCanvas'
+import { MobileNavLinkContainer } from '../shared/MobileNavBar/MobileNavBar.style'
 
 const Home: NextPage = () => {
   const isLaptop = useMediaQuery({ query: '(min-width: 700px)' })
@@ -70,11 +72,23 @@ const Home: NextPage = () => {
 
       <FilterBtnContainer>
 
-        <Button styleType='sec' style={{'width':'100px'}} >
-          <RiFilterFill/>
-        Filter
-        </Button>
-      
+        <OffCanvas btnContrroller={
+            
+          <Button styleType='sec' style={{'width':'100px'}} >
+            <RiFilterFill/>
+          Filter
+          </Button>
+        
+        }>
+          <MobileNavLinkContainer>
+            <li><a href=""><GiDiscGolfBag/>Hand Bag</a></li>
+            <li><a href=""><GiDiscGolfBag/>Laptop Bag</a></li>
+            <li><a href=""><GiDiscGolfBag/>Shoulder Bags</a></li>
+            <li><a href=""><GiDiscGolfBag/>Purse</a></li>
+            <li><a href=""><GiDiscGolfBag/>Wallet</a></li>
+
+          </MobileNavLinkContainer>
+        </OffCanvas>
         <div style={{'width':'140px'}}>
           <SelectBar data={[
             {value:'Grocery',label:'Grocery',icon:<GiAppleSeeds color='#ff4f01'/>},
@@ -89,6 +103,8 @@ const Home: NextPage = () => {
           />
         </div>
       </FilterBtnContainer>
+
+
     </GeneralLayout>
 
   )
