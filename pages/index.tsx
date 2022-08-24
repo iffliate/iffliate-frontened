@@ -23,7 +23,6 @@ import HeroImage from '../assets/cloths.webp'
 import HeroSearchBar from '../shared/HeroSearchBar/HeroSearchBar'
 import OffCanvas from '../shared/OffCanvas/OffCanvas'
 import { MobileNavLinkContainer } from '../shared/MobileNavBar/MobileNavBar.style'
-
 const Home: NextPage = () => {
   const isLaptop = useMediaQuery({ query: '(min-width: 700px)' })
 

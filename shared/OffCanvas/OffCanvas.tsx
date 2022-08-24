@@ -8,9 +8,10 @@ import Logo from '../Logo/Logo'
 type Prop =React.PropsWithChildren<
 {
   btnContrroller:React.ReactElement
+  size?:number;
 }>
 
-const OffCanvas = ({children,btnContrroller}:Prop):React.ReactElement=>{
+const OffCanvas = ({children,btnContrroller,size=80}:Prop):React.ReactElement=>{
 
   const [isOpen, setIsOpen] = React.useState(false)
   const toggleDrawer = () => {
@@ -30,7 +31,7 @@ const OffCanvas = ({children,btnContrroller}:Prop):React.ReactElement=>{
         open={isOpen}
         onClose={toggleDrawer}
         className='bla bla bla'
-        size={'80%'}
+        size={`${size}%`}
         direction={'left'}
       >
         <div style={{'padding':'.8rem .3rem','paddingTop':'.8rem','display':'flex','justifyContent':'space-between','alignItems':'center','borderBottom':'1px solid #e5e7eb'}}>
