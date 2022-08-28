@@ -1,7 +1,12 @@
 import styled from 'styled-components';
 
 
-
+export const IndexPageMainArea = styled.div`
+  /* display: flex; */
+  & > div:nth-child(1){
+   
+  }
+`
 
 export const IndexIntroInfo= styled.div`
   
@@ -103,6 +108,9 @@ transform: translateY(-70px);
 
 
 export const FilterBtnContainer = styled.div`
+position: sticky;
+background-color: white;
+top: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;

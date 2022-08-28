@@ -48,7 +48,9 @@ color:white;
 
 export const MobileNavLinkContainer= styled.ul`
 
-/* border: 1px solid red; */
+/* border: 1px solid red;
+position: relative; */
+z-index: 10;
 font-size: 1.1rem;
 list-style-type: none;
 margin-top: 30px;

@@ -33,6 +33,8 @@ const OffCanvas = ({children,btnContrroller,size=80}:Prop):React.ReactElement=>{
         className='bla bla bla'
         size={`${size}%`}
         direction={'left'}
+        zIndex={1000}
+        // style={{'zIndex':'1000'}}
       >
         <div style={{'padding':'.8rem .3rem','paddingTop':'.8rem','display':'flex','justifyContent':'space-between','alignItems':'center','borderBottom':'1px solid #e5e7eb'}}>
           <Logo width={120}/>

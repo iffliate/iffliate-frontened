@@ -17,15 +17,21 @@ import { BiBookReader } from 'react-icons/bi'
 import { useMediaQuery } from 'react-responsive'
 import { IndexIntroInfo,
   ImageControllerContainer,FilterBtnContainer ,
-  HeroSection,HeroSectionContentBox
+  HeroSection,HeroSectionContentBox,IndexPageMainArea
 } from '../pageStyles/index/index.style'
 import HeroImage from '../assets/cloths.webp'
 import HeroSearchBar from '../shared/HeroSearchBar/HeroSearchBar'
 import OffCanvas from '../shared/OffCanvas/OffCanvas'
 import { MobileNavLinkContainer } from '../shared/MobileNavBar/MobileNavBar.style'
+import StickySideNav from '../shared/StickySideNav/StickySideNav'
+import SingleItem from '../shared/SingleItem/SingleItem'
+import { GridForSingleItem } from '../shared/SingleItem/SingleItem.style'
+import ItemDetailMainBody from '../shared/CustomItemDetail/mainBody'
+import CustomModal from '../shared/Modal/CustomModal'
+import { useState } from 'react'
 const Home: NextPage = () => {
   const isLaptop = useMediaQuery({ query: '(min-width: 700px)' })
-
+  const  [modalIsOpen,setModalIsOpen] = useState(false)
   return (
     
     <GeneralLayout>
@@ -71,11 +77,11 @@ const Home: NextPage = () => {
 
       <FilterBtnContainer>
 
-        <OffCanvas btnContrroller={
+        <OffCanvas size={isLaptop?40:100} btnContrroller={
             
           <Button styleType='sec' style={{'width':'100px'}} >
             <RiFilterFill/>
-          Filter
+          Filter by
           </Button>
         
         }>
@@ -102,9 +108,31 @@ const Home: NextPage = () => {
           />
         </div>
       </FilterBtnContainer>
+      {/* https://www.youtube.com/watch?v=HoyHhgMYFj4 for on sticky event listener */}
+      <GridForSingleItem>
+       
+        
+        {
+          [...new Array(10)].map((d,i)=>
+            <SingleItem key={i} onClick={(e)=>setModalIsOpen(true)} />
+          )
+        }
+      </GridForSingleItem>
+      <br />
+      <br />
+      <br />
 
-
+      {/* */}
+      <CustomModal
+        modalIsOpen={modalIsOpen}
+        setModalIsOpen={setModalIsOpen}
+        element={
+          <ItemDetailMainBody/> 
+        }
+      />
+    
     </GeneralLayout>
+    
 
   )
 }
