@@ -13,7 +13,7 @@ bottom: 0;
 left: 0;
 width: 100%;
 box-shadow:${(props)=>props.theme.boxShadow} 0px 10px 10px 10px;
-
+background-color: white;
 font-size: 1.3rem;
 display: flex;
 justify-content: space-between;

@@ -101,8 +101,10 @@ p:nth-child(2){
   font-size: .9rem;
 }
 `
-
-export const GridForSingleItem = styled.div`
+type GridForSingleItemProp = {
+repeat?:number|null;
+}
+export const GridForSingleItem = styled.div<GridForSingleItemProp>`
   background-color:#f3f4f6;
   padding:1rem;
 
@@ -123,5 +125,8 @@ export const GridForSingleItem = styled.div`
       grid-template-columns: repeat(5,1fr);
       gap:  20px 0; 
   }
+
+  ${(props)=>props.repeat?'grid-template-columns: repeat('+props.repeat+',1fr) !important;':''}
+  
 
 `
