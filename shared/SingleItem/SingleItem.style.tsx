@@ -5,12 +5,13 @@ import styled from 'styled-components'
 export const SingleItemContainer = styled.div`
   padding: 1rem;
   background-color: white;
-  width: 80%;
+  width: 90%;
+  /* width: 80%; */
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
   position: relative;
   cursor: pointer;
-  margin: 0 auto;
+  margin: 1.3rem auto;
 
   & > span img{
     /* border: 1px solid red !important; */
@@ -23,6 +24,12 @@ export const SingleItemContainer = styled.div`
     margin-left: 20px !important;
     margin-right: 20px !important;
     /* border: 1px solid blue !important; */
+  }
+  @media screen and (min-width: 400px) {
+  width: 80%;    
+  }
+  @media screen  and (min-width: 700px){
+  margin: 0 auto;
   }
 `
 

@@ -8,6 +8,7 @@ import { GridForSingleItem } from '../../shared/SingleItem/SingleItem.style';
 import {ShopDetailMobileNav,ShopBanner,MainShopArea} from './_shopName.style'
 import { useMediaQuery } from 'react-responsive';
 import CustomModal from '../../shared/Modal/CustomModal';
+import ShopDetailPane from '../../shared/ShopDetailPane/ShopDetailPane';
 
 
 
@@ -23,13 +24,7 @@ const Shop_name:NextPage= ()=>{
   // console.log({shopName})
   return (
     <GeneralLayout>
-      <CustomModal
-        modalIsOpen={openShopDetailModal}
-        setModalIsOpen={OpenShopDetailModal}
-        element={
-          <p>hello world</p>
-        }
-      />
+      
       {
         !isLaptop?
           <ShopDetailMobileNav>
@@ -44,11 +39,19 @@ const Shop_name:NextPage= ()=>{
       }
 
 
-      {/* <ShopDetailPane/> */}
       <MainShopArea>
-        <div>
-          <h1>hello world</h1>
-        </div>
+        {
+          isLaptop?
+            <div>
+              <ShopDetailPane/>
+            </div>:<CustomModal
+              modalIsOpen={openShopDetailModal}
+              setModalIsOpen={OpenShopDetailModal}
+              element={
+                <ShopDetailPane/>
+              }
+            />
+        }
         <div>
           <ShopBanner>
             <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="" />

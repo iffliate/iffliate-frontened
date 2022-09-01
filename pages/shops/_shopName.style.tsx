@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 export const ShopDetailMobileNav= styled.div`
   position: sticky;
-  border-radius: 1px solid red;
+  /* border-radius: 1px solid red; */
   background-color: white;
   z-index: 100;
   top: 0;
@@ -65,7 +65,7 @@ export const MainShopArea = styled.div`
 @media screen and (min-width: 1023px){
   display:flex ;
   width: 100%;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   background-color: #f3f4f6;
 /* padding: 0 3rem; */
   justify-content: space-between;
@@ -74,7 +74,9 @@ export const MainShopArea = styled.div`
     top: 40px;
     left: 0;
     height: 90vh;
-    background-color: red;
+  border-radius: 15px;
+
+    background-color: white;
     width: 25%;
     transform: translateX(20px);
   }
