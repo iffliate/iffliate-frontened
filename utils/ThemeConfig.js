@@ -36,4 +36,12 @@ export const GlobalStyles = createGlobalStyle`
     font-family: Tahoma, Helvetica, Arial, Roboto, sans-serif;
     transition: all 0.50s linear;
   }
+
+  li{
+  list-style-type: none;
+}
+
+a{
+  text-decoration: none;
+}
 `
