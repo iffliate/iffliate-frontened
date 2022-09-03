@@ -23,10 +23,11 @@ const SingleItem = ({ onClick }:Prop):React.ReactElement=>{
       </PercentageBar>
 
       <Image src={PlaceholderImage} style={{'zIndex':'0'}}/>
-
       <PriceContainer>
         <p>$1.60</p>
-        <p><strike>$2.00</strike></p>
+        {/* <p><strike>$2.00</strike></p> */}
+        <p><small>$2.00</small></p>
+
       </PriceContainer>
 
       <ItemName>
