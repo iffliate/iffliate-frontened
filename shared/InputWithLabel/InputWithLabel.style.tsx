@@ -7,7 +7,7 @@ export const InputWithLableContainer = styled.div`
 label{
   color: #4b5563;
   font-weight:500;
-  font-size: 1.2rem;
+  font-size: 1rem;
   padding-bottom: .6rem ;
 display: inline-block;
 }

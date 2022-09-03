@@ -3,7 +3,7 @@ import DashboardLayout from '../../../layout/DashboardLayout/DashboardLayout';
 import Button from '../../../shared/Button/Button';
 import InputWithLabel from '../../../shared/InputWithLabel/InputWithLabel';
 import Pane from '../../../shared/Pane/Pane';
-
+import {ShippingAddresses,ShippingAddressContainer} from './_profile.style'
 
 
 
@@ -35,6 +35,39 @@ const Profile:NextPage = ()=>{
         <Button style={{'width':'90px','margin-left':'auto'}}>
           Save
         </Button>
+      </Pane>
+      <br />
+      <Pane>
+        <ShippingAddressContainer>
+          <ShippingAddresses>
+            <h3>Billing Addresses</h3>
+            <p>
+          2231 Kidd Avenue, AK, Kipnuk, 99614, United States
+            </p>
+          </ShippingAddresses>
+
+
+          <ShippingAddresses>
+            <h3>Billing Addresses</h3>
+            <p>
+          2231 Kidd Avenue, AK, Kipnuk, 99614, United States
+            </p>
+          </ShippingAddresses>
+
+          <ShippingAddresses>
+            <h3>Billing Addresses</h3>
+            <p>
+          2231 Kidd Avenue, AK, Kipnuk, 99614, United States
+            </p>
+          </ShippingAddresses>
+
+          <ShippingAddresses>
+            <h3>Billing Addresses</h3>
+            <p>
+          2231 Kidd Avenue, AK, Kipnuk, 99614, United States
+            </p>
+          </ShippingAddresses>
+        </ShippingAddressContainer>
       </Pane>
     </DashboardLayout>
   )
