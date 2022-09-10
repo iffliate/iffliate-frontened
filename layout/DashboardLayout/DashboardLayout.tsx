@@ -12,11 +12,12 @@ type Prop = React.PropsWithChildren<{
 listOFLinks:{
   label:string;
   route:string;
-}[]
+}[],
+showDetail?:boolean
 
 }>
 
-const DashboardLayout = ({children ,listOFLinks}:Prop):React.ReactElement=>{
+const DashboardLayout = ({children ,listOFLinks,showDetail=false}:Prop):React.ReactElement=>{
 
   const isLaptop = useMediaQuery({ query: '(min-width: 700px)' })
 
@@ -24,7 +25,7 @@ const DashboardLayout = ({children ,listOFLinks}:Prop):React.ReactElement=>{
   return (
     <GeneralLayoutType>
 
-      <DashboardLayoutContainer>
+      <DashboardLayoutContainer showDetail={showDetail}>
         {
           isLaptop?
             <DashboardNav>

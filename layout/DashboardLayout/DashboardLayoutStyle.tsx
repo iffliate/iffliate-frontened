@@ -2,8 +2,10 @@ import styled from 'styled-components';
 
 
 
-
-export const DashboardLayoutContainer = styled.div`
+export type DashboardLayoutContainerType ={
+  showDetail?:boolean
+}
+export const DashboardLayoutContainer = styled.div<DashboardLayoutContainerType>`
 /* border:1px solid red; */
 background-color: #f3f4f6;
 min-height: 90vh;
@@ -14,6 +16,22 @@ padding: 2rem;
   /* border:1px solid green; */
   align-items: center;
   justify-content: space-between;
+
+  ${({showDetail}):string=>{
+    if(showDetail ===true){
+      return (
+        `& >div:nth-child(1){
+    display: none;
+  }
+  & >div:nth-child(2){
+    width: 90%;
+    margin: 0 auto;
+  }`
+      )
+    }
+    return ''
+  }}
+  
 }
 `
 export const DashboardNav = styled.div`

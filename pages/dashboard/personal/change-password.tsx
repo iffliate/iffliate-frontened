@@ -19,7 +19,7 @@ const Changepassword:NextPage = ()=>{
         {label:'profile',route:''},
         {label:'Change Password',route:''},
         {label:'My Order',route:''},
-        {label:'Danloads',route:''},
+        // {label:'Danloads',route:''},
         {label:'My WishLists',route:''},
         {label:'My Refunds',route:''},
         {label:'Logout',route:''},
