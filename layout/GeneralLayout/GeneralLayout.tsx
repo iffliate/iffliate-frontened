@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { useMediaQuery } from 'react-responsive'
 import Button from '../../shared/Button/Button'
 import FloatingCartBtn from '../../shared/FloatingCartBtn/FloatingCartBtn'
@@ -11,9 +12,10 @@ import SingleCart from '../../shared/SingleCart/SingleCart'
 
 type GeneralLayoutType = React.PropsWithChildren<{}>
 const GeneralLayout = ({children}:GeneralLayoutType):React.ReactElement=>{
-
-
-  const isLaptop = useMediaQuery({ query: '(min-width: 700px)' })
+  
+  
+  const router = useRouter()
+  const isLaptop = useMediaQuery({ query: '(min-width: 700px)' });
 
   return (
     <div>
@@ -37,7 +39,7 @@ const GeneralLayout = ({children}:GeneralLayoutType):React.ReactElement=>{
               {/* <SingleCart/> */}
               <SingleCart/>
             
-              <Button style={{'padding':'.5rem 0','position':'absolute','bottom':'0'}}>
+              <Button style={{'padding':'.5rem 0','position':'absolute','bottom':'0'}} onClick={()=>router.push('/checkout')}>
               Checkout
 
                 <p style={{'padding':'.6rem','backgroundColor':'white','color':'#f77305','borderRadius':'20px','margin':'0 .8rem'}}>$2333000</p>

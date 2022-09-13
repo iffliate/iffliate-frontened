@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { CartBagStyleInMobileNav, MobileNavBarContainer,MobileNavLinkContainer } from './MobileNavBar.style'
 import {FaBars, FaCut, FaTasks} from 'react-icons/fa'
 import {BiSearchAlt} from 'react-icons/bi'
@@ -14,6 +15,7 @@ import Button from '../Button/Button'
 const MobileNavBar = ():React.ReactElement=>{
 
   const isLaptop = useMediaQuery({ query: '(min-width: 600px)' })
+  const router = useRouter()
 
   return (
     <MobileNavBarContainer>
@@ -50,7 +52,9 @@ const MobileNavBar = ():React.ReactElement=>{
           {/* <SingleCart/> */}
           <SingleCart/>
             
-          <Button style={{'padding':'.5rem 0','position':'absolute','bottom':'0'}}>
+          <Button style={{'padding':'.5rem 0','position':'absolute','bottom':'0'}}
+            onClick={()=>router.push('/checkout')}
+          >
               Checkout
 
             <p style={{'padding':'.6rem','backgroundColor':'white','color':'#f77305','borderRadius':'20px','margin':'0 .8rem'}}>$2333000</p>
