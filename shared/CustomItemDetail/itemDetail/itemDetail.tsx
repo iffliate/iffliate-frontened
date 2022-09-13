@@ -8,7 +8,6 @@ import {
 
 import {BsCart3 } from 'react-icons/bs' 
 import { useMediaQuery } from 'react-responsive'
-import { useContext } from 'react'
 
 const ItemDetail = () =>{
 

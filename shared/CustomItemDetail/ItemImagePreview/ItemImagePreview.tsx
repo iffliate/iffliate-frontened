@@ -26,7 +26,7 @@ export interface ThunbNailType{
     currentItem:number;   
 }
 
-const ItemImagePreview= ({openModalPic,isInModalState=false}:ItemImagePreviewType):React.ReactElement=>{
+const ItemImagePreview= ({isInModalState=false}:ItemImagePreviewType):React.ReactElement=>{
     
   const [slideIndex, setSlideIndex] = useState(1)
   const  MAX_PICS =4;

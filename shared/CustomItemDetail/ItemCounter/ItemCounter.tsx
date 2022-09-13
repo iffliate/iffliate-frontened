@@ -2,7 +2,7 @@ import {TiMinus,TiPlus} from 'react-icons/ti'
 import {
   ItemCounterContainer,Number
 }from './ItemCounter.style'
-import React, { useContext } from 'react'
+import React from 'react'
 
 export interface ItemCounterContainerType{
 width?:string;
