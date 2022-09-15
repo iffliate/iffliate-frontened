@@ -6,7 +6,7 @@ import {OrderDetailCard,
   OrderdetailNavContainer,
   OrderdetailCardContainer,OrderDetailPaneContainer,
   OrderDetailTotalContainter
-} from '../../../_[id]'
+} from '../../../../pageStyles/index/_[id]'
 
 
 

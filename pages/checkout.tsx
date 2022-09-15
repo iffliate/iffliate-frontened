@@ -3,7 +3,7 @@ import DashboardLayout from '../layout/DashboardLayout/DashboardLayout';
 import Button from '../shared/Button/Button';
 import InputWithLabel from '../shared/InputWithLabel/InputWithLabel';
 import Pane from '../shared/Pane/Pane';
-import {CheckoutContainer,CheckoutItemContainer,CheckoutItem,CheckoutMainContainer} from './_checkout.style'
+import {CheckoutContainer,CheckoutItemContainer,CheckoutItem,CheckoutMainContainer} from '../pageStyles/index/_checkout.style'
 
 
 

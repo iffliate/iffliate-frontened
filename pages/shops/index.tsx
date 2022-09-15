@@ -3,7 +3,7 @@ import Image from 'next/image';
 import GeneralLayout from '../../layout/GeneralLayout/GeneralLayout';
 import {HiLocationMarker} from 'react-icons/hi'
 import {AllShopsContainer,ShopContainer,
-  ShopIntroCard}  from '../_index.style'
+  ShopIntroCard}  from '../../pageStyles/index/_index.style'
 // import DummyImage from '../../assets/shopimage.webp'
 
 const DummyImage= 'https://pickbazar-react.vercel.app/_next/image?url=https%3A%2F%2Fpickbazarlaravel.s3.ap-southeast-1.amazonaws.com%2F882%2FFurniture.png&w=1920&q=75'

@@ -5,7 +5,7 @@ import SingleItem from '../../shared/SingleItem/SingleItem';
 import { useState } from 'react';
 import { GridForSingleItem } from '../../shared/SingleItem/SingleItem.style';
 
-import {ShopDetailMobileNav,ShopBanner,MainShopArea} from '../_shopName.style'
+import {ShopDetailMobileNav,ShopBanner,MainShopArea} from '../../pageStyles/index/_shopName.style'
 import { useMediaQuery } from 'react-responsive';
 import CustomModal from '../../shared/Modal/CustomModal';
 import ShopDetailPane from '../../shared/ShopDetailPane/ShopDetailPane';

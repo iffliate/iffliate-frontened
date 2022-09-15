@@ -3,7 +3,7 @@ import DashboardLayout from '../../../layout/DashboardLayout/DashboardLayout';
 import Button from '../../../shared/Button/Button';
 import InputWithLabel from '../../../shared/InputWithLabel/InputWithLabel';
 import Pane from '../../../shared/Pane/Pane';
-import {ShippingAddresses,ShippingAddressContainer} from '../../_profile.style'
+import {ShippingAddresses,ShippingAddressContainer} from '../../../pageStyles/index/_profile.style'
 
 
 
