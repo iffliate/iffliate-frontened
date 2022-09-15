@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint . --ext .tsx",
+    "heroku-postbuild": "npm run build",
     "lint-fix": "eslint . --ext  .tsx --fix"
   },
   "dependencies": {
