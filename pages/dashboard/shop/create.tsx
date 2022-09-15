@@ -3,7 +3,7 @@ import DashboardLayout from '../../../layout/DashboardLayout/DashboardLayout'
 import InputWithLabel from '../../../shared/InputWithLabel/InputWithLabel'
 import Pane from '../../../shared/Pane/Pane'
 import UploadImage from '../../../shared/UploadImage/UploadImage'
-import { ContentWithFormInput } from './_create'
+import { ContentWithFormInput } from '../../_create'
 
 
 
