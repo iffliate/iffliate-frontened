@@ -11,7 +11,8 @@
     "lint-fix": "eslint . --ext  .tsx --fix"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^1.8.4",
+    "@reduxjs/toolkit": "^1.8.5",
+    "axios": "^0.27.2",
     "framer-motion": "^7.1.0",
     "next": "12.2.5",
     "react": "18.2.0",
