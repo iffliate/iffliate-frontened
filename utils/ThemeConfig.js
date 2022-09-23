@@ -44,4 +44,26 @@ export const GlobalStyles = createGlobalStyle`
 a{
   text-decoration: none;
 }
+
+.Toastify__toast-icon svg{
+  color: white !important;
+  fill: white;
+}
+
+.toast-message {
+    color: #fff;
+    font-size: 20px;
+    /* width: 34vw; */
+    background-color: #38a169;
+    min-width: 300px;
+    padding: 1rem 1rem;
+}
+.toast-message-err{
+    color: #fff;
+    font-size: 20px;
+    /* width: 34vw; */
+    background-color: #e53e3e;
+    min-width: 300px;
+    padding: 1rem 1rem;
+}
 `

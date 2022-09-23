@@ -7,8 +7,10 @@ type Prop ={
   label:string;
   placeholder?:string;
   isTextArea?:boolean;
+  register?:any;
+  errorMessage?:string;
 }
-const InputWithLabel = ({ label,placeholder='',isTextArea=false}:Prop):React.ReactElement=>{
+const InputWithLabel = ({ errorMessage,label,placeholder='',isTextArea=false,register}:Prop):React.ReactElement=>{
 
 
   return (
@@ -16,12 +18,16 @@ const InputWithLabel = ({ label,placeholder='',isTextArea=false}:Prop):React.Rea
       <label htmlFor={label}>{label}</label> 
       {
         isTextArea?
-          <textarea name="label" id={label} placeholder={label}  cols={30} rows={5}></textarea>
+          <textarea name="label" id={label} placeholder={label}  cols={30} rows={5} {...register}></textarea>
           :
 
-          <input type="text"  id={label} placeholder={placeholder}/>
+          <input type="text"  id={label} placeholder={placeholder} {...register}/>
       }
-      
+      {
+        errorMessage?
+          <small style={{'color':'crimson'}}>{errorMessage}</small>
+          :''
+      }
     </InputWithLableContainer>
   )
 }

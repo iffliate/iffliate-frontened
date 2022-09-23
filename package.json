@@ -11,6 +11,7 @@
     "lint-fix": "eslint . --ext  .tsx --fix"
   },
   "dependencies": {
+    "@hookform/resolvers": "^2.9.8",
     "@reduxjs/toolkit": "^1.8.5",
     "axios": "^0.27.2",
     "framer-motion": "^7.1.0",
@@ -18,6 +19,7 @@
     "react": "18.2.0",
     "react-accessible-accordion": "^5.0.0",
     "react-dom": "18.2.0",
+    "react-error-boundary": "^3.1.4",
     "react-hook-form": "^7.34.1",
     "react-icons": "^4.4.0",
     "react-modal": "^3.15.1",
@@ -26,7 +28,9 @@
     "react-responsive": "^9.0.0-beta.10",
     "react-select": "^5.4.0",
     "react-table": "^7.8.0",
-    "styled-components": "^5.3.5"
+    "react-toastify": "^9.0.8",
+    "styled-components": "^5.3.5",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/node": "18.7.2",
@@ -37,6 +41,7 @@
     "@types/react-select": "^5.0.1",
     "@types/react-table": "^7.7.12",
     "@types/styled-components": "^5.1.26",
+    "@types/yup": "^0.32.0",
     "@typescript-eslint/eslint-plugin": "^5.33.0",
     "@typescript-eslint/parser": "^5.33.0",
     "eslint": "^8.0.1",

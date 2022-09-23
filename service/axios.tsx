@@ -3,7 +3,9 @@ import axios from 'axios'
 
 
 
-const url =axios.create({
+const api =axios.create({
   baseURL: 'http://iffilate.herokuapp.com/api/v1',
  
 });
+
+export default api

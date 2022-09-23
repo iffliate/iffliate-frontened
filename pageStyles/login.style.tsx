@@ -19,7 +19,8 @@ export const LoginContainer= styled.div`
   display: flex;
   /* flex-direction: row-reverse; */
   align-items: center;
-  height: 100vh;
+  height: 114vh;
+  /* border: 1px solid red; */
 
   &>div:nth-child(1){
     width: 45%;
@@ -74,7 +75,9 @@ export const LoginContentContainer= styled.div`
 
   @media screen and (min-width: 900px) {
     /* border: 1px solid red; */
+    height: 100%;
     max-width: unset;
+    padding: 2rem 0;
     button {
       width: 70%;
       margin: 0 auto;
