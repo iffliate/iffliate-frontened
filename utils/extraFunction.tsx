@@ -17,3 +17,13 @@ export const createExternalStyle = (props:StyleTpe)=>{
   } 
   return styles
 }
+
+
+export const isAuth = ():boolean=>{
+
+  if(typeof  window  != 'undefined'){
+    return localStorage.getItem('iffilate_cred')?true:false
+  }
+
+  return false
+}

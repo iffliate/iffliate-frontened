@@ -9,13 +9,16 @@ import { GiAmpleDress, GiAppleSeeds, GiOfficeChair, GiSlicedBread } from 'react-
 import { FaPaintBrush } from 'react-icons/fa'
 import { BiBookReader } from 'react-icons/bi'
 import SelectBar from '../SelectBar/SelectBar'
+import { isAuth } from '../../utils/extraFunction'
+import { useRouter } from 'next/router'
 
 const Nav = ():React.ReactElement=>{
 
   const isLaptop = useMediaQuery({ query: '(min-width: 700px)' })
   const isLaptopIn100px = useMediaQuery({ query: '(min-width: 1000px)' })
-
-  const [readyToSearch,setReadyToSearch] = useState(false)
+  const logged_in =  isAuth()
+  const [readyToSearch,setReadyToSearch] = useState(false);
+  const route = useRouter()
   return (
     <NavContainer>
       {
@@ -56,8 +59,19 @@ const Nav = ():React.ReactElement=>{
                 <li><a href="">Contact</a></li>
               </ul>
               <NavBtnContainer>
-                <Button style={{'padding':'.4rem'}} >Become a Seller</Button>
-                <Button style={{'padding':'.4rem'}}>Join</Button>
+                {
+                  logged_in ?
+                    <>
+                      <Button style={{'padding':'.4rem'}} onClick={(e)=>route.push('/dashboard/shop/create')}>Become a Seller</Button>
+                      <Button style={{'padding':'.4rem'}} >signout</Button>
+
+                    </>
+                    :
+                    <>
+                      <Button style={{'padding':'.4rem'}} onClick={(e)=>route.push('/signup')}>Sign up</Button>
+                      <Button style={{'padding':'.4rem'}}  onClick={(e)=>route.push('/signin')}>Sign in</Button>
+                    </>
+                }
               </NavBtnContainer>
             </NavLinkContainer>
 
