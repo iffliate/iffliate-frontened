@@ -1,3 +1,5 @@
+import Resizer from 'react-image-file-resizer';
+
 export type StyleTpe =  {
   'style'?:{
     [Key:string]:string,
@@ -27,3 +29,21 @@ export const isAuth = ():boolean=>{
 
   return false
 }
+
+
+
+export const resizeFile = (file:any,height:number,width:number) =>
+  new Promise((resolve) => {
+    Resizer.imageFileResizer(
+      file,
+      width,
+      height,
+      'JPEG',
+      100,
+      0,
+      (uri) => {
+        resolve(uri);
+      },
+      'base64'
+    );
+  });

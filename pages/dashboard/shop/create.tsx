@@ -24,7 +24,11 @@ const Create:NextPage = ()=>{
           <p>Upload your shop logo from here</p>
         </div>
         <Pane>
-          <UploadImage/>
+          <UploadImage 
+            setValue={()=>282}
+            height={76}
+            width={76}
+          />
         </Pane>
       </ContentWithFormInput>
       
@@ -37,7 +41,11 @@ const Create:NextPage = ()=>{
 Dimension of the cover image should be <strong> 1170 x 435px</strong></p>
         </div>
         <Pane>
-          <UploadImage/>
+          <UploadImage
+            setValue={()=>282}
+            height={435}
+            width={1170 }
+          />
         </Pane>
       </ContentWithFormInput>
       

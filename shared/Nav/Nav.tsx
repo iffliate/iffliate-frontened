@@ -13,7 +13,6 @@ import { isAuth } from '../../utils/extraFunction'
 import { useRouter } from 'next/router'
 
 const Nav = ():React.ReactElement=>{
-
   const isLaptop = useMediaQuery({ query: '(min-width: 700px)' })
   const isLaptopIn100px = useMediaQuery({ query: '(min-width: 1000px)' })
   const logged_in =  isAuth()

@@ -4,11 +4,9 @@ export const UploadImageContainer =styled.div`
   
   border: 4px dotted #8989892d;
   padding: 2rem .5rem;
-  min-height: 20vh;
+  /* min-height: 20vh; */
   position: relative;
   display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 10px;
   div{
     width: 100%;
     position: relative;
@@ -18,7 +16,13 @@ export const UploadImageContainer =styled.div`
     border-radius: 10px;
     height: 100%;
   }
-
+  svg{
+    color: ${({theme})=>theme.main_color};
+    position: absolute;
+    top:0;
+    right:0;
+    font-size: 30px;
+  }
   label{
     display: block;
     /* color: #ffffff71; */
