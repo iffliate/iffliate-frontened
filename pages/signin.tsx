@@ -65,8 +65,8 @@ const signin:NextPage= ()=>{
         <LoginNav>
           <h2>Sign In</h2>
           <div>
-            <a href="">Go Home</a>
-            <a href="">Sign In</a>
+            <a onClick={()=>router.push('/')}>Go Home</a>
+            <a onClick={()=>router.push('/signup')}>Sign Up</a>
           </div>
         </LoginNav>   
         <form 

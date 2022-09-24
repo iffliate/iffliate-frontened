@@ -4,20 +4,114 @@ import InputWithLabel from '../../../shared/InputWithLabel/InputWithLabel'
 import Pane from '../../../shared/Pane/Pane'
 import UploadImage from '../../../shared/UploadImage/UploadImage'
 import { ContentWithFormInput } from '../../../pageStyles/index/_create'
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { createShop, shopType } from '../../../redux/Shop/ShopApi'
+import Button from '../../../shared/Button/Button'
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks'
+import { selectShop, setShopIdle } from '../../../redux/Shop/ShopSlice'
+import { useEffect } from 'react'
+import useToast from '../../../hooks/useToastify'
+import { useRouter } from 'next/router'
 
 
 
+const schema = yup.object().shape({
+  name:yup.string().required(),
+  facebook:yup.string().required(),
+  twitter:yup.string().required(),
+  whatsapp:yup.string().required(),
+  instagram:yup.string().required(),
+  about:yup.string().required(),
+  info:yup.string().required(),
+
+  // account
+  bank_name:yup.string().required(),
+  account_holder_email:yup.string().email('invalid email').required(),
+  account_number:yup.number().required(),
+  account_holder_name:yup.string().required(),
+
+  address_country:yup.string().required(),
+  address_city:yup.string().required(),
+  address_zip:yup.number().required(),
+  street_address:yup.string().required(),
+
+  //
+
+
+  // images
+  banner:yup.mixed().required(),
+  logo:yup.mixed().required(),
+
+
+})
 const Create:NextPage = ()=>{
+  const route = useRouter()
+  const dispatch  = useAppDispatch();
+  const {status,errMessage} = useAppSelector(selectShop);
+  const {notify} = useToast()
+  const { 
+    register,setValue, 
+    handleSubmit,control,
+    formState: { errors },
+  } = useForm<shopType>({ resolver: yupResolver(schema) });
+  
+ 
+  const onSubmit: SubmitHandler<shopType>=data=>{
+    dispatch(createShop(data))
+  }
+
+  useEffect(()=>{
+    if(status==='created'){
+      dispatch(setShopIdle({}))
+      notify('Created Succesfully','success')
+      route.push('/dashboard/shop')
+
+      
+    }
+    if(status=='error'){
+      dispatch(setShopIdle({}))
+
+      notify(errMessage,'error')
+    }
+  },[status])
 
 
-
+  console.log({errors})
   return (
     <DashboardLayout
       showDetail={true}
       listOFLinks={[]}
     >
       <h2>Create Shop</h2>
+      <ContentWithFormInput>
+        <div>
+          <h3>Shop Name</h3>
+          <p>Add your shop display name</p>
+        </div>
+        <Pane>
+          <InputWithLabel label='Name'
+            register={register('name')}
+            errorMessage={errors.name?.message}
+          />
+          <br />
+          <InputWithLabel label='About Your Store'
+            register={register('about')}
+            errorMessage={errors.about?.message}
 
+          />
+          <br />
+
+          <InputWithLabel label='More Info'
+            isTextArea={true}
+            register={register('info')}
+            errorMessage={errors.info?.message}
+
+          />
+
+        </Pane>
+      </ContentWithFormInput>
       <ContentWithFormInput>
         <div>
           <h3>Logo</h3>
@@ -25,10 +119,12 @@ const Create:NextPage = ()=>{
         </div>
         <Pane>
           <UploadImage 
-            setValue={()=>282}
+            setValue={setValue}
             height={76}
             width={76}
+            name='logo'
           />
+          
         </Pane>
       </ContentWithFormInput>
       
@@ -42,9 +138,10 @@ Dimension of the cover image should be <strong> 1170 x 435px</strong></p>
         </div>
         <Pane>
           <UploadImage
-            setValue={()=>282}
+            setValue={setValue}
             height={435}
             width={1170 }
+            name='banner'
           />
         </Pane>
       </ContentWithFormInput>
@@ -55,14 +152,29 @@ Dimension of the cover image should be <strong> 1170 x 435px</strong></p>
           <p>Add your payment information from here</p>
         </div>
         <Pane>
-          <InputWithLabel label='Account Holder Name'/>
+          <InputWithLabel
+            label='Account Holder Name'
+            register={register('account_holder_name')}
+            errorMessage={errors.account_holder_name?.message}
+          />
           <br />
-          <InputWithLabel label='Account Holder Email'/>
+          <InputWithLabel label='Account Holder Email'
+            register={register('account_holder_email')}
+            errorMessage={errors.account_holder_email?.message}
+
+          />
           <br />
-          <InputWithLabel label='Bank Name'/>
+          <InputWithLabel label='Bank Name'
+            register={register('bank_name')}
+            errorMessage={errors.bank_name?.message}
+
+          />
 
           <br />
-          <InputWithLabel label='Account Number'/>
+          <InputWithLabel label='Account Number'
+            register={register('account_number')}
+            errorMessage={errors.account_number?.message}
+          />
 
         </Pane>
       </ContentWithFormInput>
@@ -74,41 +186,77 @@ Dimension of the cover image should be <strong> 1170 x 435px</strong></p>
           <p>Add your physical shop address from here</p>
         </div>
         <Pane>
-          <InputWithLabel label='Country'/>
+          <InputWithLabel label='Country'
+            register={register('address_country')}
+            errorMessage={errors.address_country?.message}
+
+          />
           <br />
-          <InputWithLabel label='City'/>
-          <br />
-          <InputWithLabel label='State'/>
+          <InputWithLabel label='City'
+            register={register('address_city')}
+            errorMessage={errors.address_city?.message}
+
+          />
+          {/* <br />
+          <InputWithLabel label='State'
+          register={register('street_address')}
+          /> */}
 
           <br />
-          <InputWithLabel label='ZIP'/>
+          <InputWithLabel label='ZIP' 
+            register={register('address_zip')}
+            errorMessage={errors.address_zip?.message}
+            
+          />
 
           <br />
-          <InputWithLabel label='Street Address' isTextArea={true}/>
+          <InputWithLabel label='Street Address' 
+            register={register('street_address')}
+            errorMessage={errors.street_address?.message}
+
+            isTextArea={true}/>
 
         </Pane>
       </ContentWithFormInput>
       
       <ContentWithFormInput>
         <div>
-          <h3>Shop Socails</h3>
+          <h3>Shop Socials</h3>
           <p>Add your shop settings information from here</p>
         </div>
         <Pane>
-          <InputWithLabel label='FaceBook'/>
+          <InputWithLabel label='FaceBook'
+            register={register('facebook')}
+            errorMessage={errors.facebook?.message}
+
+          />
           <br />
-          <InputWithLabel label='Instagram'/>
+          <InputWithLabel label='Instagram'
+            register={register('instagram')}
+            errorMessage={errors.instagram?.message}
+
+          />
           <br />
-          <InputWithLabel label='Twitter'/>
+          <InputWithLabel label='Twitter'
+            register={register('twitter')}
+            errorMessage={errors.twitter?.message}
+
+          />
 
           <br />
-          <InputWithLabel label='Whatapp'/>
+          <InputWithLabel label='Whatapp'
+            register={register('whatsapp')}
+            errorMessage={errors.whatsapp?.message}
+          />
 
 
         </Pane>
       </ContentWithFormInput>
       
-
+      <Button style={{'width':'30%','margin':'0 auto'}} 
+        isLoading={status==='pending'}
+        onClick={handleSubmit(onSubmit)}>Create</Button>
+      <br /><br /><br /><br />
     </DashboardLayout>
   )
 }

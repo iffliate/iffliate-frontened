@@ -12,6 +12,7 @@ import useToast from '../hooks/useToastify'
 import { useAppDispatch, useAppSelector } from '../redux/hooks'
 import { selectSignUp } from '../redux/signup/signupSlice'
 import { useEffect } from 'react'
+import { useRouter } from 'next/router'
 
 
 const schema =yup.object().shape({
@@ -26,7 +27,7 @@ const signup:NextPage= ()=>{
   const {notify} = useToast();
   const {status,errMessage}= useAppSelector(selectSignUp);
   const dispatch= useAppDispatch();
-
+  const route = useRouter()
   const { 
     register,setValue, 
     handleSubmit,control,
@@ -55,8 +56,8 @@ const signup:NextPage= ()=>{
         <LoginNav>
           <h2>Sign Up</h2>
           <div>
-            <a href="">Go Home</a>
-            <a href="">Sign In</a>
+            <a href="" onClick={(e)=>route.push('/')}>Go Home</a>
+            <a href="" onClick={(e)=>route.push('/signin')}>Sign in</a>
           </div>
         </LoginNav>        
         <form onSubmit={handleSubmit(onSubmit)}>
