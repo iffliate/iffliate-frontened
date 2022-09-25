@@ -42,6 +42,7 @@ max-width: 400px;
 & >div:nth-child(1){
   /* width: 70px; */
 width: 80px;
+height: 80px;
 
   /* border: 1px solid yellow; */
 
