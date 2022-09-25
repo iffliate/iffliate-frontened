@@ -11,6 +11,10 @@ import { BiBookReader } from 'react-icons/bi'
 import SelectBar from '../SelectBar/SelectBar'
 import { isAuth } from '../../utils/extraFunction'
 import { useRouter } from 'next/router'
+import UserIconBtn from '../UserIconBtn/UserIconBtn'
+import OffCanvas from '../OffCanvas/OffCanvas'
+import { MobileNavLinkContainer } from '../MobileNavBar/MobileNavBar.style'
+import { AiOutlineShoppingCart } from 'react-icons/ai'
 
 const Nav = ():React.ReactElement=>{
   const isLaptop = useMediaQuery({ query: '(min-width: 700px)' })
@@ -18,6 +22,10 @@ const Nav = ():React.ReactElement=>{
   const logged_in =  isAuth()
   const [readyToSearch,setReadyToSearch] = useState(false);
   const route = useRouter()
+  const path:string = route.pathname
+  const handleRoute=(value:string)=>{
+    route.push(value)
+  }
   return (
     <NavContainer>
       {
@@ -60,8 +68,29 @@ const Nav = ():React.ReactElement=>{
               <NavBtnContainer>
                 {
                   logged_in ?
-                    <>
-                      <Button style={{'padding':'.4rem'}} onClick={(e)=>route.push('/dashboard/shop/create')}>Become a Seller</Button>
+                    <>  
+                      {
+                        path.includes('personal')?
+                          <Button style={{'padding':'.4rem'}} onClick={(e)=>route.push('/dashboard/shop/create')}>Become a Seller</Button>
+                          :
+                          <OffCanvas 
+                            size={25}
+                            direction='right'
+                            btnContrroller={<UserIconBtn/>}>
+                            <div>
+                              <MobileNavLinkContainer >
+                                <li><a onClick={()=>handleRoute('/dashboard/shop/')}><AiOutlineShoppingCart/>{' '}Shops</a></li>
+
+                                <li><a href="" onClick={()=>handleRoute('/dashboard/personal/myorders/')}><AiOutlineShoppingCart/>{' '}My Orders</a></li>
+                                <li><a href=""><AiOutlineShoppingCart/>{''}My Wishlist</a></li>
+                                <li><a href=""><AiOutlineShoppingCart/>{' '}Checkout</a></li>
+                                <li><a href=""><AiOutlineShoppingCart/>{' '}Sign Out</a></li>
+                              </MobileNavLinkContainer>
+                            </div>
+                          </OffCanvas>
+                      }
+                      {/* <UserIconBtn/> */}
+                      {/* <Button style={{'padding':'.4rem'}} onClick={(e)=>route.push('/dashboard/shop/create')}>Become a Seller</Button> */}
                       <Button style={{'padding':'.4rem'}} >signout</Button>
 
                     </>

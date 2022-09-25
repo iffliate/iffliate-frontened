@@ -9,9 +9,10 @@ type Prop =React.PropsWithChildren<
 {
   btnContrroller:React.ReactElement
   size?:number;
+  direction?:'left'|'right';
 }>
 
-const OffCanvas = ({children,btnContrroller,size=80}:Prop):React.ReactElement=>{
+const OffCanvas = ({children,btnContrroller,size=80,direction='left'}:Prop):React.ReactElement=>{
 
   const [isOpen, setIsOpen] = React.useState(false)
   const toggleDrawer = () => {
@@ -32,8 +33,8 @@ const OffCanvas = ({children,btnContrroller,size=80}:Prop):React.ReactElement=>{
         onClose={toggleDrawer}
         className='bla bla bla'
         size={`${size}%`}
-        direction={'left'}
-        zIndex={1000}
+        direction={direction}
+        zIndex={4000}
         // style={{'zIndex':'1000'}}
       >
         <div style={{'padding':'.8rem .3rem','paddingTop':'.8rem','display':'flex','justifyContent':'space-between','alignItems':'center','borderBottom':'1px solid #e5e7eb'}}>

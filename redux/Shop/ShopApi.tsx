@@ -57,3 +57,15 @@ export const createShop = createAsyncThunk(
     }
   }
 )
+
+export const getShop = createAsyncThunk(
+  'shop/getShop',async ()=>{
+     
+    try {
+      const resp = await api.get('/shop/')
+      return resp.data as shopType[]
+    } catch (error:any) { 
+      return error.response.data
+    }
+  }
+)

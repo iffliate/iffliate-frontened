@@ -54,6 +54,8 @@ z-index: 10;
 font-size: 1.1rem;
 list-style-type: none;
 margin-top: 30px;
+display: flex;
+flex-direction:column;
 li{
   padding: .6rem 1.5rem;
   text-align: left;
@@ -63,11 +65,12 @@ svg{
 }
 a{
   text-decoration: none;
-  color: ${(props)=>props.theme.type==='light'?'#4b5563':'white'};
+  color: ${(props)=>props.theme.type==='light'?'#4b5563':'white'} !important;
   transition: .4s color ease-in-out;
+  cursor: pointer;
 }
 a:hover{
-  color: ${(props)=>props.theme.main_color};
+  color: ${(props)=>props.theme.main_color} !important;
   
 }
 `

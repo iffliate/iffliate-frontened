@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, sliceStatus } from '../store';
-import { createShop, shopType } from './ShopApi';
+import { createShop, getShop, shopType } from './ShopApi';
 
 
 type State={
@@ -52,6 +52,23 @@ const shopSlice = createSlice({
         state.errMessage='Socials Must have a valid link'
       }
      
+    })
+
+
+
+    // get data
+
+    addCase(getShop.pending,(state,action)=>{
+      state.status='pending'
+    })
+
+    addCase(getShop.fulfilled,(state,{payload}:PayloadAction<shopType[]>)=>{
+      state.status='success';
+      state.data = payload
+    })
+    addCase(getShop.rejected,(state,action)=>{
+      state.errMessage='Somthing Went Wrong Please Check Your Internet'
+      state.status='error'
     })
   }
 })
