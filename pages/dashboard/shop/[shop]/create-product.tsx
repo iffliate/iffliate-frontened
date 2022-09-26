@@ -12,13 +12,64 @@ import Pane from '../../../../shared/Pane/Pane';
 import SelectBar from '../../../../shared/SelectBar/SelectBar';
 import UploadImage from '../../../../shared/UploadImage/UploadImage';
 
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
+import { selectProduct } from '../../../../redux/Product/ProductSlice';
+import useToast from '../../../../hooks/useToastify';
+import { Product, productCreateApi } from '../../../../redux/Product/ProductApi';
+import { useEffect } from 'react';
+import CheckBoxWithLabel from '../../../../shared/CheckBoxWithLabel/CheckBoxWithLabel';
+import { useRouter } from 'next/router'
 
-
-
+const schema = yup.object().shape({
+  name:yup.string().required('product name is required'),
+  description:yup.string().required('product description is required'),
+  actual_price:yup.number().required('product actual price is required'),
+  slashed_price:yup.number().required('product description is required'),
+  category:yup.number().required(),
+  out_of_stock:yup.boolean().default(false).required(),
+  image_one:yup.mixed(),
+  image_two:yup.mixed(),
+  image_three:yup.mixed(),
+  image_four:yup.mixed(),
+  shop:yup.number()
+})
 
 const CreateProduct:NextPage =()=>{
+  const dispatch  = useAppDispatch();
+  const {status,errMessage} = useAppSelector(selectProduct);
+  const {notify} = useToast();
+  const router = useRouter()
+  const { shop } = router.query
 
+  const { 
+    register,setValue, 
+    handleSubmit,control,
+    formState: { errors },watch
+  } = useForm<Product>({ resolver: yupResolver(schema) });
+  
+  
+  const watchFields = watch(['out_of_stock'])
+  const onSubmit: SubmitHandler<Product>=data=>{
+    //
+    console.log({'submited':data})
+    dispatch(productCreateApi(data))
+  }
 
+  useEffect(()=>{
+    setValue('category',7)
+    console.log(typeof shop === 'string',shop)
+    if(typeof shop === 'string'){
+      setValue('shop',parseInt(shop))
+    }
+  },[])
+  useEffect(()=>{
+    if(status==='created'){
+      notify('Created Succefully','success')
+    }
+  },[status])
   return (
     <DashboardLayout
       listOFLinks={[]}
@@ -34,9 +85,15 @@ const CreateProduct:NextPage =()=>{
         </div>
 
         <Pane>
-          <InputWithLabel label='Name'/>
+          <InputWithLabel label='Name' 
+            register={register('name')}
+            errorMessage={errors.name?.message}
+          />
           <br />
-          <InputWithLabel label='Description' isTextArea={true} />
+          <InputWithLabel label='Description' 
+            register={register('description')}
+            errorMessage={errors.description?.message}
+            isTextArea={true} />
 
         </Pane>
       </ContentWithFormInput>
@@ -47,9 +104,15 @@ const CreateProduct:NextPage =()=>{
           <p>Add your actual price and your slashed price</p>
         </div>
         <Pane>
-          <InputWithLabel label='Slash Price'/>
+          <InputWithLabel label='Slash Price'
+            register={register('slashed_price')}
+            errorMessage={errors.slashed_price?.message}
+          />
           <br />
-          <InputWithLabel label='Actual Price' isTextArea={true} />
+          <InputWithLabel label='Actual Price'
+            register={register('actual_price')}
+            errorMessage={errors.actual_price?.message}
+            isTextArea={true} />
         </Pane>
       </ContentWithFormInput>
 
@@ -69,33 +132,91 @@ const CreateProduct:NextPage =()=>{
               {value:'Funiture',label:'Funiture',icon:<GiOfficeChair color='#ff4f01'/>},
               {value:'Book',label:'Book',icon:<BiBookReader color='#ff4f01'/>},
             ]}
+
             />
           </div>
           <br />
-          <InputWithLabel label='Out Of Stock' isTextArea={true} />
+         
+          <CheckBoxWithLabel
+            value={watchFields[0]}
+            label='Out Of Stock' 
+            register={register('out_of_stock',{
+              onChange:(e)=>{
+                setValue('out_of_stock',!watchFields[0])
+              }
+            })}/>
 
         </Pane>
       </ContentWithFormInput>
 
       <ContentWithFormInput>
         <div>
-          <h3>Product Images</h3>
+          <h3>Image One</h3>
           <p>Upload your product Image from here</p>
         </div>
         <Pane>
           <UploadImage
-            setValue={null}
-            height={76}
-            width={76}
-            name='logo'
+            setValue={setValue}
+            height={1080}
+            width={1080}
+            name='image_one'
+            
+          />
+          
+        </Pane>
+      </ContentWithFormInput>
+      <br />
+      <ContentWithFormInput>
+        <div>
+          <h3>Image Two</h3>
+          <p>Upload your product Image from here</p>
+        </div>
+        <Pane>
+          <UploadImage
+            setValue={setValue}
+            height={1080}
+            width={1080}
+            name='image_two'
+          />
+          
+        </Pane>
+      </ContentWithFormInput>
+      <br />
+      <ContentWithFormInput>
+        <div>
+          <h3>Image Three</h3>
+          <p>Upload your product Image from here</p>
+        </div>
+        <Pane>
+          <UploadImage
+            setValue={setValue}
+            height={1080}
+            width={1080}
+            name='image_three'
+          />
+          
+        </Pane>
+      </ContentWithFormInput>
+      <br />
+      <ContentWithFormInput>
+        <div>
+          <h3>Image Four</h3>
+          <p>Upload your product Image from here</p>
+        </div>
+        <Pane>
+          <UploadImage
+            setValue={setValue}
+            height={1080}
+            width={1080}
+            name='image_four'
           />
           
         </Pane>
       </ContentWithFormInput>
       <br />
       <Button style={{'width':'30%','margin':'0 auto'}} 
-        // isLoading={status==='pending'}
-        // onClick={handleSubmit(onSubmit)}
+        isLoading={status==='pending'}
+        onClick={handleSubmit(onSubmit)}
       >Publish</Button>
       <br /><br /><br /><br />
     </DashboardLayout>

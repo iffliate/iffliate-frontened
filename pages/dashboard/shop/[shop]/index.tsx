@@ -10,7 +10,7 @@ import Pane from '../../../../shared/Pane/Pane';
 
 const ShopDetail:NextPage =()=>{
   const route = useRouter()
-
+  const { shop } = route.query
   return (
     <DashboardLayout
       listOFLinks={[
@@ -20,9 +20,8 @@ const ShopDetail:NextPage =()=>{
         {label:'Logout',route:''},
       ]}
     >
-
       <Pane>
-        <Button style={{'width':'20%'}} onClick={(e)=>route.push(`/dashboard/shop/${2}/create-product`)}>Create Product</Button>
+        <Button style={{'width':'20%'}} onClick={(e)=>route.push(`/dashboard/shop/${shop}/create-product`)}>Create Product</Button>
       </Pane>
     </DashboardLayout>
       

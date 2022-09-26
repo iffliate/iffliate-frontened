@@ -38,6 +38,7 @@ display: flex;
 justify-content: space-between;
 align-items: center;
 max-width: 400px;
+cursor: pointer;
 
 & >div:nth-child(1){
   /* width: 70px; */
