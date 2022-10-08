@@ -1,6 +1,6 @@
 import {  createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, sliceStatus } from '../store';
-import { getProductApi, Product, productCreateApi } from './ProductApi';
+import { deleteProductApi, getProductApi, Product, productCreateApi } from './ProductApi';
 
 
 
@@ -47,6 +47,15 @@ const productSlice = createSlice({
     addCase(getProductApi.rejected,(state,action)=>{
       state.status='error'
       state.errMessage= 'Sorry Something went wrong please reload the page'
+    })
+
+
+    addCase(deleteProductApi.pending,(state,action)=>{
+      state.status='pending'
+    })
+    addCase(deleteProductApi.fulfilled,(state,{payload}:PayloadAction<string>)=>{
+      state.status='deleted'
+      state.data = state.data.filter(d=>d.slug !=payload)
     })
     
   }

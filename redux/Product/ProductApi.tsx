@@ -6,6 +6,7 @@ import api from '../../service/axios';
 
 export type Product ={
   id?:number;
+  slug?:string;
   name:string;
   description:string;
   slashed_price:number;
@@ -74,3 +75,19 @@ export const getProductApi = createAsyncThunk(
 
   }
 )
+
+
+export const deleteProductApi = createAsyncThunk(
+  'product/deleteProductApi',async({slug}:{slug:string},thunkApi)=>{
+    
+    try{
+      const resp = await api.delete(`/product/${slug}/`)
+      console.log({resp})
+      return slug as string
+    }catch(err:any){
+      console.log({err})
+      return thunkApi.rejectWithValue(err)
+    }
+  }
+)
+

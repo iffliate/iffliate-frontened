@@ -4,27 +4,33 @@ import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import DashboardLayout from '../../../../layout/DashboardLayout/DashboardLayout';
 import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
-import { getProductApi } from '../../../../redux/Product/ProductApi';
+import { deleteProductApi, getProductApi } from '../../../../redux/Product/ProductApi';
 import { selectProduct } from '../../../../redux/Product/ProductSlice';
 import Button from '../../../../shared/Button/Button';
 import Pane from '../../../../shared/Pane/Pane';
 import Table from '../../../../shared/Table/Table';
 import {AiFillCloseCircle} from 'react-icons/ai'
 import {BsFillCalendar2CheckFill} from 'react-icons/bs'
+import useToast from '../../../../hooks/useToastify';
 
 type prop_columnsType ={Header:string,accessor:string,Cell?:any}
 
 
 
 const ShopDetail:NextPage =()=>{
-  const route = useRouter()
+  const route = useRouter();
+  const {notify} = useToast()
   const { shop } = route.query
   const dispatch = useAppDispatch();
   const { data,status} = useAppSelector(selectProduct)
   const isLaptop = useMediaQuery({ query: '(min-width: 700px)' });
 
-  const handleDelete = (id:number)=>{
+  const handleDelete = (slug:string)=>{
     console.log('Yooo')
+    if (window.confirm('Do you really wanna delete it')){
+      dispatch(deleteProductApi({slug}))
+
+    }
   }
   const prop_columns:prop_columnsType[] = [
     {
@@ -49,8 +55,8 @@ const ShopDetail:NextPage =()=>{
       Cell :(tableProps:any)  =>tableProps.row.original.out_of_stock?<AiFillCloseCircle style={{'color':'red'}}/>:<BsFillCalendar2CheckFill style={{'color':'#f77305'}}/>
     },{
       Header:'Delete',
-      accessor:'id',
-      Cell:(tableProps:any)=> <AiFillCloseCircle style={{'color':'red'}} onClick={e=>handleDelete(tableProps.row.original.id)}/> 
+      accessor:'slug',
+      Cell:(tableProps:any)=> <AiFillCloseCircle style={{'color':'red'}} onClick={e=>handleDelete(tableProps.row.original.slug)}/> 
     }
   ]
 
@@ -70,6 +76,11 @@ const ShopDetail:NextPage =()=>{
       dispatch(getProductApi({shopId:shop}))
     }
   },[shop])
+  useEffect(()=>{
+    if(status=='deleted'){
+      notify('Deleted','error')
+    }
+  },[status])
   return (
     <DashboardLayout
       listOFLinks={[
