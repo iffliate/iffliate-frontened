@@ -52,3 +52,25 @@ export const productCreateApi = createAsyncThunk(
     }
   }
 )
+
+type getProductApiProp = {
+  shopId:string;
+}
+
+export const getProductApi = createAsyncThunk(
+  'product/getProductApi',async ({shopId}:getProductApiProp,thunkApi)=>{
+    //
+    
+
+    try{
+      const resp = await api.get(`/product/?shop=${shopId}`)
+      console.log({resp})
+      return resp.data.data as Product[]
+    }catch(err:any){
+      console.log({err})
+      return thunkApi.rejectWithValue(err)
+    }
+
+
+  }
+)

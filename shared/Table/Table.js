@@ -6,7 +6,8 @@ import {useTable} from 'react-table'
 // import Preloader from '../Preloader/Preloder';
 //from my expirence react-table does not blend well with typescript that why am using js
 import {TableStyle} from './Table.style'
-import MOCK_DATA from './mock.json'
+import MOCK_DATA from './mock.json';
+import PropTypes from 'prop-types';
 export const COLUMNS = [
   {
     Header:'id',
@@ -43,13 +44,13 @@ export const COLUMNS = [
 
 
 
-const Table = () =>{
+const Table = ({ prop_columns=[],custom_data=[]}) =>{
   // const user = getUserOr404()
   // const dispatch = useAppDispatch()
   // const { listings ,status} = useAppSelector(SelectListingForLandmark)
   // const [listings,setListings] = useState([])
-  const columns = useMemo(()=>COLUMNS,[])
-  const data = useMemo(()=>MOCK_DATA,[MOCK_DATA])
+  const columns = useMemo(()=>prop_columns,[])
+  const data = useMemo(()=>custom_data,[custom_data])
 
   const  {
     getTableBodyProps,
@@ -105,7 +106,10 @@ const Table = () =>{
   )
 }
 
-
+Table.propTypes= {
+  prop_columns:PropTypes.array,
+  custom_data:PropTypes.array,
+}
 
 
 export default Table

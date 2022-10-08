@@ -68,6 +68,7 @@ const CreateProduct:NextPage =()=>{
   useEffect(()=>{
     if(status==='created'){
       notify('Created Succefully','success')
+      router.push(`/dashboard/shop/${shop}/`)
     }
   },[status])
   return (

@@ -1,16 +1,75 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import DashboardLayout from '../../../../layout/DashboardLayout/DashboardLayout';
+import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
+import { getProductApi } from '../../../../redux/Product/ProductApi';
+import { selectProduct } from '../../../../redux/Product/ProductSlice';
 import Button from '../../../../shared/Button/Button';
 import Pane from '../../../../shared/Pane/Pane';
+import Table from '../../../../shared/Table/Table';
+import {AiFillCloseCircle} from 'react-icons/ai'
+import {BsFillCalendar2CheckFill} from 'react-icons/bs'
 
-
+type prop_columnsType ={Header:string,accessor:string,Cell?:any}
 
 
 
 const ShopDetail:NextPage =()=>{
   const route = useRouter()
   const { shop } = route.query
+  const dispatch = useAppDispatch();
+  const { data,status} = useAppSelector(selectProduct)
+  const isLaptop = useMediaQuery({ query: '(min-width: 700px)' });
+
+  const handleDelete = (id:number)=>{
+    console.log('Yooo')
+  }
+  const prop_columns:prop_columnsType[] = [
+    {
+      Header:'Image ',
+      accessor:'image_one',
+      Cell: (tableProps:any)  => (
+        <img src={tableProps.row.original.image_one} style={{'width':'70px'}} />
+      )}
+    ,{
+      Header:'Name',
+      accessor:'name',
+    },{
+      'Header':'Actual Price',
+      'accessor':'actual_price'
+    },{
+      'Header':'Slashed Price',
+      'accessor':'slashed_price'
+    },
+    {
+      Header:'Out of Stock',
+      accessor:'out_of_stock',
+      Cell :(tableProps:any)  =>tableProps.row.original.out_of_stock?<AiFillCloseCircle style={{'color':'red'}}/>:<BsFillCalendar2CheckFill style={{'color':'#f77305'}}/>
+    },{
+      Header:'Delete',
+      accessor:'id',
+      Cell:(tableProps:any)=> <AiFillCloseCircle style={{'color':'red'}} onClick={e=>handleDelete(tableProps.row.original.id)}/> 
+    }
+  ]
+
+
+
+
+
+
+
+
+
+
+
+
+  useEffect(()=>{
+    if(typeof shop == 'string'){
+      dispatch(getProductApi({shopId:shop}))
+    }
+  },[shop])
   return (
     <DashboardLayout
       listOFLinks={[
@@ -21,7 +80,13 @@ const ShopDetail:NextPage =()=>{
       ]}
     >
       <Pane>
-        <Button style={{'width':'20%'}} onClick={(e)=>route.push(`/dashboard/shop/${shop}/create-product`)}>Create Product</Button>
+        {status=='pending'&&<h1>loading</h1>}
+        <Button style={{'width':isLaptop?'20%':'80%'}} onClick={(e)=>route.push(`/dashboard/shop/${shop}/create-product`)}>Create Product</Button>
+        <br />
+        <br />
+        <Table prop_columns={prop_columns}
+          custom_data={data}
+        />
       </Pane>
     </DashboardLayout>
       
