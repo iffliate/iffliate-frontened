@@ -130,7 +130,7 @@ const Home: NextPage = () => {
       {/* https://www.youtube.com/watch?v=HoyHhgMYFj4 for on sticky event listener */}
       <GridForSingleItem>
        
-        
+      
         {
           data.map((d,i)=>
             <SingleItem data={d} key={i} onClick={(e)=>setModalIsOpen(true)} />
