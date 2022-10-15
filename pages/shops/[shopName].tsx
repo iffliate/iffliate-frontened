@@ -60,7 +60,8 @@ const Shop_name:NextPage= ()=>{
           <GridForSingleItem repeat={isLaptop?4:null}>
             {
               [...new Array(10)].map((d,i)=>
-                <SingleItem key={i} onClick={(e)=>setModalIsOpen(true)} />
+                <div key={i}>hell</div>
+                // <SingleItem key={i} onClick={(e)=>setModalIsOpen(true)} />
               )
             }
           </GridForSingleItem>
