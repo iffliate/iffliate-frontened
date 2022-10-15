@@ -13,6 +13,9 @@ export const SingleItemContainer = styled.div`
   cursor: pointer;
   margin: 1.3rem auto;
 
+  img{
+    width: 100%;
+  }
   & > span img{
     /* border: 1px solid red !important; */
     width: 200px !important;

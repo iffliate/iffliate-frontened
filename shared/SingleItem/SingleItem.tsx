@@ -7,40 +7,85 @@ import {
 import {BsPlus} from 'react-icons/bs';
 import {AiOutlineMinus} from 'react-icons/ai'
 import PlaceholderImage from '../../assets/apple.webp'
+import { Product } from '../../redux/Product/ProductApi';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { addCartLocally, selectCart,removeCartLocally, reduceCart } from '../../redux/Cart/CartSlice';
+import { isAuth } from '../../utils/extraFunction';
+import { useEffect } from 'react';
+import { CartItem } from '../../redux/Cart/CartApi';
 // import PlaceholderImage from '../../assets/bags.webp'
 
 type Prop = {
-  onClick:(e:any)=>void
+  onClick:(e:any)=>void,
+  data:Product
 }
-const SingleItem = ({ onClick }:Prop):React.ReactElement=>{
+const SingleItem = ({ onClick ,data}:Prop):React.ReactElement=>{
+  const dispatch = useAppDispatch()
+  const {status,cartItem,total} = useAppSelector(selectCart)
+  console.log({cartItem,total})
 
-
+  const handleCart=(product:Product)=>{
+    console.log('clalled')
+    if(isAuth()){
+      //the user is logged in use the api
+    }else{
+      //the user is not logged in use the local storage
+      console.log('click')
+      dispatch(addCartLocally(product))
+    }
+  }
+  const handleRemoveCartItem = (fuccartItem:CartItem)=>{
+    //
+    if(fuccartItem.quantity==1){
+      if(fuccartItem.product.id){
+        dispatch(removeCartLocally(fuccartItem.product.id))
+      }
+    }
+    else if(fuccartItem.product.id){
+      dispatch(reduceCart(fuccartItem.product.id))
+    }
+  }
 
   return (
-    <SingleItemContainer onClick={(e)=>onClick(e)}>
+    <SingleItemContainer >
       <PercentageBar>
-        20%
+        {data.slash_percentage}%
       </PercentageBar>
 
-      <Image src={PlaceholderImage} style={{'zIndex':'0'}}/>
+      <img src={data.image_one} style={{'zIndex':'0'}}/>
       <PriceContainer>
-        <p>$1.60</p>
+        <p>{data.actual_price}₦</p>
         {/* <p><strike>$2.00</strike></p> */}
-        <p><small>$2.00</small></p>
+        <p><small>{data.slashed_price}</small></p>
 
       </PriceContainer>
 
       <ItemName>
-        Apples
+        {data.name}
       </ItemName>
       <br />
-      <SingleItemBtnContainer variant='empty'>
-        <AiOutlineMinus/>
-        {/* if it fill show number else show add */}
-        {/* <p>2</p> */}
-        <p>Add</p>
-        <BsPlus />
-      </SingleItemBtnContainer>
+
+      {
+        cartItem.map(d=>d.product.id).includes(data.id)?
+          <SingleItemBtnContainer variant='fill'  >
+            <AiOutlineMinus onClick={e=>{
+              handleRemoveCartItem(cartItem.filter(d=>d.product.id==data.id)[0])
+            }}/>
+            {/* if it fill show number else show add */}
+            <p>{ cartItem.filter(d=>d.product.id==data.id)[0].quantity }</p>
+            {/* <p>Add</p> */}
+            <BsPlus  onClick={(e)=>handleCart(data)}/>
+          </SingleItemBtnContainer>
+          :
+
+          <SingleItemBtnContainer variant='empty'  onClick={(e)=>handleCart(data)}>
+            <AiOutlineMinus/>
+            {/* if it fill show number else show add */}
+            {/* <p>2</p> */}
+            <p>Add</p>
+            <BsPlus />
+          </SingleItemBtnContainer>
+      }
     </SingleItemContainer>
   )
 }

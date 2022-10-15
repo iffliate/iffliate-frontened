@@ -28,13 +28,32 @@ import SingleItem from '../shared/SingleItem/SingleItem'
 import { GridForSingleItem } from '../shared/SingleItem/SingleItem.style'
 import ItemDetailMainBody from '../shared/CustomItemDetail/mainBody'
 import CustomModal from '../shared/Modal/CustomModal'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useAppDispatch, useAppSelector } from '../redux/hooks'
+import { selectProduct } from '../redux/Product/ProductSlice'
+import { getProductApi } from '../redux/Product/ProductApi'
+import { getCartLocally } from '../redux/Cart/CartSlice'
+import { isAuth } from '../utils/extraFunction'
 const Home: NextPage = () => {
   const isLaptop = useMediaQuery({ query: '(min-width: 700px)' })
-  const  [modalIsOpen,setModalIsOpen] = useState(false)
+  const  [modalIsOpen,setModalIsOpen] = useState(false);
+  const { data ,status} = useAppSelector(selectProduct)
+  const dispatch = useAppDispatch();
+
+  useEffect(()=>{
+    dispatch(getProductApi({shopId:''}))
+
+    if(isAuth()){
+    //get database Cart      
+    }else{
+      //get Local Storage Cart
+      dispatch(getCartLocally({}))
+    }
+  },[])
   return (
     
     <GeneralLayout>
+      <h1>{status}</h1>
       {
         isLaptop?
           <HeroSection >
@@ -113,8 +132,8 @@ const Home: NextPage = () => {
        
         
         {
-          [...new Array(10)].map((d,i)=>
-            <SingleItem key={i} onClick={(e)=>setModalIsOpen(true)} />
+          data.map((d,i)=>
+            <SingleItem data={d} key={i} onClick={(e)=>setModalIsOpen(true)} />
           )
         }
       </GridForSingleItem>

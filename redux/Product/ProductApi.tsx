@@ -18,6 +18,7 @@ export type Product ={
   image_two:any;
   image_three:any;
   image_four:any;
+  slash_percentage:number;
 }
 type productCreateApiResponse ={
   message:string;

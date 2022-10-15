@@ -7,15 +7,17 @@ import Logo from '../Logo/Logo'
 
 type Prop =React.PropsWithChildren<
 {
-  btnContrroller:React.ReactElement
+  btnContrroller:React.ReactElement;
   size?:number;
   direction?:'left'|'right';
+  btnClick?:()=>void
 }>
 
-const OffCanvas = ({children,btnContrroller,size=80,direction='left'}:Prop):React.ReactElement=>{
+const OffCanvas = ({children,btnContrroller,size=80,direction='left',btnClick=()=>null}:Prop):React.ReactElement=>{
 
   const [isOpen, setIsOpen] = React.useState(false)
   const toggleDrawer = () => {
+    btnClick()
     setIsOpen((prevState) => !prevState)
   }
 

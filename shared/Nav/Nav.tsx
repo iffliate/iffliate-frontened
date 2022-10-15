@@ -26,6 +26,9 @@ const Nav = ():React.ReactElement=>{
   const handleRoute=(value:string)=>{
     route.push(value)
   }
+  const handleSignOut = ():void=>{
+    window.localStorage.removeItem('iffilate_cred')
+  }
   return (
     <NavContainer>
       {
@@ -84,14 +87,17 @@ const Nav = ():React.ReactElement=>{
                                 <li><a href="" onClick={()=>handleRoute('/dashboard/personal/myorders/')}><AiOutlineShoppingCart/>{' '}My Orders</a></li>
                                 <li><a href=""><AiOutlineShoppingCart/>{''}My Wishlist</a></li>
                                 <li><a href=""><AiOutlineShoppingCart/>{' '}Checkout</a></li>
-                                <li><a href=""><AiOutlineShoppingCart/>{' '}Sign Out</a></li>
+                                <li><a href="" onClick={e=>{
+                                  e.preventDefault()
+                                  handleSignOut()
+                                }}><AiOutlineShoppingCart/>{' '}Sign Out</a></li>
                               </MobileNavLinkContainer>
                             </div>
                           </OffCanvas>
                       }
                       {/* <UserIconBtn/> */}
                       {/* <Button style={{'padding':'.4rem'}} onClick={(e)=>route.push('/dashboard/shop/create')}>Become a Seller</Button> */}
-                      <Button style={{'padding':'.4rem'}} >signout</Button>
+                      <Button style={{'padding':'.4rem'}} onClick={handleSignOut} >signout</Button>
 
                     </>
                     :

@@ -67,3 +67,16 @@ a{
     padding: 1rem 1rem;
 }
 `
+
+
+const view = `"{
+  "items":
+  [
+    {
+      "id":"2",
+      "name":"Baby Spinach",
+      "slug":"baby-spinach","unit":"2Pfund","is_digital":false,
+      "image":"https://pickbazarlaravel.s3.ap-southeast-1.amazonaws.com/2/conversions/BabySpinach-thumbnail.jpg",
+      "stock":10,"price":0.6,"quantity":1,"itemTotal":0.6
+    }],
+    "isEmpty":false,"totalItems":1,"totalUniqueItems":1,"total":0.6,"meta":null}"`
