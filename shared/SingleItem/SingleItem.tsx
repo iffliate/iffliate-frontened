@@ -12,7 +12,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { addCartLocally, selectCart,removeCartLocally, reduceCart } from '../../redux/Cart/CartSlice';
 import { isAuth } from '../../utils/extraFunction';
 import { useEffect } from 'react';
-import { CartItem } from '../../redux/Cart/CartApi';
+import { CartItem, createOrderApi } from '../../redux/Cart/CartApi';
 // import PlaceholderImage from '../../assets/bags.webp'
 
 type Prop = {
@@ -28,6 +28,10 @@ const SingleItem = ({ onClick ,data}:Prop):React.ReactElement=>{
     console.log('clalled')
     if(isAuth()){
       //the user is logged in use the api
+
+      if(product.id){
+        dispatch(createOrderApi({product_id:product.id,cartItemState:cartItem}))
+      }
     }else{
       //the user is not logged in use the local storage
       console.log('click')

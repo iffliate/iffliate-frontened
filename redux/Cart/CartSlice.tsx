@@ -2,7 +2,7 @@ import { createSlice ,PayloadAction} from '@reduxjs/toolkit';
 import { stat } from 'fs/promises';
 import { Product } from '../Product/ProductApi';
 import { RootState, sliceStatus } from '../store';
-import { CartItem } from './CartApi';
+import { CartItem, createOrderApi, createOrderApiResponse, getOrderApi } from './CartApi';
 
 type State ={
 
@@ -57,9 +57,8 @@ const CartSlice= createSlice({
     },
     removeCartLocally:(state,{payload}:PayloadAction<number>)=>{
       //
-      state.cartItem = state.cartItem.filter(d=>d.product.id!==payload)
+      state.cartItem = []
 
-      localStorage.setItem('iffiliate_cart',JSON.stringify(state.cartItem))
 
     },
     reduceCart:(state,{payload}:PayloadAction<number>)=>{
@@ -85,7 +84,54 @@ const CartSlice= createSlice({
 
     }
   },
-  extraReducers:{}
+  extraReducers:({addCase})=>{
+    addCase(getOrderApi.pending,(state,action)=>{
+      state.status='pending'
+    }),
+    addCase(getOrderApi.fulfilled,(state,{payload}:PayloadAction<createOrderApiResponse[]>)=>{
+      //
+      state.status='success';
+      if(payload.length===0){
+        state.cartItem=[]
+      }else{
+        state.cartItem=payload[0].items.map(d=>{
+          return {id:d.id,quantity:d.quantity,product:d.product}
+        })
+      }
+    }),
+    addCase(getOrderApi.rejected,(state,action)=>{
+      state.status='error'
+      state.errMessage='Some Error Occured'
+    })
+
+
+
+    addCase(createOrderApi.pending,(state,action)=>{
+      state.status='pending'
+    })
+
+    addCase(createOrderApi.fulfilled,(state,{payload}:PayloadAction<createOrderApiResponse>)=>{
+      state.status='created';
+      // state.cartItem.map(d=>d.product.id).includes(payload.id
+      if(state.cartItem.map(d=>d.product.id).includes(payload.items[0].product.id)){
+        state.cartItem= [...state.cartItem.map(d=>{
+          return {...d,quantity:payload.items[0].quantity}
+        })]
+      }
+      else{
+        state.cartItem = [...state.cartItem,{
+          product:payload.items[0].product,
+          quantity:payload.items[0].quantity,
+          id:payload.items[0].id
+        }]
+      }
+    })
+
+    addCase(createOrderApi.rejected,(state,action)=>{
+      state.status='error'
+      state.errMessage='Some Error Occured Creating your order'
+    })
+  }
 })
 
 

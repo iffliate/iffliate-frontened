@@ -34,6 +34,7 @@ import { selectProduct } from '../redux/Product/ProductSlice'
 import { getProductApi } from '../redux/Product/ProductApi'
 import { getCartLocally } from '../redux/Cart/CartSlice'
 import { isAuth } from '../utils/extraFunction'
+import { getOrderApi } from '../redux/Cart/CartApi'
 const Home: NextPage = () => {
   const isLaptop = useMediaQuery({ query: '(min-width: 700px)' })
   const  [modalIsOpen,setModalIsOpen] = useState(false);
@@ -45,6 +46,7 @@ const Home: NextPage = () => {
 
     if(isAuth()){
     //get database Cart      
+      dispatch(getOrderApi())
     }else{
       //get Local Storage Cart
       dispatch(getCartLocally({}))

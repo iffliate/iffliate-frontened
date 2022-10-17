@@ -16,6 +16,8 @@ import { useMediaQuery } from 'react-responsive'
 import { sigininApi, sigininApiPropType } from '../redux/siginin/sigininApi'
 import { selectSignIn } from '../redux/siginin/signinSlice'
 import { useRouter } from 'next/router'
+import { removeCartLocally } from '../redux/Cart/CartSlice'
+import { bulkCreateOrderApi, bulkCreateOrderApiProp } from '../redux/Cart/CartApi'
 
 
 const schema =yup.object().shape({
@@ -44,6 +46,23 @@ const signin:NextPage= ()=>{
   useEffect(()=>{
     if(status==='success'){
       notify('Login Successfull','success')
+      dispatch(removeCartLocally(2))
+      let iffiliateLocalcart:any = window.localStorage.getItem('iffiliate_cart')
+      if(iffiliateLocalcart){
+        //this means this user has been logged in before
+        //we need to Register LocalCart to the database
+        console.log({iffiliateLocalcart})
+        iffiliateLocalcart= JSON.parse(iffiliateLocalcart)
+        const clean_data = iffiliateLocalcart.map((d:any)=>{
+          return {
+            'product_id':d.product.id,
+            quantity:d.quantity
+          }
+        })
+        console.log({'clean_data local Cart':clean_data})
+        dispatch(bulkCreateOrderApi(clean_data as bulkCreateOrderApiProp[]))
+        window.localStorage.removeItem('iffiliate_cart')
+      }
       router.push('/')
     }
     if(status==='error'){

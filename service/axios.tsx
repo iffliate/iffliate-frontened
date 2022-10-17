@@ -19,16 +19,11 @@ api.interceptors.request.use((config)=>{
   //so we can add  token to the headers
 
   const path = window.location.pathname
-  let addToken =false
-
-  if(path.includes('dashboard')){
-    addToken=true;
-  }
-
-  if(addToken){
-    const user = getUserTokenOr404();
-    if(!user) return
+  
+  const user = getUserTokenOr404();
+  if(user){
     config['headers']={ 'Authorization':`Bearer ${user?.access}`}
+
   }
   return config
 })

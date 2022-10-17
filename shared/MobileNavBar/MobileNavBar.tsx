@@ -48,9 +48,9 @@ const MobileNavBar = ():React.ReactElement=>{
         <div style={{'position':'relative',
           // 'border':'1px solid red',
           'height':'80%','overflowY':'scroll'}}>
-          <SingleCart/>
           {/* <SingleCart/> */}
-          <SingleCart/>
+          {/* <SingleCart/> */}
+          {/* <SingleCart/> */}
             
           <Button style={{'padding':'.5rem 0','position':'absolute','bottom':'0'}}
             onClick={()=>router.push('/checkout')}

@@ -59,7 +59,7 @@ const CreateProduct:NextPage =()=>{
   }
 
   useEffect(()=>{
-    setValue('category',7)
+    setValue('category',1)
     console.log(typeof shop === 'string',shop)
     if(typeof shop === 'string'){
       setValue('shop',parseInt(shop))
