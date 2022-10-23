@@ -15,9 +15,8 @@
     "jsx": "preserve",
     "incremental": true,
     "typeRoots": [
-      "./node_modules/@types",
-      "./src/typings"
-    ]
+      "./node_modules/@types"
+    ],
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "shared/SelectBar/SelectBar.js", "shared/OffCanvas/OffCanvas.js", "shared/Table/Table.js"],
   "exclude": ["node_modules"]
