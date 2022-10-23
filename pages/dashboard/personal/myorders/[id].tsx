@@ -1,12 +1,5 @@
 import { NextPage } from 'next';
 import DashboardLayout from '../../../../layout/DashboardLayout/DashboardLayout';
-import Pane from '../../../../shared/Pane/Pane';
-import ProgressBar from '../../../../shared/ProgressBar/ProgressBar';
-import {OrderDetailCard,
-  OrderdetailNavContainer,
-  OrderdetailCardContainer,OrderDetailPaneContainer,
-  OrderDetailTotalContainter
-} from '../../../../pageStyles/index/_[id]'
 import OrderDetailPane from '../../../../shared/OrderDetailPane';
 import { useAppSelector } from '../../../../redux/hooks';
 import { selectOrderHistory } from '../../../../redux/OrderHistory/OrderHistorySlice';
@@ -15,7 +8,7 @@ import { selectOrderHistory } from '../../../../redux/OrderHistory/OrderHistoryS
 
 
 const MyordersDetail:NextPage = ()=>{
-  const {order_history_paystacks,order_historys,status} = useAppSelector(selectOrderHistory)
+  const {order_historys} = useAppSelector(selectOrderHistory)
 
 
   return (
