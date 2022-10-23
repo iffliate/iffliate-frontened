@@ -35,6 +35,7 @@ import { getProductApi } from '../redux/Product/ProductApi'
 import { getCartLocally } from '../redux/Cart/CartSlice'
 import { isAuth } from '../utils/extraFunction'
 import { getOrderApi } from '../redux/Cart/CartApi'
+import Preloader from '../shared/Preloader/Preloder'
 const Home: NextPage = () => {
   const isLaptop = useMediaQuery({ query: '(min-width: 700px)' })
   const  [modalIsOpen,setModalIsOpen] = useState(false);
@@ -55,7 +56,7 @@ const Home: NextPage = () => {
   return (
     
     <GeneralLayout>
-      <h1>{status}</h1>
+      <Preloader loading={status=='pending'}/>
       {
         isLaptop?
           <HeroSection >
