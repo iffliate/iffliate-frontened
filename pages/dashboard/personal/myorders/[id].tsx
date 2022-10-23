@@ -7,7 +7,7 @@ import { selectOrderHistory } from '../../../../redux/OrderHistory/OrderHistoryS
 
 
 
-const MyordersDetail:NextPage = ()=>{
+const MyordersDetail = ()=>{
   const {order_historys} = useAppSelector(selectOrderHistory)
 
 
