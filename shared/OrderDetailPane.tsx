@@ -141,7 +141,11 @@ const OrderDetailPane = ({data,is_shop=false}:Prop):React.ReactElement=>{
 
           <OrderDetailTotalContainter>
             <p>Shipping Address </p>
-            <p><span>:</span>2148 Straford Park, KY, Winchester, 40391, United States</p>
+            <p><span>:</span>{data[0].buyer_shipping_address}</p>
+          </OrderDetailTotalContainter>
+          <OrderDetailTotalContainter>
+            <p>Buy Phone  </p>
+            <p><span>:</span>{data[0].buyer_phone}</p>
           </OrderDetailTotalContainter>
 
         </div>

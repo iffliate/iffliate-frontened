@@ -8,6 +8,8 @@ import {OrderDetailCard,
   OrderDetailTotalContainter
 } from '../../../../pageStyles/index/_[id]'
 import OrderDetailPane from '../../../../shared/OrderDetailPane';
+import { useAppSelector } from '../../../../redux/hooks';
+import { selectOrderHistory } from '../../../../redux/OrderHistory/OrderHistorySlice';
 
 
 
@@ -19,6 +21,7 @@ const cards = [
 ]
 
 const myordersDetail:NextPage = ()=>{
+  const {order_history_paystacks,order_historys,status} = useAppSelector(selectOrderHistory)
 
 
   return (
@@ -35,7 +38,7 @@ const myordersDetail:NextPage = ()=>{
       ]}
     >
 
-      <OrderDetailPane/>
+      <OrderDetailPane data={order_historys} is_shop={false}/>
     </DashboardLayout>
 
   )

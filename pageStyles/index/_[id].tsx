@@ -77,6 +77,8 @@ export const OrderDetailCard= styled.div`
 export const OrderDetailPaneContainer= styled.div`
   /* border: 1px solid red; */
   /* width: 50; */
+  max-width: 900px;
+  /* margin: 0 auto; */
   & > div h3{
     color: #1f2937;
     padding: 1rem 0;

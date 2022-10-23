@@ -102,6 +102,8 @@ const CartSlice= createSlice({
     addCase(getOrderApi.rejected,(state,action)=>{
       state.status='error'
       state.errMessage='Some Error Occured'
+      console.log({'getOrderApi error':action.payload})
+
     })
 
 
@@ -128,6 +130,7 @@ const CartSlice= createSlice({
     })
 
     addCase(createOrderApi.rejected,(state,action)=>{
+      console.log({'createOrderApi error':action.payload})
       state.status='error'
       state.errMessage='Some Error Occured Creating your order'
     })

@@ -13,6 +13,7 @@ type Prop = React.PropsWithChildren<{
 listOFLinks:{
   label:string;
   route:string;
+  extraFunc?:(value:any)=>void
 }[],
 showDetail?:boolean
 
@@ -33,7 +34,12 @@ const DashboardLayout = ({children ,listOFLinks,showDetail=false}:Prop):React.Re
               <ul>
                 {
                   listOFLinks.map((data,index:number)=>(
-                    <li key={index}><a onClick={()=>route.push(data.route)}>{data.label}</a></li>
+                    <li key={index}><a onClick={()=>{
+                      if(data.extraFunc){
+                        data.extraFunc(data)
+                      }
+                      route.push(data.route)
+                    }}>{data.label}</a></li>
                   ))
                 }
               </ul>

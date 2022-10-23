@@ -29,10 +29,14 @@ export  type OrderHistoryType = {
 
 
 export const getorderHistoryList = createAsyncThunk(
-  'orderhistory/getorderHistoryList',async ({shopID}:{shopID:number},thunkAPi)=>{
+  'orderhistory/getorderHistoryList',async ({shopID,is_for_shop=true}:{shopID:number,is_for_shop?:boolean;},thunkAPi)=>{
     //
+    let url = `/order-shop-management/${shopID}/get_all_paystack_keys/`
+    if(is_for_shop==false){
+      url ='/order-user-management/get_all_paystack_keys/'
+    }
     try {
-      const resp = await api.get(`/order-shop-management/${shopID}/get_all_paystack_keys/`) 
+      const resp = await api.get(url) 
 
       return resp.data.data as string[];
     } catch (err:any) {
@@ -45,12 +49,17 @@ export const getorderHistoryList = createAsyncThunk(
 type getOrderHistoryDetailType = {
     shopID:string;
     paystack:string;
+    is_for_shop?:boolean;
 }
 export const getOrderHistoryDetail = createAsyncThunk(
-  'orderhistory/getOrderHistoryDetail',async ({paystack,shopID}:getOrderHistoryDetailType,thunkApi)=>{
+  'orderhistory/getOrderHistoryDetail',async ({paystack,shopID,is_for_shop=true}:getOrderHistoryDetailType,thunkApi)=>{
     //
+    let url =`order-shop-management/${paystack}/?shop=${shopID}`
+    if(is_for_shop == false){
+      url = `order-shop-management/${paystack}/`
+    }
     try {
-      const resp = await api.get(`order-user-management/${paystack}/?shop=${shopID}`)
+      const resp = await api.get(url)
 
       return resp.data.data as OrderHistoryType[]
     } catch (err:any) {
