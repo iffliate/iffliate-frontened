@@ -34,7 +34,7 @@ export type createOrderApiResponse =  {
 export const getOrderApi = createAsyncThunk(
   'Cart/getOrderApi',async (data,thunkApi)=>{
     try {
-      const resp = await api.get('/order/');
+      const resp = await api.get('/order/?is_paid=False');
       console.log({'order get resp':resp.data})
       return resp.data.data as createOrderApiResponse[]
     } catch (error) {
@@ -56,7 +56,7 @@ export const createOrderApi= createAsyncThunk(
     // return 
     try{
       const resp = await api.post('/order/',{'items':dataToBesent})
-      console.log({resp})
+      console.log({'createOrderApi':resp})
       return resp.data.data   as createOrderApiResponse
     }
     catch(err:any){

@@ -115,18 +115,22 @@ const CartSlice= createSlice({
     addCase(createOrderApi.fulfilled,(state,{payload}:PayloadAction<createOrderApiResponse>)=>{
       state.status='created';
       // state.cartItem.map(d=>d.product.id).includes(payload.id
-      if(state.cartItem.map(d=>d.product.id).includes(payload.items[0].product.id)){
-        state.cartItem= [...state.cartItem.map(d=>{
-          return {...d,quantity:payload.items[0].quantity}
-        })]
-      }
-      else{
-        state.cartItem = [...state.cartItem,{
-          product:payload.items[0].product,
-          quantity:payload.items[0].quantity,
-          id:payload.items[0].id
-        }]
-      }
+      // if(state.cartItem.map(d=>d.product.id).includes(payload.items[0].product.id)){
+      //   state.cartItem= [...state.cartItem.map(d=>{
+      //     return {...d,quantity:payload.items[0].quantity}
+      //   })]
+      // }
+      // else{
+      //   state.cartItem = [...state.cartItem,{
+      //     product:payload.items[0].product,
+      //     quantity:payload.items[0].quantity,
+      //     id:payload.items[0].id
+      //   }]
+      // }
+      state.cartItem =payload.items.map(d=>{
+
+        return {id:d.id,'orderID':payload.id,quantity:d.quantity,'product':d.product}
+      })
     })
 
     addCase(createOrderApi.rejected,(state,action)=>{
