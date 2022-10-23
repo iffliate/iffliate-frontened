@@ -13,14 +13,8 @@ import { selectOrderHistory } from '../../../../redux/OrderHistory/OrderHistoryS
 
 
 
-const cards = [
-  {label:'Order Number',value:'CGG82oQZc4i8'},
-  {label:'Date',value:'January 12, 2022'},
-  {label:'Total',value:'$153.00'},
-  {label:'Payment Method',value:'CASH_ON_DELIVERY'},
-]
 
-const myordersDetail:NextPage = ()=>{
+const MyordersDetail:NextPage = ()=>{
   const {order_history_paystacks,order_historys,status} = useAppSelector(selectOrderHistory)
 
 
@@ -44,4 +38,4 @@ const myordersDetail:NextPage = ()=>{
   )
 }
 
-export default myordersDetail
+export default MyordersDetail
