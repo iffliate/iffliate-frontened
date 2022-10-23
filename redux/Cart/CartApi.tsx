@@ -7,6 +7,7 @@ export type CartItem = {
     product:Product;
     quantity:number;
     id?:number,
+    orderID?:number;
 }
 
 
@@ -34,7 +35,7 @@ export const getOrderApi = createAsyncThunk(
   'Cart/getOrderApi',async (data,thunkApi)=>{
     try {
       const resp = await api.get('/order/');
-      console.log({'order get resp':resp})
+      console.log({'order get resp':resp.data})
       return resp.data.data as createOrderApiResponse[]
     } catch (error) {
       return thunkApi.rejectWithValue(error)
@@ -80,3 +81,6 @@ export const bulkCreateOrderApi = createAsyncThunk(
     }
   }
 )
+
+
+

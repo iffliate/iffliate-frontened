@@ -13,7 +13,7 @@ import {AiFillCloseCircle} from 'react-icons/ai'
 import {BsFillCalendar2CheckFill} from 'react-icons/bs'
 import useToast from '../../../../hooks/useToastify';
 
-type prop_columnsType ={Header:string,accessor:string,Cell?:any}
+export type prop_columnsType ={Header:string,accessor:string,Cell?:any,id?:any}
 
 
 
@@ -84,8 +84,8 @@ const ShopDetail:NextPage =()=>{
   return (
     <DashboardLayout
       listOFLinks={[
-        {label:'Product',route:''},
-        {label:'Orders ',route:''},
+        {label:'Product',route:`/dashboard/shop/${shop}`},
+        {label:'Orders ',route:`/dashboard/shop/${shop}/order`},
         // {label:'Danloads',route:''},
         {label:'Logout',route:''},
       ]}

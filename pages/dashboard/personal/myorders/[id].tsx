@@ -7,6 +7,7 @@ import {OrderDetailCard,
   OrderdetailCardContainer,OrderDetailPaneContainer,
   OrderDetailTotalContainter
 } from '../../../../pageStyles/index/_[id]'
+import OrderDetailPane from '../../../../shared/OrderDetailPane';
 
 
 
@@ -34,82 +35,7 @@ const myordersDetail:NextPage = ()=>{
       ]}
     >
 
-      <Pane>
-        <OrderdetailNavContainer>
-          <div>
-            <h3>Status:</h3>
-            <p>Order Received</p>
-          </div>
-          <a href="">Back to Home</a>
-        </OrderdetailNavContainer>
-        <br /><br />
-        <OrderdetailCardContainer>
-          {
-            cards.map((data,index)=>(
-              <OrderDetailCard key={index}>
-                <h3><strong>{data.label}</strong></h3>
-                <p>{data.value}</p>
-              </OrderDetailCard>
-            ))
-          }
-          
-        </OrderdetailCardContainer>
-
-        <br />
-        <br />
-        <ProgressBar/>
-        <br />
-
-        <OrderDetailPaneContainer>
-
-          <div>
-            <h3>Total Amount</h3>
-            <OrderDetailTotalContainter>
-              <p>Sub Total</p>
-              <p><span>:</span> $150.00</p>
-            </OrderDetailTotalContainter>
-            <OrderDetailTotalContainter>
-              <p>Shipping Charge</p>
-              <p><span>:</span> $0.00</p>
-            </OrderDetailTotalContainter>
-            <OrderDetailTotalContainter>
-              <p>Tax </p>
-              <p><span>:</span> $0.00</p>
-            </OrderDetailTotalContainter>
-            <OrderDetailTotalContainter>
-              <p>Discount </p>
-              <p><span>:</span> $0.00</p>
-            </OrderDetailTotalContainter>
-            <OrderDetailTotalContainter>
-              <p>Total </p>
-              <p><span>:</span> $0.00</p>
-            </OrderDetailTotalContainter>
-          </div>
-
-          <br />
-          <br />
-          <div>
-            <h3>Order Details</h3>
-            <OrderDetailTotalContainter>
-              <p>Total Item</p>
-              <p><span>:</span> $150.00</p>
-            </OrderDetailTotalContainter>
-            <OrderDetailTotalContainter>
-              <p>Delivery Time</p>
-              <p><span>:</span>Express Delivery</p>
-            </OrderDetailTotalContainter>
-            <OrderDetailTotalContainter>
-              <p>Shipping Address </p>
-              <p><span>:</span>2148 Straford Park, KY, Winchester, 40391, United States</p>
-            </OrderDetailTotalContainter>
-            <OrderDetailTotalContainter>
-              <p>Billing Address </p>
-              <p><span>:</span> ss, aaaa, aaa, 122, aaa</p>
-            </OrderDetailTotalContainter>
-
-          </div>
-        </OrderDetailPaneContainer>
-      </Pane>
+      <OrderDetailPane/>
     </DashboardLayout>
 
   )

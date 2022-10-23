@@ -6,6 +6,7 @@ import {
 
 }  from './DashboardLayoutStyle'
 import GeneralLayoutType from '../GeneralLayout/GeneralLayout'
+import { useRouter } from 'next/router';
 
 
 type Prop = React.PropsWithChildren<{
@@ -20,7 +21,7 @@ showDetail?:boolean
 const DashboardLayout = ({children ,listOFLinks,showDetail=false}:Prop):React.ReactElement=>{
 
   const isLaptop = useMediaQuery({ query: '(min-width: 700px)' })
-
+  const route = useRouter()
 
   return (
     <GeneralLayoutType>
@@ -32,7 +33,7 @@ const DashboardLayout = ({children ,listOFLinks,showDetail=false}:Prop):React.Re
               <ul>
                 {
                   listOFLinks.map((data,index:number)=>(
-                    <li key={index}><a href="">{data.label}</a></li>
+                    <li key={index}><a onClick={()=>route.push(data.route)}>{data.label}</a></li>
                   ))
                 }
               </ul>

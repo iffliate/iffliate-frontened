@@ -95,7 +95,7 @@ const CartSlice= createSlice({
         state.cartItem=[]
       }else{
         state.cartItem=payload[0].items.map(d=>{
-          return {id:d.id,quantity:d.quantity,product:d.product}
+          return {id:d.id,quantity:d.quantity,product:d.product,'orderID':payload[0].id}
         })
       }
     }),

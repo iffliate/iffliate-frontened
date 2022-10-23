@@ -1,8 +1,19 @@
+import { OrderHistoryType } from '../../redux/OrderHistory/OrderHistoryApi'
 import {ProgressBarMainContainer,SingleProgressBar,ProgressCount,ProgressInfo} from './ProgressBar.style'
 
 
-const ProgressBar = ():React.ReactElement=>{
+type Prop = {
+  status:OrderHistoryType['status']
+}
 
+const ProgressBar = ({status}:Prop):React.ReactElement=>{
+  const data  = {
+    'order_processing':2,
+    'ready_to_dispatch':3,
+    'order_dispatched':4,
+    'delivered':8
+
+  }
 
   return (
     <ProgressBarMainContainer>
@@ -17,7 +28,7 @@ const ProgressBar = ():React.ReactElement=>{
       </SingleProgressBar>
 
       <SingleProgressBar>
-        <ProgressCount isReady={true} count={2}>
+        <ProgressCount isReady={ data[status] >=2 } count={2}>
               2
         </ProgressCount>
         <ProgressInfo>
@@ -27,7 +38,7 @@ const ProgressBar = ():React.ReactElement=>{
           
 
       <SingleProgressBar>
-        <ProgressCount isReady={false} count={3}>
+        <ProgressCount isReady={ data[status] >=3} count={3}>
               3
         </ProgressCount>
         <ProgressInfo>
@@ -36,7 +47,7 @@ const ProgressBar = ():React.ReactElement=>{
       </SingleProgressBar>
           
       <SingleProgressBar>
-        <ProgressCount isReady={false} count={4}>
+        <ProgressCount isReady={ data[status] >=4} count={4}>
               4
         </ProgressCount>
         <ProgressInfo>
@@ -45,7 +56,7 @@ const ProgressBar = ():React.ReactElement=>{
       </SingleProgressBar>
 
       <SingleProgressBar>
-        <ProgressCount isReady={false} count={5}>
+        <ProgressCount isReady={ data[status] >=5} count={5}>
               5
         </ProgressCount>
         <ProgressInfo>
@@ -54,7 +65,7 @@ const ProgressBar = ():React.ReactElement=>{
       </SingleProgressBar>
 
       <SingleProgressBar >
-        <ProgressCount isReady={false} count={6} data-text='hello'>
+        <ProgressCount isReady={ data[status] >=6} count={6} data-text='hello'>
               6
         </ProgressCount>
         <ProgressInfo>
@@ -63,7 +74,7 @@ const ProgressBar = ():React.ReactElement=>{
       </SingleProgressBar> 
 
       <SingleProgressBar>
-        <ProgressCount isReady={false} count={7}>
+        <ProgressCount isReady={ data[status] >=7} count={7}>
               7
         </ProgressCount>
         <ProgressInfo>
@@ -73,7 +84,7 @@ const ProgressBar = ():React.ReactElement=>{
 
       
       <SingleProgressBar>
-        <ProgressCount isReady={false} count={8}>
+        <ProgressCount isReady={ data[status] >=8} count={8}>
               8
         </ProgressCount>
         <ProgressInfo>

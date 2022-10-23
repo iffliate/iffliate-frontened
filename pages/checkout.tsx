@@ -9,6 +9,9 @@ import { getCartLocally, selectCart } from '../redux/Cart/CartSlice';
 import { useEffect } from 'react';
 import { isAuth } from '../utils/extraFunction';
 import { useRouter } from 'next/router'
+import { getOrderApi } from '../redux/Cart/CartApi';
+import api from '../service/axios';
+import useToast from '../hooks/useToastify';
 
 
 
@@ -17,13 +20,38 @@ const Checkout:NextPage = ()=>{
   const route = useRouter()
   const {cartItem,status} = useAppSelector(selectCart)
   const dispatch = useAppDispatch();
-
+  const {notify} = useToast()
   const handleRoute = (path:string)=>{
     route.push(path)
   }
+
+
+  const InitPayment = async()=>{
+    
+
+    try {
+      const resp = await api.post(`/payment/process_order_payment/${cartItem[0].orderID}/`)
+
+      if(resp.data.status_code ==201){
+        notify('You Would Be Redirected To a payment page in a minute','success')
+        window.location.href=resp.data.data.data.authorization_url
+      } else{
+        notify('Wrong Order please refresh the page','error')
+
+      }
+    } catch (err:any) {
+      //
+      notify('please check your internet','error')
+
+    }
+  }
+
+
+
   useEffect(()=>{
     if(isAuth()){
       //
+      dispatch(getOrderApi())
     }else{
       dispatch(getCartLocally({}))
     }
@@ -35,7 +63,7 @@ const Checkout:NextPage = ()=>{
     >
       <CheckoutMainContainer>
         {/* <p>{status}</p> */}
-
+        {status=='pending'&&<p>Loading</p>}
         <Pane>
           <InputWithLabel label='Phone Number' placeholder='Enter your name'/>
           <br />
@@ -71,7 +99,13 @@ const Checkout:NextPage = ()=>{
           </CheckoutItem>
           {
             isAuth()?
-              <Button>Place Order</Button>
+            // InitPayment
+          
+              cartItem.length ==0?
+                <Button styleType='sec' > No Order yey</Button>
+                :
+                <Button onClick={e=>InitPayment()}> Place Order</Button>
+            
               :
               <>
                 <Button onClick={(e)=>handleRoute('/signin')}>Login</Button>

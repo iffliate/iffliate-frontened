@@ -47,6 +47,7 @@ export const DashboardNav = styled.div`
     color: #1f2937;
     display: block;
     position: relative;
+    cursor: pointer;
   }
   a::after{
     content: "";

@@ -13,13 +13,14 @@ import PropTypes from 'prop-types';
 //   data:{value:string,label:string}[]
 // }
 
-const SelectBar = ({data}) =>{
+const SelectBar = ({data,runAfterChange}) =>{
   const [selectedOption, setSelectedOption] = useState(null);
 
   // handle onChange event of the dropdown
   const handleChange = e => {
     console.log({'result':e})
     setSelectedOption(e);
+    runAfterChange(e)
   }
   
   
@@ -46,6 +47,7 @@ SelectBar.propTypes={
     label:PropTypes.string.isRequired,
     icon:PropTypes.any.isRequired,
   })),
+  runAfterChange:PropTypes.func
  
 }
 export default SelectBar
