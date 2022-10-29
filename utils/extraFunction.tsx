@@ -1,5 +1,5 @@
 import Resizer from 'react-image-file-resizer';
-
+import jwt_decode from 'jwt-decode';
 export type StyleTpe =  {
   'style'?:{
     [Key:string]:string,
@@ -36,7 +36,10 @@ type TokenType={
 }
 type getUserTokenOr404Type = null |TokenType
 export const getUserTokenOr404 = ():getUserTokenOr404Type=>{
-  const user =window.localStorage.getItem('iffilate_cred');
+  let user
+  if(typeof  window  != 'undefined'){
+    user = window.localStorage.getItem('iffilate_cred');
+  }
   if(!user) return null
 
   const currentUser:TokenType= JSON.parse(user)
@@ -44,6 +47,25 @@ export const getUserTokenOr404 = ():getUserTokenOr404Type=>{
   
 
   return currentUser
+}
+
+type DecodedTokenType = {
+  'token_type': string,
+  'exp': number,
+  'jti':string,
+  'user_id': number
+}
+type decode_tokenResponse = null|DecodedTokenType
+export const decodeToken = ():decode_tokenResponse=>{
+  const user = getUserTokenOr404()
+  if(user){
+    const  token:DecodedTokenType = jwt_decode(user.access)
+
+    return token
+
+  }
+
+  return null
 }
 
 

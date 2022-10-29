@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import api from '../../service/axios';
+import { Category } from './ProductSlice';
 
 
 
@@ -92,3 +93,16 @@ export const deleteProductApi = createAsyncThunk(
   }
 )
 
+
+
+export const getCategory = createAsyncThunk('product/getCategory',async(data:any,thunkApi)=>{
+
+  try { 
+    const resp = await api.get('/categories/')
+    return resp.data as Category[]
+
+  } catch (error) {
+  
+    return thunkApi.rejectWithValue(error)
+  }
+})

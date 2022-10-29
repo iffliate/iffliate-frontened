@@ -9,7 +9,7 @@ import { GiAmpleDress, GiAppleSeeds, GiOfficeChair, GiSlicedBread } from 'react-
 import { FaPaintBrush } from 'react-icons/fa'
 import { BiBookReader } from 'react-icons/bi'
 import SelectBar from '../SelectBar/SelectBar'
-import { isAuth } from '../../utils/extraFunction'
+import { decodeToken, isAuth } from '../../utils/extraFunction'
 import { useRouter } from 'next/router'
 import UserIconBtn from '../UserIconBtn/UserIconBtn'
 import OffCanvas from '../OffCanvas/OffCanvas'
@@ -23,12 +23,14 @@ const Nav = ():React.ReactElement=>{
   const [readyToSearch,setReadyToSearch] = useState(false);
   const route = useRouter()
   const path:string = route.pathname
+  const user =  decodeToken()
   const handleRoute=(value:string)=>{
     route.push(value)
   }
   const handleSignOut = ():void=>{
     window.localStorage.removeItem('iffilate_cred')
   }
+  
   return (
     <NavContainer>
       {
@@ -63,9 +65,9 @@ const Nav = ():React.ReactElement=>{
 
             <NavLinkContainer>
               <ul>
-                <li><a href="">shops</a></li>
-                <li><a href="">Offers</a></li>
                 <li><a href="">Faq</a></li>
+                <li><a onClick={()=>handleRoute('/dashboard/shop/')}>Shops</a></li>
+                <li><a href="">About</a></li>
                 <li><a href="">Contact</a></li>
               </ul>
               <NavBtnContainer>
@@ -82,9 +84,14 @@ const Nav = ():React.ReactElement=>{
                             btnContrroller={<UserIconBtn/>}>
                             <div>
                               <MobileNavLinkContainer >
-                                <li><a onClick={()=>handleRoute('/dashboard/shop/')}><AiOutlineShoppingCart/>{' '}Shops</a></li>
-
+                                {
+                                  user?
+                                    <li><a onClick={()=>handleRoute(`/dashboard/shop/${'?user='+user.user_id}`)}><AiOutlineShoppingCart/>{' '}My Shops</a></li>
+                                    :''
+                                }
+                                <li><a onClick={()=>handleRoute('/dashboard/shop/')}><AiOutlineShoppingCart/>{' '}All Shops</a></li>
                                 <li><a href="" onClick={()=>handleRoute('/dashboard/personal/myorders/')}><AiOutlineShoppingCart/>{' '}My Orders</a></li>
+                              
                                 <li><a href=""><AiOutlineShoppingCart/>{''}My Wishlist</a></li>
                                 <li><a href=""><AiOutlineShoppingCart/>{' '}Checkout</a></li>
                                 <li><a href="" onClick={e=>{

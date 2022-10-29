@@ -1,17 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, sliceStatus } from '../store';
-import { createShop, getShop, shopType } from './ShopApi';
+import { createShop, getShop, getShopDetail, ShopDetailType, shopType } from './ShopApi';
 
 
 type State={
   status:sliceStatus,
   data:shopType[],
+  shopDetail:null |ShopDetailType,
   errMessage:any
 }
 const initialState:State={
   status:'idle',
   data:[],
-  errMessage:null
+  errMessage:null,
+  shopDetail:null
 }
 const shopSlice = createSlice({
   name:'shop',
@@ -69,6 +71,29 @@ const shopSlice = createSlice({
     addCase(getShop.rejected,(state,action)=>{
       state.errMessage='Somthing Went Wrong Please Check Your Internet'
       state.status='error'
+    })
+
+
+
+    // get shop detail
+    addCase(getShopDetail.pending,(state,action)=>{
+      //
+      state.status='pending'
+    })
+
+    addCase(getShopDetail.fulfilled,(state,{payload}:PayloadAction<ShopDetailType>)=>{
+      //
+      state.status='success'
+      state.shopDetail = payload
+    })
+
+    addCase(getShopDetail.rejected,(state,action:any)=>{
+      state.status='error'
+
+      if(action.payload.code === 'ERR_NETWORK'){
+        state.errMessage='Please Check your internet and refresh the page'
+      }
+      console.log({'error':action.payload})
     })
   }
 })

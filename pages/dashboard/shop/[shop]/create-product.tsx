@@ -18,10 +18,11 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
 import { selectProduct } from '../../../../redux/Product/ProductSlice';
 import useToast from '../../../../hooks/useToastify';
-import { Product, productCreateApi } from '../../../../redux/Product/ProductApi';
+import { getCategory, Product, productCreateApi } from '../../../../redux/Product/ProductApi';
 import { useEffect } from 'react';
 import CheckBoxWithLabel from '../../../../shared/CheckBoxWithLabel/CheckBoxWithLabel';
 import { useRouter } from 'next/router'
+import Preloader from '../../../../shared/Preloader/Preloder';
 
 const schema = yup.object().shape({
   name:yup.string().required('product name is required'),
@@ -39,7 +40,7 @@ const schema = yup.object().shape({
 
 const CreateProduct:NextPage =()=>{
   const dispatch  = useAppDispatch();
-  const {status,errMessage} = useAppSelector(selectProduct);
+  const {status,errMessage,category_list} = useAppSelector(selectProduct);
   const {notify} = useToast();
   const router = useRouter()
   const { shop } = router.query
@@ -59,11 +60,13 @@ const CreateProduct:NextPage =()=>{
   }
 
   useEffect(()=>{
-    setValue('category',1)
+    // setValue('category',15)
     console.log(typeof shop === 'string',shop)
     if(typeof shop === 'string'){
       setValue('shop',parseInt(shop))
     }
+
+    dispatch(getCategory(''))
   },[])
   useEffect(()=>{
     if(status==='created'){
@@ -76,7 +79,7 @@ const CreateProduct:NextPage =()=>{
       listOFLinks={[]}
       showDetail={true}
     >
-
+      <Preloader loading={status=='pending'}/>
       <h1>Create Product</h1>
 
       <ContentWithFormInput>
@@ -124,7 +127,7 @@ const CreateProduct:NextPage =()=>{
         </div>
         <Pane>
           <div style={{}} >
-            <SelectBar data={[
+            {/* [
               {value:'Grocery',label:'Grocery',icon:<GiAppleSeeds color='#ff4f01'/>},
               {value:'Bakery',label:'Bakery',icon:<GiSlicedBread color='#ff4f01'/>},
               {value:'MakeUP',label:'Makeup',icon:<FaPaintBrush color='#ff4f01'/>},
@@ -132,8 +135,17 @@ const CreateProduct:NextPage =()=>{
               {value:'Clothing',label:'Clothing',icon:<GiAmpleDress color='#ff4f01'/>},
               {value:'Funiture',label:'Funiture',icon:<GiOfficeChair color='#ff4f01'/>},
               {value:'Book',label:'Book',icon:<BiBookReader color='#ff4f01'/>},
-            ]}
+            ] */}
+            <SelectBar data={category_list.map(data=>(
+              {value:data.id,label:data.name,icon:''}
+            )) }
 
+          
+            runAfterChange={e=>{
+              console.log({e})
+
+              setValue('category',e.value)
+            }}
             />
           </div>
           <br />

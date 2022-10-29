@@ -1,9 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import api from '../../service/axios';
+import { Product } from '../Product/ProductApi';
 
 export type shopType = {
+  'user'?:number,
   'id'?:number,
   'name':string,
+  'slug':string,
   'facebook': string,
   'twitter': string,
   'whatsapp': string,
@@ -66,6 +69,43 @@ export const getShop = createAsyncThunk(
       return resp.data as shopType[]
     } catch (error:any) { 
       return error.response.data
+    }
+  }
+)
+
+
+
+
+export type ShopDetailType ={
+    'name': string,
+    'id': number,
+    'facebook': string,
+    'twitter': string,
+    'whatsapp': string,
+    'instagram': string,
+    'about': string,
+    'banner': string,
+    'logo':string,
+    'info': string,
+    'address_country':string,
+    'address_city':string,
+    'street_address':string,
+    'products': Product[],
+    'phone':string;
+}
+
+export const getShopDetail= createAsyncThunk(
+  'shop/getShopDetail',async ({shopName}:{shopName:string},thunkApi)=>{
+    //
+
+    try {
+      const resp = await api.get(`/shop/${shopName}/`)
+      
+
+      return resp.data.data as ShopDetailType
+    } catch (error) {
+      
+      return thunkApi.rejectWithValue(error)
     }
   }
 )

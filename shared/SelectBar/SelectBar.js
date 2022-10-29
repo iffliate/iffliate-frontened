@@ -20,7 +20,9 @@ const SelectBar = ({data,runAfterChange}) =>{
   const handleChange = e => {
     console.log({'result':e})
     setSelectedOption(e);
-    runAfterChange(e)
+    if(runAfterChange){
+      runAfterChange(e)
+    }
   }
   
   
@@ -43,7 +45,7 @@ const SelectBar = ({data,runAfterChange}) =>{
 SelectBar.propTypes={
   children: PropTypes,
   data:PropTypes.arrayOf(PropTypes.shape({
-    value:PropTypes.string.isRequired,
+    value:PropTypes.any.isRequired,
     label:PropTypes.string.isRequired,
     icon:PropTypes.any.isRequired,
   })),

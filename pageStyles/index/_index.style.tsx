@@ -28,7 +28,7 @@ export const ShopContainer =styled.div`
 
 
 export const ShopIntroCard =styled.div`
-
+position: relative;
 border:1px solid #0000001a;
 padding: 1rem;
 border-radius: 10px;
@@ -73,4 +73,17 @@ h3{
     max-width: unset;
 }
 
+`
+
+export const ShopIntroCardIconContainer = styled.div`
+  /* border : 1px solid red; */
+  width: 25%;
+  padding: .2rem;
+  font-size: 1.2rem;
+  display: flex;
+  bottom: 0;
+  right: 0;
+  color: ${props=>props.theme.main_color};
+  justify-content: space-between;
+  position: absolute;
 `

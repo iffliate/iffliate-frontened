@@ -5,7 +5,7 @@ import styled from 'styled-components'
 export const SingleItemContainer = styled.div`
   padding: 1rem;
   background-color: white;
-  width: 90%;
+  width: 97%;
   /* width: 80%; */
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
@@ -29,7 +29,7 @@ export const SingleItemContainer = styled.div`
     /* border: 1px solid blue !important; */
   }
   @media screen and (min-width: 400px) {
-  width: 80%;    
+  /* width: 80%;     */
   }
   @media screen  and (min-width: 700px){
   margin: 0 auto;
@@ -122,6 +122,7 @@ export const GridForSingleItem = styled.div<GridForSingleItemProp>`
       display: grid;
       grid-template-columns: repeat(2,1fr);
       gap:  20px 0; 
+      align-items: center;
   }
 
   @media screen and (min-width:800px){
