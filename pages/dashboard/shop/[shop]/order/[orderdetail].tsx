@@ -36,7 +36,7 @@ const shopOrderDetails:NextPage = ()=>{
       'shopID':shop,
       'paystack':orderdetail
     })
-  },[])
+  },[route.isReady])
   return (
   
     <DashboardLayout

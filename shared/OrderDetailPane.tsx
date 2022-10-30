@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import ProgressBar from '..//shared/ProgressBar/ProgressBar';
 import { prop_columnsType } from '../pages/dashboard/shop/[shop]';
 import {OrderDetailCard,
@@ -6,12 +7,12 @@ import {OrderDetailCard,
   OrderdetailCardContainer,OrderDetailPaneContainer,
   OrderDetailTotalContainter
 } from '../pageStyles/index/_[id]'
-import { useAppDispatch } from '../redux/hooks';
-import { OrderHistoryType, updateOrderHistoryStatus } from '../redux/OrderHistory/OrderHistoryApi';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { getOrderHistoryDetail, OrderHistoryType, updateOrderHistoryStatus } from '../redux/OrderHistory/OrderHistoryApi';
+import { selectOrderHistory } from '../redux/OrderHistory/OrderHistorySlice';
 import Pane from './Pane/Pane';
 import SelectBar from './SelectBar/SelectBar';
 import Table from './Table/Table';
-
 
 
 const prop_columns:prop_columnsType[]=[
