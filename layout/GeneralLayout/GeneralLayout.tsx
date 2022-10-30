@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import { useRef } from 'react'
 import { useMediaQuery } from 'react-responsive'
 import { selectCart } from '../../redux/Cart/CartSlice'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
@@ -8,12 +9,13 @@ import MobileNavBar from '../../shared/MobileNavBar/MobileNavBar'
 import Nav from '../../shared/Nav/Nav'
 import OffCanvas from '../../shared/OffCanvas/OffCanvas'
 import SingleCart from '../../shared/SingleCart/SingleCart'
-
+import { motion } from 'framer-motion';
 
 
 
 type GeneralLayoutType = React.PropsWithChildren<{}>
 const GeneralLayout = ({children}:GeneralLayoutType):React.ReactElement=>{
+  const constraintsRef = useRef(null);
   
   
   const router = useRouter()
@@ -25,7 +27,7 @@ const GeneralLayout = ({children}:GeneralLayoutType):React.ReactElement=>{
     console.log(2*2)
   }
   return (
-    <div>
+    <motion.div ref={constraintsRef}>
       <Nav/>
       {
         children
@@ -36,7 +38,7 @@ const GeneralLayout = ({children}:GeneralLayoutType):React.ReactElement=>{
             size={30}
             btnClick={handleFloatingBtnClick}
             btnContrroller={ 
-              <FloatingCartBtn/>
+              <FloatingCartBtn dragConstraints={constraintsRef}/>
             } >
             <br /><br />
             {/* children */}
@@ -62,7 +64,7 @@ const GeneralLayout = ({children}:GeneralLayoutType):React.ReactElement=>{
           : <MobileNavBar/>
       }
      
-    </div>
+    </motion.div>
   )
 }
 

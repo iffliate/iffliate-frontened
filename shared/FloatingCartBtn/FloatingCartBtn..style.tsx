@@ -1,9 +1,10 @@
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 
 
 
 
-export const FloatingCartBtnContainer = styled.div`
+export const FloatingCartBtnContainer = styled(motion.div)`
     position: fixed;
     top: 50%;
     right: 0;

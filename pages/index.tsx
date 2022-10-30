@@ -140,7 +140,7 @@ const Home: NextPage = () => {
       }
 
       <br />
-      <IndexIntroInfo>
+      {/* <IndexIntroInfo>
         <div>
           <div className='offer1'>
             <Image src={Offer} alt=""  />
@@ -156,14 +156,14 @@ const Home: NextPage = () => {
           <AiOutlineArrowLeft/>
           <AiOutlineArrowRight/>
         </ImageControllerContainer>
-      </IndexIntroInfo>
+      </IndexIntroInfo> */}
       <br />
 
 
 
       <FilterBtnContainer>
 
-        <OffCanvas size={isLaptop?40:100} btnContrroller={
+        {/* <OffCanvas size={isLaptop?40:100} btnContrroller={
             
           <Button styleType='sec' style={{'width':'100px'}} >
             <RiFilterFill/>
@@ -179,7 +179,7 @@ const Home: NextPage = () => {
             <li><a href=""><GiDiscGolfBag/>Wallet</a></li>
 
           </MobileNavLinkContainer>
-        </OffCanvas>
+        </OffCanvas> */}
         <div style={{'width':'140px'}}>
           <SelectBar data={[
             {value:'Grocery',label:'Grocery',icon:<GiAppleSeeds color='#ff4f01'/>},
