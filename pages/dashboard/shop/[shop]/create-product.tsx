@@ -66,7 +66,9 @@ const CreateProduct:NextPage =()=>{
       setValue('shop',parseInt(shop))
     }
 
-    dispatch(getCategory(''))
+    if(category_list.length == 0 ){
+      dispatch(getCategory(''))
+    }
   },[])
   useEffect(()=>{
     if(status==='created'){

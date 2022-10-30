@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
+import Image, { StaticImageData } from 'next/image'
 import GeneralLayout from '../layout/GeneralLayout/GeneralLayout'
 import Offer from '../assets/offer-1.webp'
 import Offer2 from '../assets/offer-5.webp'
@@ -19,7 +19,6 @@ import { IndexIntroInfo,
   ImageControllerContainer,FilterBtnContainer ,
   HeroSection,HeroSectionContentBox,IndexPageMainArea
 } from '../pageStyles/index/index.style'
-import HeroImage from '../assets/cloths.webp'
 import HeroSearchBar from '../shared/HeroSearchBar/HeroSearchBar'
 import OffCanvas from '../shared/OffCanvas/OffCanvas'
 import { MobileNavLinkContainer } from '../shared/MobileNavBar/MobileNavBar.style'
@@ -36,10 +35,68 @@ import { getCartLocally } from '../redux/Cart/CartSlice'
 import { isAuth } from '../utils/extraFunction'
 import { getOrderApi } from '../redux/Cart/CartApi'
 import Preloader from '../shared/Preloader/Preloder'
+import HeroImage from '../assets/cloths.webp'
+import HeroImageBags from '../assets/bags.webp'
+import HeroImageGrocery from '../assets/grocery.webp'
+import HeroImagebakery from '../assets/bakery.webp'
+import HeroImagemakeup from '../assets/makeup.webp'
+import HeroImageFuniture from '../assets/funiture.jpg'
+
+
+type HeroContentType= {
+  title: string;
+  body: string;
+  type: string;
+  image: StaticImageData;
+}
+const HeroContent =[
+  {
+    title:'Groceries Delivered in 90 Minute',
+    body:'Get your healthy foods & snacks delivered at your doorsteps all day everyday',
+    type:'grocery',
+    image:HeroImageGrocery
+  },
+  {
+    title:'Get Your Bakery Items Delivered',
+    body:'Get your favorite bakery items baked and delivered to your doorsteps at any time',
+    type:'bakery',
+    image:HeroImagebakery
+  },
+  {
+    title:'Branded & imported makeups',
+    body:'Easiest and cheapest way to get your branded & imported makeups',
+    type:'makeup',
+    image:HeroImagemakeup
+  },
+  {
+    title:'Exclusive Branded bags',
+    body:'Get your exclusive & branded bags delivered to you in no time',
+    type:'bags',
+    image:HeroImageBags
+  },
+  {
+    title:'Shop your designer dresses ',
+    body:'Ready to wear dresses tailored for you online. Hurry up while stock lasts.',
+    type:'clothing',
+    image:HeroImage
+  },
+  {
+    title:'Exclusive Furnitures Made Only For you',
+    body:'make your house a home with our wide collection of beatiful furniture',
+    type:'funiture',
+    image:HeroImageFuniture
+  },{
+    title:'Exclusive Books',
+    body:'Meet Your Next Favorite Books.',
+    type:'book',
+    image:HeroImage
+  }
+
+]
 const Home: NextPage = () => {
   const isLaptop = useMediaQuery({ query: '(min-width: 700px)' })
   const  [modalIsOpen,setModalIsOpen] = useState(false);
-  const { data ,status} = useAppSelector(selectProduct)
+  const { data ,status,currentCategory} = useAppSelector(selectProduct)
   const dispatch = useAppDispatch();
 
   useEffect(()=>{
@@ -53,6 +110,12 @@ const Home: NextPage = () => {
       dispatch(getCartLocally({}))
     }
   },[])
+
+  const getData = (name:string):HeroContentType=>{
+    return HeroContent.filter(d=>d.type.toLocaleLowerCase()==name.toLocaleLowerCase())[0]
+  }
+  const hero_content:HeroContentType = getData(currentCategory)
+  console.log({'yo':getData(currentCategory),})
   return (
     
     <GeneralLayout>
@@ -60,13 +123,14 @@ const Home: NextPage = () => {
       {
         isLaptop?
           <HeroSection >
-            <Image src={HeroImage} 
+            <Image src={hero_content.image} 
               layout="fill"
             />
             <HeroSectionContentBox>
-              <h1>Groceries Delivered in 90 Minute</h1>
+              
+              <h1>{hero_content.title}</h1>
               <br />
-              <p>Get your healthy foods {'&'} snacks delivered at your doorsteps all day everyday</p>
+              <p>{hero_content.body}</p>
               <br />
               <br />
               <HeroSearchBar/>

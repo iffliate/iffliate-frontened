@@ -58,15 +58,16 @@ export const productCreateApi = createAsyncThunk(
 
 type getProductApiProp = {
   shopId:string;
+  look_up?:string;
 }
 
 export const getProductApi = createAsyncThunk(
-  'product/getProductApi',async ({shopId}:getProductApiProp,thunkApi)=>{
+  'product/getProductApi',async ({shopId,look_up=''}:getProductApiProp,thunkApi)=>{
     //
     
 
     try{
-      const resp = await api.get(`/product/?shop=${shopId}`)
+      const resp = await api.get(`/product/?shop=${shopId}${look_up}`)
       console.log({resp})
       return resp.data.data as Product[]
     }catch(err:any){

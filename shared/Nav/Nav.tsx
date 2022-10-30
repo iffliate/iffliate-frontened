@@ -3,7 +3,7 @@ import Button from '../Button/Button'
 import Logo from '../Logo/Logo'
 import {NavContainer,NavLinkContainer,NavBtnContainer} from './Nav.style'
 import SearchBar from '../SearchBar/SearchBar'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {  RiShoppingBagFill } from 'react-icons/ri'
 import { GiAmpleDress, GiAppleSeeds, GiOfficeChair, GiSlicedBread } from 'react-icons/gi'
 import { FaPaintBrush } from 'react-icons/fa'
@@ -15,6 +15,10 @@ import UserIconBtn from '../UserIconBtn/UserIconBtn'
 import OffCanvas from '../OffCanvas/OffCanvas'
 import { MobileNavLinkContainer } from '../MobileNavBar/MobileNavBar.style'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
+import { useSelector } from 'react-redux'
+import { selectProduct, setCurrentCategory } from '../../redux/Product/ProductSlice'
+import { getCategory, getProductApi } from '../../redux/Product/ProductApi'
+import { useAppDispatch } from '../../redux/hooks'
 
 const Nav = ():React.ReactElement=>{
   const isLaptop = useMediaQuery({ query: '(min-width: 700px)' })
@@ -24,6 +28,8 @@ const Nav = ():React.ReactElement=>{
   const route = useRouter()
   const path:string = route.pathname
   const user =  decodeToken()
+  const {category_list,status} = useSelector(selectProduct);
+  const dispatch = useAppDispatch()
   const handleRoute=(value:string)=>{
     route.push(value)
   }
@@ -31,6 +37,11 @@ const Nav = ():React.ReactElement=>{
     window.localStorage.removeItem('iffilate_cred')
   }
   
+  useEffect(()=>{
+    if(category_list.length == 0 ){
+      dispatch(getCategory(''))
+    }
+  },[])
   return (
     <NavContainer>
       {
@@ -45,15 +56,17 @@ const Nav = ():React.ReactElement=>{
               {
                 isLaptopIn100px?
                   <div style={{'width':'140px','marginLeft':'20px'}} >
-                    <SelectBar data={[
-                      {value:'Grocery',label:'Grocery',icon:<GiAppleSeeds color='#ff4f01'/>},
-                      {value:'Bakery',label:'Bakery',icon:<GiSlicedBread color='#ff4f01'/>},
-                      {value:'MakeUP',label:'Makeup',icon:<FaPaintBrush color='#ff4f01'/>},
-                      {value:'Bags',label:'Bags',icon:<RiShoppingBagFill color='#ff4f01'/>},
-                      {value:'Clothing',label:'Clothing',icon:<GiAmpleDress color='#ff4f01'/>},
-                      {value:'Funiture',label:'Funiture',icon:<GiOfficeChair color='#ff4f01'/>},
-                      {value:'Book',label:'Book',icon:<BiBookReader color='#ff4f01'/>},
-                    ]}
+                    <SelectBar data={category_list.map(data=>(
+                      {value:data.id,label:data.name,icon:''}
+                    )) }
+
+          
+                    runAfterChange={e=>{
+                      console.log({e})
+                      dispatch(setCurrentCategory(e.label))
+                      //this is were we would search by categories
+                      dispatch(getProductApi({shopId:'',look_up:`&category=${e.label}`}))
+                    }}
                     />
                   </div>
                   :

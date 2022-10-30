@@ -16,6 +16,10 @@ type createOrderApiProp = {
     product_id:number;
     cartItemState:CartItem[]
 }
+
+type reduceOrderApiProp = {
+  cartItemState:CartItem
+}
 type EndpointItems ={
   'id': 1,
   'quantity': 5,
@@ -65,6 +69,21 @@ export const createOrderApi= createAsyncThunk(
       return thunkApi.rejectWithValue(err)
     }
   })
+
+export const reduceOrderItemApi = createAsyncThunk(
+  'Cart/reduceOrderItemApi', async ({cartItemState}:reduceOrderApiProp,thunkApi)=>{
+    //
+    // 
+    const dataToBesent = {'items':[{'product_id':cartItemState.product.id,quantity:cartItemState.quantity-1}]}
+    try{
+      const resp = await api.post('/order/',dataToBesent)
+      return resp.data.data   as createOrderApiResponse
+    }
+    catch(err:any){
+      return thunkApi.rejectWithValue(err)
+    }
+  }
+)
 
 export  type bulkCreateOrderApiProp ={product_id:number,quantity:number}
 export const bulkCreateOrderApi = createAsyncThunk(

@@ -14,18 +14,24 @@ type State ={
   errMessage:any,
   data:Product[];
   category_list:Category[]
+  currentCategory:string;
 }
 
 const initialState:State={
   status:'idle',
   data:[],
   errMessage:null,
-  category_list:[]
+  category_list:[],
+  currentCategory:'clothing'
 }
 const productSlice = createSlice({
   name:'product',
   initialState:initialState,
-  reducers:{},
+  reducers:{
+    setCurrentCategory:(state,{payload}:PayloadAction<string>)=>{
+      state.currentCategory=payload
+    }
+  },
   extraReducers:({addCase})=>{
     //
 
@@ -94,6 +100,6 @@ const productSlice = createSlice({
   }
 })
 
-
+export const {setCurrentCategory} = productSlice.actions
 export const selectProduct = (state:RootState)=>state.product
 export default productSlice.reducer

@@ -2,7 +2,7 @@ import { createSlice ,PayloadAction} from '@reduxjs/toolkit';
 import { stat } from 'fs/promises';
 import { Product } from '../Product/ProductApi';
 import { RootState, sliceStatus } from '../store';
-import { CartItem, createOrderApi, createOrderApiResponse, getOrderApi } from './CartApi';
+import { CartItem, createOrderApi, createOrderApiResponse, getOrderApi, reduceOrderItemApi } from './CartApi';
 
 type State ={
 
@@ -137,6 +137,19 @@ const CartSlice= createSlice({
       console.log({'createOrderApi error':action.payload})
       state.status='error'
       state.errMessage='Some Error Occured Creating your order'
+    })
+
+    addCase(reduceOrderItemApi.pending,(state,action)=>{
+      //
+      state.status='updating'
+    })
+
+    addCase(reduceOrderItemApi.fulfilled,(state,{payload}:PayloadAction<createOrderApiResponse>)=>{
+      state.status='updated'
+      state.cartItem =payload.items.map(d=>{
+
+        return {id:d.id,'orderID':payload.id,quantity:d.quantity,'product':d.product}
+      })
     })
   }
 })

@@ -12,7 +12,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { addCartLocally, selectCart,removeCartLocally, reduceCart } from '../../redux/Cart/CartSlice';
 import { isAuth } from '../../utils/extraFunction';
 import { useEffect } from 'react';
-import { CartItem, createOrderApi } from '../../redux/Cart/CartApi';
+import { CartItem, createOrderApi, reduceOrderItemApi } from '../../redux/Cart/CartApi';
 // import PlaceholderImage from '../../assets/bags.webp'
 
 type Prop = {
@@ -21,7 +21,7 @@ type Prop = {
 }
 const SingleItem = ({ onClick ,data}:Prop):React.ReactElement=>{
   const dispatch = useAppDispatch()
-  const {status,cartItem,total} = useAppSelector(selectCart)
+  const {status,cartItem,total,} = useAppSelector(selectCart)
   console.log({cartItem,total})
 
   const handleCart=(product:Product)=>{
@@ -40,13 +40,24 @@ const SingleItem = ({ onClick ,data}:Prop):React.ReactElement=>{
   }
   const handleRemoveCartItem = (fuccartItem:CartItem)=>{
     //
-    if(fuccartItem.quantity==1){
-      if(fuccartItem.product.id){
-        dispatch(removeCartLocally(fuccartItem.product.id))
+    if(isAuth()){
+      console.log('we are working on it',fuccartItem)
+      if(fuccartItem.quantity===1){
+        //endpoint to delete an item
+        console.log('delete this item currenlty no loggic for it')
+      }else{
+        dispatch(reduceOrderItemApi({'cartItemState':fuccartItem}))
       }
-    }
-    else if(fuccartItem.product.id){
-      dispatch(reduceCart(fuccartItem.product.id))
+    }else{
+
+      if(fuccartItem.quantity==1){
+        if(fuccartItem.product.id){
+          dispatch(removeCartLocally(fuccartItem.product.id))
+        }
+      }
+      else if(fuccartItem.product.id){
+        dispatch(reduceCart(fuccartItem.product.id))
+      }
     }
   }
 
