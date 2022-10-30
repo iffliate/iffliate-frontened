@@ -15,8 +15,10 @@ import { useAppSelector } from '../../redux/hooks'
 import { selectCart } from '../../redux/Cart/CartSlice'
 import FloatingCartBtn from '../FloatingCartBtn/FloatingCartBtn'
 import { decodeToken } from '../../utils/extraFunction'
-
-const MobileNavBar = ():React.ReactElement=>{
+type Prop ={
+  dragConstraints:any
+}
+const MobileNavBar = ({dragConstraints}:Prop):React.ReactElement=>{
 
   const isLaptop = useMediaQuery({ query: '(min-width: 600px)' })
   const router = useRouter()
@@ -64,7 +66,7 @@ const MobileNavBar = ():React.ReactElement=>{
         size={isLaptop?60:100}
         btnClick={handleFloatingBtnClick}
         btnContrroller={ 
-          <FloatingCartBtn/>
+          <FloatingCartBtn dragConstraints={dragConstraints}/>
         } >
         <br /><br />
         {/* children */}

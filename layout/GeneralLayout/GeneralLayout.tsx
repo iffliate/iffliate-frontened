@@ -61,7 +61,7 @@ const GeneralLayout = ({children}:GeneralLayoutType):React.ReactElement=>{
               </Button>
             </div>
           </OffCanvas>
-          : <MobileNavBar/>
+          : <MobileNavBar dragConstraints={constraintsRef}/>
       }
      
     </motion.div>
