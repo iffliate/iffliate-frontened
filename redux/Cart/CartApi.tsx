@@ -85,6 +85,22 @@ export const reduceOrderItemApi = createAsyncThunk(
   }
 )
 
+export type removeOrderItemApiProp = {orderID:number,orderitem_id:number}
+export const removeOrderItemApi = createAsyncThunk(
+  'Cart/removeOrderItemApi',async({orderID,orderitem_id}:removeOrderItemApiProp,thunkApi)=>{
+    //
+
+    try{
+      const resp = await api.delete(`/order/${orderID}/?orderitem_id=${orderitem_id}`,)
+      resp.data.data
+      return resp.data.data as removeOrderItemApiProp
+    }
+    catch(err:any){
+      return thunkApi.rejectWithValue(err)
+    }
+
+  })
+
 export  type bulkCreateOrderApiProp ={product_id:number,quantity:number}
 export const bulkCreateOrderApi = createAsyncThunk(
   'Cart/bulkCreateOrderApi', async (data:bulkCreateOrderApiProp[],thunkAPi)=>{

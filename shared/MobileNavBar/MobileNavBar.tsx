@@ -87,6 +87,9 @@ const MobileNavBar = ({dragConstraints}:Prop):React.ReactElement=>{
                   ${cartItem.map(d=>d.quantity*d.product.actual_price).reduce((partialSum,a)=>partialSum+a,0)}
             </p>
           </Button>
+          <br /><br /><br /><br />
+          <br /><br /><br /><br />
+          <br /><br /><br /><br />
         </div>
       </OffCanvas>
      

@@ -12,7 +12,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { addCartLocally, selectCart,removeCartLocally, reduceCart } from '../../redux/Cart/CartSlice';
 import { isAuth } from '../../utils/extraFunction';
 import { useEffect } from 'react';
-import { CartItem, createOrderApi, reduceOrderItemApi } from '../../redux/Cart/CartApi';
+import { CartItem, createOrderApi, reduceOrderItemApi, removeOrderItemApi } from '../../redux/Cart/CartApi';
 // import PlaceholderImage from '../../assets/bags.webp'
 
 type Prop = {
@@ -44,7 +44,9 @@ const SingleItem = ({ onClick ,data}:Prop):React.ReactElement=>{
       console.log('we are working on it',fuccartItem)
       if(fuccartItem.quantity===1){
         //endpoint to delete an item
-        console.log('delete this item currenlty no loggic for it')
+        if(fuccartItem.id&&fuccartItem.orderID){
+          dispatch(removeOrderItemApi({'orderID':fuccartItem.orderID,'orderitem_id':fuccartItem.id}))
+        }
       }else{
         dispatch(reduceOrderItemApi({'cartItemState':fuccartItem}))
       }

@@ -2,7 +2,7 @@ import { createSlice ,PayloadAction} from '@reduxjs/toolkit';
 import { stat } from 'fs/promises';
 import { Product } from '../Product/ProductApi';
 import { RootState, sliceStatus } from '../store';
-import { CartItem, createOrderApi, createOrderApiResponse, getOrderApi, reduceOrderItemApi } from './CartApi';
+import { CartItem, createOrderApi, createOrderApiResponse, getOrderApi, reduceOrderItemApi, removeOrderItemApi,removeOrderItemApiProp } from './CartApi';
 
 type State ={
 
@@ -83,6 +83,8 @@ const CartSlice= createSlice({
       }
 
     }
+
+    
   },
   extraReducers:({addCase})=>{
     addCase(getOrderApi.pending,(state,action)=>{
@@ -111,7 +113,7 @@ const CartSlice= createSlice({
     addCase(createOrderApi.pending,(state,action)=>{
       state.status='pending'
     })
-
+    
     addCase(createOrderApi.fulfilled,(state,{payload}:PayloadAction<createOrderApiResponse>)=>{
       state.status='created';
       // state.cartItem.map(d=>d.product.id).includes(payload.id
@@ -138,7 +140,7 @@ const CartSlice= createSlice({
       state.status='error'
       state.errMessage='Some Error Occured Creating your order'
     })
-
+    
     addCase(reduceOrderItemApi.pending,(state,action)=>{
       //
       state.status='updating'
@@ -147,10 +149,24 @@ const CartSlice= createSlice({
     addCase(reduceOrderItemApi.fulfilled,(state,{payload}:PayloadAction<createOrderApiResponse>)=>{
       state.status='updated'
       state.cartItem =payload.items.map(d=>{
-
+        
         return {id:d.id,'orderID':payload.id,quantity:d.quantity,'product':d.product}
       })
     })
+
+    // remove cart item  with api
+  
+    addCase(removeOrderItemApi.pending,(state,action)=>{
+      state.status='deleting'
+    })
+
+    addCase(removeOrderItemApi.fulfilled,(state,{payload}:PayloadAction<removeOrderItemApiProp>)=>{
+      //
+      state.status='deleted'
+      state.cartItem= state.cartItem.filter(d=>d.id != payload.orderitem_id)
+    })
+
+
   }
 })
 
