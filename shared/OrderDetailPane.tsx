@@ -49,7 +49,7 @@ const OrderDetailPane = ({data,is_shop=false}:Prop):React.ReactElement=>{
   const route = useRouter()
   const dispatch = useAppDispatch()
   const cards = [
-    {label:'Order Number',value:data[0].paystack},
+    {label:'Order Number',value:data[0].paystack?data[0].paystack:''},
     {label:'Date',value:data[0].created_at},
     {label:'Total',value:'nil'},
     {label:'Payment Method',value:'Payment_Gate_Way'},
@@ -57,7 +57,9 @@ const OrderDetailPane = ({data,is_shop=false}:Prop):React.ReactElement=>{
   const handleStatusChange = ({value}:any)=>{
     if(window.confirm('Are Sure You want to change the status')){
       console.log(value)
-      dispatch(updateOrderHistoryStatus({'paystack':data[0].paystack,status:value}))
+      if(data[0].paystack){
+        dispatch(updateOrderHistoryStatus({'paystack':data[0].paystack,status:value}))
+      }
     }
   }
   return (
