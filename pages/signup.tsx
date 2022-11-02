@@ -24,6 +24,7 @@ const schema =yup.object().shape({
   phone:yup.number().min(11).required(),
 })
 const signup:NextPage= ()=>{
+  
   const {notify} = useToast();
   const {status,errMessage}= useAppSelector(selectSignUp);
   const dispatch= useAppDispatch();
@@ -41,7 +42,8 @@ const signup:NextPage= ()=>{
 
   useEffect(()=>{
     if(status==='created'){
-      notify('Account Created Please Check your mail','success')
+      notify('Account Created Please Login','success')
+      route.push('/signin')
     }
     if(status==='error'){
       notify(errMessage,'error')

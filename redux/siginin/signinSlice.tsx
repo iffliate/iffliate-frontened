@@ -17,7 +17,11 @@ const initialState:State={
 const sign_in = createSlice({
   name:'sign_in',
   initialState:initialState,
-  reducers:{},
+  reducers:{
+    setSignInIdle:(state,action)=>{
+      state.status='idle'
+    }
+  },
   extraReducers:({addCase})=>{
     //
     addCase(sigininApi.pending,(state,action)=>{
@@ -40,6 +44,7 @@ const sign_in = createSlice({
 })
 
 
+export const {setSignInIdle } = sign_in.actions
 export const selectSignIn = (state:RootState)=>state.sign_in
 export default sign_in.reducer
 

@@ -14,7 +14,7 @@ import { selectSignUp } from '../redux/signup/signupSlice'
 import { useEffect } from 'react'
 import { useMediaQuery } from 'react-responsive'
 import { sigininApi, sigininApiPropType } from '../redux/siginin/sigininApi'
-import { selectSignIn } from '../redux/siginin/signinSlice'
+import { selectSignIn, setSignInIdle } from '../redux/siginin/signinSlice'
 import { useRouter } from 'next/router'
 import { removeCartLocally } from '../redux/Cart/CartSlice'
 import { bulkCreateOrderApi, bulkCreateOrderApiProp } from '../redux/Cart/CartApi'
@@ -46,6 +46,7 @@ const signin:NextPage= ()=>{
   useEffect(()=>{
     if(status==='success'){
       notify('Login Successfull','success')
+      dispatch(setSignInIdle({}))
       dispatch(removeCartLocally(2))
       let iffiliateLocalcart:any = window.localStorage.getItem('iffiliate_cart')
       if(iffiliateLocalcart){

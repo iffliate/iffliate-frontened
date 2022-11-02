@@ -72,7 +72,7 @@ const MobileNavBar = ({dragConstraints}:Prop):React.ReactElement=>{
         {/* children */}
         <div style={{'position':'relative',
           // 'border':'1px solid red',
-          'height':'80%','overflowY':'scroll'}}>
+          'height':'80%','overflowY':'scroll','zIndex':'80px'}}>
           {
             cartItem.length==0?
               '':
@@ -99,6 +99,7 @@ const MobileNavBar = ({dragConstraints}:Prop):React.ReactElement=>{
           {
             user?
               <>
+                <li><a  onClick={()=>handleRoute('/dashboard/personal/myorders/')}><AiOutlineShoppingCart/>{' '}DashBoard</a></li>
                 <li><a onClick={()=>handleRoute(`/dashboard/shop/${'?user='+user.user_id}`)}><AiOutlineShoppingCart/>{' '}Shops</a></li>
 
 
@@ -109,12 +110,16 @@ const MobileNavBar = ({dragConstraints}:Prop):React.ReactElement=>{
 
                   handleRoute('/')
                 }}><AiOutlineShoppingCart/>{' '}Sign Out</a></li>
+                <Button style={{'width':'70%','margin':'30px auto'}} onClick={(e)=>route.push('/dashboard/shop/create')}
+                >Become a Seller</Button>
               </>
               :
               <>
               
                 <li><a onClick={()=>handleRoute('/signup')}>Sign up</a></li>
                 <li><a onClick={()=>handleRoute('/signin')}>Sign in</a></li>
+               
+                
               </>
           }
           

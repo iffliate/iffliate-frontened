@@ -44,7 +44,7 @@ const GeneralLayout = ({children}:GeneralLayoutType):React.ReactElement=>{
             {/* children */}
             <div style={{'position':'relative',
             // 'border':'1px solid red',
-              'height':'80%','overflowY':'scroll'}}>
+              'height':'80%','overflowY':'scroll','zIndex':30}}>
               {
                 cartItem.length==0?
                   '':

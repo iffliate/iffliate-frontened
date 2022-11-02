@@ -18,7 +18,7 @@ font-size: 1.3rem;
 display: flex;
 justify-content: space-between;
 /* border: 1px solid red; */
-
+z-index: 99;
 svg{
   cursor: pointer;
  

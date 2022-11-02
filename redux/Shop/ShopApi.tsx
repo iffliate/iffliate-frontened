@@ -7,10 +7,10 @@ export type shopType = {
   'id'?:number,
   'name':string,
   'slug':string,
-  'facebook': string,
-  'twitter': string,
-  'whatsapp': string,
-  'instagram': string;
+  'facebook'?: string,
+  'twitter'?: string,
+  'whatsapp'?: string,
+  'instagram'?: string;
   'about': string,
   'banner':any,
   'logo': any,
@@ -33,10 +33,20 @@ export const createShop = createAsyncThunk(
     const form = new FormData()
 
     form.append('name',data.name)
-    form.append('facebook',data.facebook)
-    form.append('twitter',data.twitter)
-    form.append('whatsapp',data.whatsapp)
-    form.append('instagram',data.instagram)
+    if(data.facebook){
+      form.append('facebook',data.facebook)
+    }
+
+    if(data.twitter){
+      form.append('twitter',data.twitter)
+    }
+    if(data.whatsapp){
+      form.append('whatsapp',data.whatsapp)
+    }
+    if(data.instagram){
+      form.append('instagram',data.instagram)
+    }
+
     form.append('about',data.about)
     form.append('banner',data.banner)
     form.append('logo',data.logo)
@@ -79,10 +89,10 @@ export const getShop = createAsyncThunk(
 export type ShopDetailType ={
     'name': string,
     'id': number,
-    'facebook': string,
-    'twitter': string,
-    'whatsapp': string,
-    'instagram': string,
+    'facebook'?: string,
+    'twitter'?: string,
+    'whatsapp'?: string,
+    'instagram'?: string,
     'about': string,
     'banner': string,
     'logo':string,

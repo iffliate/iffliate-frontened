@@ -11,18 +11,19 @@ import { createShop, shopType } from '../../../redux/Shop/ShopApi'
 import Button from '../../../shared/Button/Button'
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks'
 import { selectShop, setShopIdle } from '../../../redux/Shop/ShopSlice'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import useToast from '../../../hooks/useToastify'
 import { useRouter } from 'next/router'
+import axios from 'axios'
 
 
 
 const schema = yup.object().shape({
   name:yup.string().required(),
-  facebook:yup.string().required(),
-  twitter:yup.string().required(),
-  whatsapp:yup.string().required(),
-  instagram:yup.string().required(),
+  facebook:yup.string(),
+  twitter:yup.string(),
+  whatsapp:yup.string(),
+  instagram:yup.string(),
   about:yup.string().required(),
   info:yup.string().required(),
 
@@ -51,6 +52,7 @@ const Create:NextPage = ()=>{
   const dispatch  = useAppDispatch();
   const {status,errMessage} = useAppSelector(selectShop);
   const {notify} = useToast()
+  const [banks,setBanks] = useState<any>()
   const { 
     register,setValue, 
     handleSubmit,control,
@@ -61,6 +63,13 @@ const Create:NextPage = ()=>{
   const onSubmit: SubmitHandler<shopType>=data=>{
     dispatch(createShop(data))
   }
+
+  const getBanks = async()=>{
+    const resp:any =await axios.get('https://api.paystack.co/bank');
+
+    setBanks(resp.data.data.map((data:any)=>data.name))
+  }
+  
 
   useEffect(()=>{
     if(status==='created'){
@@ -77,7 +86,9 @@ const Create:NextPage = ()=>{
     }
   },[status])
 
-
+  useEffect(()=>{
+    getBanks()
+  },[])
   console.log({errors})
   return (
     <DashboardLayout
@@ -163,13 +174,27 @@ Dimension of the cover image should be <strong> 1170 x 435px</strong></p>
             errorMessage={errors.account_holder_email?.message}
 
           />
-          <br />
-          <InputWithLabel label='Bank Name'
+          {/* <InputWithLabel label='Bank Name'
             register={register('bank_name')}
             errorMessage={errors.bank_name?.message}
 
-          />
-
+          /> */}
+          <br />
+          <br />
+          <label htmlFor={'label'}>Bank Name</label> 
+          <br />
+          <select {...register('bank_name')}>
+            {
+              banks?
+                banks.map((d:string,index:number)=> <option
+                  onChange={(e:any)=>{
+                    setValue('bank_name',e.target.value)
+                  }}
+                  key={index} value={d}>{d}</option>)
+                :''
+            }
+          </select>
+          <br />
           <br />
           <InputWithLabel label='Account Number'
             register={register('account_number')}
@@ -225,26 +250,26 @@ Dimension of the cover image should be <strong> 1170 x 435px</strong></p>
           <p>Add your shop settings information from here</p>
         </div>
         <Pane>
-          <InputWithLabel label='FaceBook'
+          <InputWithLabel label='FaceBook(optional)'
             register={register('facebook')}
             errorMessage={errors.facebook?.message}
 
           />
           <br />
-          <InputWithLabel label='Instagram'
+          <InputWithLabel label='Instagram(optional)'
             register={register('instagram')}
             errorMessage={errors.instagram?.message}
 
           />
           <br />
-          <InputWithLabel label='Twitter'
+          <InputWithLabel label='Twitter(optional)'
             register={register('twitter')}
             errorMessage={errors.twitter?.message}
 
           />
 
           <br />
-          <InputWithLabel label='Whatapp'
+          <InputWithLabel label='Whatapp(optional)'
             register={register('whatsapp')}
             errorMessage={errors.whatsapp?.message}
           />

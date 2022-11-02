@@ -24,15 +24,33 @@ const  ShopDetailPane = ({shopDetail}:Prop):React.ReactElement=>{
         <p className='read_more'><strong>read more</strong></p>  
         <Socials>
           {/* facebook */}
-          <a href="">\
-            <BsFacebook/>
-          </a>
+          {
+            shopDetail.facebook?
+              <a  href={shopDetail.facebook} target={'_blank'} rel="noreferrer">
+                <BsFacebook/>
+              </a>:''
+          }
           {/* instagram */}
-          <RiInstagramFill/>
+          {
+            shopDetail.instagram?
+              <a href={shopDetail.instagram} target={'_blank'} rel="noreferrer" >
+                <RiInstagramFill/>
+              </a>:''
+          }
           {/* twitter */}
-          <AiFillTwitterCircle/>
+          {
+            shopDetail.twitter?
+              <a href={shopDetail.twitter} target={'_blank'} rel="noreferrer">
+                <AiFillTwitterCircle/>
+              </a>:''
+          }
           {/* whatapp */}
-          <RiWhatsappFill/>
+          {
+            shopDetail.whatsapp?
+              <a  href={shopDetail.whatsapp} target={'_blank'} rel="noreferrer">
+                <RiWhatsappFill/>
+              </a>:''
+          }
         </Socials>
         {/* gray line */}
 
