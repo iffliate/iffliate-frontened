@@ -30,14 +30,7 @@ const myorders:NextPage = ()=>{
       accessor:'paystack',
       id:13
     },
-    {
-      Header:'Order Date',
-      accessor:'created_at'
-    },
-    {
-      Header:'Shipping Addresse',
-      accessor:''
-    },
+
     {
       Header:'View Detail',
       accessor:'paystack',

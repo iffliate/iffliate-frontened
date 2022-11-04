@@ -13,7 +13,7 @@ import {AiFillCloseCircle} from 'react-icons/ai'
 import {BsFillCalendar2CheckFill} from 'react-icons/bs'
 import useToast from '../../../../hooks/useToastify';
 
-export type prop_columnsType ={Header:string,accessor:string,Cell?:any,id?:any}
+export type prop_columnsType ={Header:string,accessor?:string,Cell?:any,id?:any}
 
 
 

@@ -29,23 +29,13 @@ const ShopOrder:NextPage = ()=>{
       id:13
     },
     {
-      Header:'Order Date',
-      accessor:'created_at'
-    },
-    {
-      Header:'Shipping Addresse',
-      accessor:''
-    },
-    {
       Header:'View Detail',
       accessor:'paystack',
       id:1,
       Cell:(tableProps:any)=>(
         // this is were we do onClick to call the orderHistory Detail
         <AiTwotoneEye style={{'color':'#f77305'}} onClick={e=>{
-          console.log(
-            tableProps.row.original.paystack,
-          )
+          console.log(`/dashboard/shop/${shop}/order/${tableProps.row.original.paystack}`)
           if(typeof shop == 'string'){
             dispatch(getOrderHistoryDetail({
               'shopID':shop,
@@ -64,7 +54,7 @@ const ShopOrder:NextPage = ()=>{
       console.log({shop})
       dispatch(getorderHistoryList({'shopID':parseInt(shop)}))
     }
-  },[])
+  },[route.isReady])
 
   console.log({order_historys})
   return  (
@@ -77,6 +67,7 @@ const ShopOrder:NextPage = ()=>{
       ]}
     >
       {status=='pending'&&<p>Loading Stuff</p>}
+      {status=='pending'&&route.isReady===false}
       <Pane>
         <h1>Shop Orders</h1>
         <br /><br />

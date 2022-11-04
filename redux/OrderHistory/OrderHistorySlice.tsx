@@ -8,7 +8,7 @@ type State ={
     status:sliceStatus,
     errMessage:any,
     order_historys:OrderHistoryType[],
-    order_history_paystacks:string[]
+    order_history_paystacks:{'paystack':string}[]
 }
 
 const initialState:State = {
@@ -31,7 +31,7 @@ const OrderHistory = createSlice({
 
     addCase(getorderHistoryList.fulfilled,(state,{payload}:PayloadAction<string[]>)=>{
       state.status='success'
-      state.order_history_paystacks=payload
+      state.order_history_paystacks=payload.map(d=>({'paystack':d}))
     })
     addCase(getorderHistoryList.rejected,(state,{payload})=>{
       //
