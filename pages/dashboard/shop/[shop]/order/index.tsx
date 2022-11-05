@@ -10,7 +10,7 @@ import Table from '../../../../../shared/Table/Table';
 import { selectOrderHistory } from '../../../../../redux/OrderHistory/OrderHistorySlice';
 import { useEffect } from 'react';
 import { getOrderHistoryDetail, getorderHistoryList } from '../../../../../redux/OrderHistory/OrderHistoryApi';
-
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 
 
@@ -52,7 +52,7 @@ const ShopOrder:NextPage = ()=>{
   useEffect(()=>{
     if(typeof shop == 'string'){
       console.log({shop})
-      dispatch(getorderHistoryList({'shopID':parseInt(shop)}))
+      dispatch(getorderHistoryList({'shopID':parseInt(shop),lookup:'?status=order_processing'}))
     }
   },[route.isReady])
 
@@ -71,7 +71,51 @@ const ShopOrder:NextPage = ()=>{
       <Pane>
         <h1>Shop Orders</h1>
         <br /><br />
-        <Table prop_columns={prop_columns} custom_data={order_history_paystacks}/>
+      
+
+        <Tabs onSelect={(index: number, lastIndex: number, event: Event)=>{
+          //
+          if(typeof shop == 'string'){
+            if(index== 0){
+              console.log('order processing')
+            
+              dispatch(getorderHistoryList({'shopID':parseInt(shop),lookup:'?status=order_processing'}))
+            }
+            if(index== 1){
+              console.log('Ready to dispatch')
+              dispatch(getorderHistoryList({'shopID':parseInt(shop),lookup:'?status=ready_to_dispatch'}))
+
+            }
+            if(index== 2){
+              console.log('Delivered')
+              dispatch(getorderHistoryList({'shopID':parseInt(shop),lookup:'?status=delivered'}))
+            }
+          }
+        }}>
+          <TabList>
+            <Tab>Order Processing</Tab>
+            <Tab>Ready To Dispatch</Tab>
+            <Tab>Delivered</Tab>
+          </TabList>
+
+          <TabPanel>
+            <Table prop_columns={prop_columns} custom_data={order_history_paystacks}/>
+
+          </TabPanel>
+          <TabPanel>
+            <Table prop_columns={prop_columns} custom_data={order_history_paystacks}/>
+          </TabPanel>
+          <TabPanel>
+            <Table prop_columns={prop_columns} custom_data={order_history_paystacks}/>
+          </TabPanel>
+
+          <TabPanel>
+            <Table prop_columns={prop_columns} custom_data={order_history_paystacks}/>
+          </TabPanel>
+
+            
+        </Tabs>
+      
       </Pane>
     </DashboardLayout>
   )

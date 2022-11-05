@@ -29,14 +29,14 @@ export  type OrderHistoryType = {
 
 
 export const getorderHistoryList = createAsyncThunk(
-  'orderhistory/getorderHistoryList',async ({shopID,is_for_shop=true}:{shopID:number,is_for_shop?:boolean;},thunkAPi)=>{
+  'orderhistory/getorderHistoryList',async ({shopID,is_for_shop=true,lookup=''}:{shopID:number,is_for_shop?:boolean;lookup?:string},thunkAPi)=>{
     //
     let url = `/order-shop-management/${shopID}/get_all_paystack_keys/`
     if(is_for_shop==false){
       url ='/order-user-management/get_all_paystack_keys/'
     }
     try {
-      const resp = await api.get(url) 
+      const resp = await api.get(url+`${lookup}`) 
       console.log({resp})
       return resp.data.data as string[];
     } catch (err:any) {

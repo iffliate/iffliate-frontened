@@ -6,7 +6,7 @@ import { ToastContainer } from 'react-toastify';
 import { Provider } from 'react-redux';
 import { store } from '../redux/store';
 import NextNProgress from 'nextjs-progressbar';
-
+import 'react-tabs/style/react-tabs.css';
 function MyApp({ Component, pageProps }: AppProps) {
   const [theme, setTheme] = useState<'dark'|'light'>('light') 
 

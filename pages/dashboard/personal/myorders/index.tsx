@@ -11,7 +11,7 @@ import Pane from '../../../../shared/Pane/Pane';
 import Table from '../../../../shared/Table/Table';
 import { prop_columnsType } from '../../shop/[shop]';
 
-
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 
 
@@ -51,7 +51,7 @@ const myorders:NextPage = ()=>{
   ] 
 
   useEffect(()=>{
-    dispatch(getorderHistoryList({'shopID':-1,is_for_shop:false}))
+    dispatch(getorderHistoryList({'shopID':-1,is_for_shop:false,lookup:'?status=order_processing'}))
   },[])
 
   console.log({
@@ -76,7 +76,46 @@ const myorders:NextPage = ()=>{
         <Pane>
           <h1>Orders</h1>
           <br /><br />
-          <Table prop_columns={prop_columns} custom_data={order_history_paystacks}/>
+
+          <Tabs onSelect={(index: number, lastIndex: number, event: Event)=>{
+            //
+            if(index== 0){
+              console.log('order processing')
+              dispatch(getorderHistoryList({'shopID':-1,is_for_shop:false,lookup:'?status=order_processing'}))
+            }
+            if(index== 1){
+              console.log('Ready to dispatch')
+              dispatch(getorderHistoryList({'shopID':-1,is_for_shop:false,lookup:'?status=ready_to_dispatch'}))
+
+            }
+            if(index== 2){
+              console.log('Delivered')
+              dispatch(getorderHistoryList({'shopID':-1,is_for_shop:false,lookup:'?status=delivered'}))
+            }
+          }}>
+            <TabList>
+              <Tab>Order Processing</Tab>
+              <Tab>Ready To Dispatch</Tab>
+              <Tab>Delivered</Tab>
+            </TabList>
+
+            <TabPanel>
+              <Table prop_columns={prop_columns} custom_data={order_history_paystacks}/>
+
+            </TabPanel>
+            <TabPanel>
+              <Table prop_columns={prop_columns} custom_data={order_history_paystacks}/>
+            </TabPanel>
+            <TabPanel>
+              <Table prop_columns={prop_columns} custom_data={order_history_paystacks}/>
+            </TabPanel>
+
+            <TabPanel>
+              <Table prop_columns={prop_columns} custom_data={order_history_paystacks}/>
+            </TabPanel>
+
+            
+          </Tabs>
         </Pane>
       </Pane>
 
