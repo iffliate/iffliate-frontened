@@ -15,6 +15,7 @@ import { useEffect, useState } from 'react'
 import useToast from '../../../hooks/useToastify'
 import { useRouter } from 'next/router'
 import axios from 'axios'
+import Preloader from '../../../shared/Preloader/Preloder'
 
 
 
@@ -95,6 +96,7 @@ const Create:NextPage = ()=>{
       showDetail={true}
       listOFLinks={[]}
     >
+      <Preloader loading={status==='creating' || status==='pending'}/>
       <h2>Create Shop</h2>
       <ContentWithFormInput>
         <div>

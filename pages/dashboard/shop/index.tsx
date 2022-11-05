@@ -12,6 +12,7 @@ import { getShop } from '../../../redux/Shop/ShopApi';
 import { useRouter } from 'next/router';
 import {AiFillEye,AiFillSetting} from 'react-icons/ai'
 import { decodeToken } from '../../../utils/extraFunction';
+import Preloader from '../../../shared/Preloader/Preloder';
 // import DummyImage from '../../assets/shopimage.webp'
 
 const DummyImage= 'https://pickbazar-react.vercel.app/_next/image?url=https%3A%2F%2Fpickbazarlaravel.s3.ap-southeast-1.amazonaws.com%2F882%2FFurniture.png&w=1920&q=75'
@@ -26,7 +27,7 @@ const index:NextPage=()=>{
   console.log({status,data})
   return (
     <GeneralLayout>
-
+      <Preloader loading={status==='pending'} />
       <br /><br /><br />
       <AllShopsContainer>
         <h2>All Your Shops</h2>

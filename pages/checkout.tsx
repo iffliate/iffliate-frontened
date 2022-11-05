@@ -15,6 +15,7 @@ import useToast from '../hooks/useToastify';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import Preloader from '../shared/Preloader/Preloder';
 
 
 
@@ -31,6 +32,7 @@ const Checkout:NextPage = ()=>{
   const {cartItem,status} = useAppSelector(selectCart)
   const dispatch = useAppDispatch();
   const {notify} = useToast()
+  const [isLoading,setIsLoading] = useState(false)
   const handleRoute = (path:string)=>{
     route.push(path)
   }
@@ -42,7 +44,7 @@ const Checkout:NextPage = ()=>{
     InitPayment(data)
   }
   const InitPayment = async(data:CheckoutType)=>{
-   
+    setIsLoading(true)
     try {
       const resp = await api.post(`/payment/process_order_payment/${cartItem[0].orderID}/`,{
         'phone':data.phone,
@@ -56,11 +58,14 @@ const Checkout:NextPage = ()=>{
         notify('Wrong Order please refresh the page','error')
 
       }
+      setIsLoading(false)
+
     } catch (err:any) {
       //
       console.log(getUserTokenOr404())
       console.log({err})
       notify('please check your internet','error')
+      setIsLoading(false)
 
     }
   }
@@ -80,6 +85,7 @@ const Checkout:NextPage = ()=>{
       showDetail={true}
       listOFLinks={[]}
     >
+      <Preloader loading={status ==='pending' || status==='updating'||isLoading}/>
       <form onSubmit={handleSubmit(onSubmit)}>
         <CheckoutMainContainer>
           {/* <p>{status}</p> */}

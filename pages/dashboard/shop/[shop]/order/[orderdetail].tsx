@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../../../../redux/hooks';
 import { getOrderHistoryDetail } from '../../../../../redux/OrderHistory/OrderHistoryApi';
 import { selectOrderHistory } from '../../../../../redux/OrderHistory/OrderHistorySlice';
 import OrderDetailPane from '../../../../../shared/OrderDetailPane';
+import Preloader from '../../../../../shared/Preloader/Preloder';
 
 
 
@@ -43,6 +44,7 @@ const shopOrderDetails:NextPage = ()=>{
       listOFLinks={[]}
       showDetail={true}
     >
+      <Preloader loading={status==='pending'||status==='updating'} />
       {status}
       {
         order_historys.length!==0?
