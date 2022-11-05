@@ -12,6 +12,7 @@ import Table from '../../../../shared/Table/Table';
 import { prop_columnsType } from '../../shop/[shop]';
 
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import Preloader from '../../../../shared/Preloader/Preloder';
 
 
 
@@ -68,9 +69,9 @@ const myorders:NextPage = ()=>{
         }},
       ]}
     >
+      <Preloader loading={status=='pending'|| route.isReady===false} />
 
       <Pane>
-        {status=='pending'&&<p>Loading Stuff</p>}
 
         {/* <Table/> */}
         <Pane>

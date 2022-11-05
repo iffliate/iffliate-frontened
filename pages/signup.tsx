@@ -86,7 +86,7 @@ const signup:NextPage= ()=>{
           <InputWithLabel label='Password' placeholder='*****' 
             register={register('password')} 
             errorMessage={errors.password?.message}
-        
+            type='password'
           />
           <br />
           <InputWithLabel label='Confirm Password' placeholder='*****'

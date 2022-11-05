@@ -107,7 +107,7 @@ const Nav = ():React.ReactElement=>{
                                 <li><a onClick={()=>handleRoute('/checkout')} ><AiOutlineShoppingCart/>{' '}Checkout</a></li>
                                 <li><a href="" onClick={e=>{
                                   e.preventDefault()
-                                  handleSignOut()
+                                  handleRoute('/logout')
                                 }}><AiOutlineShoppingCart/>{' '}Sign Out</a></li>
                               </MobileNavLinkContainer>
                             </div>

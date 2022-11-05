@@ -100,6 +100,7 @@ const signin:NextPage= ()=>{
           <InputWithLabel label='Password' placeholder='*****' 
             register={register('password')} 
             errorMessage={errors.password?.message}
+            type={'password'}
         
           />
           <br /><br />

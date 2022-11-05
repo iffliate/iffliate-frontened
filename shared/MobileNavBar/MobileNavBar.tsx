@@ -22,6 +22,7 @@ const MobileNavBar = ({dragConstraints}:Prop):React.ReactElement=>{
 
   const isLaptop = useMediaQuery({ query: '(min-width: 600px)' })
   const router = useRouter()
+  const { shop } = router.query
   const {status,cartItem} = useAppSelector(selectCart);
   const user =  decodeToken()
   const route = useRouter()
@@ -37,7 +38,6 @@ const MobileNavBar = ({dragConstraints}:Prop):React.ReactElement=>{
   const handleSignOut = ():void=>{
     window.localStorage.removeItem('iffilate_cred')
   }
-  
   return (
     <MobileNavBarContainer>
       <OffCanvas btnContrroller={<FaBars 
@@ -106,10 +106,17 @@ const MobileNavBar = ({dragConstraints}:Prop):React.ReactElement=>{
                 <li><a  onClick={()=>handleRoute('/dashboard/personal/myorders/')}><AiOutlineShoppingCart/>{' '}My Orders</a></li>
                 <li><a href="" onClick={e=>{
                   e.preventDefault()
-                  handleSignOut()
-
-                  handleRoute('/')
+                  handleRoute('/logout')
                 }}><AiOutlineShoppingCart/>{' '}Sign Out</a></li>
+              
+                {
+                  router.pathname.includes('/dashboard/shop/[shop]')?
+                    <>
+                      <li><a  onClick={()=>handleRoute(`/dashboard/shop/${shop}/`)}><AiOutlineShoppingCart/>{' '}Shop Products</a></li>
+                      <li><a  onClick={()=>handleRoute(`/dashboard/shop/${shop}/order/`)}><AiOutlineShoppingCart/>{' '}Shop Orders</a></li>
+                  
+                    </>:''
+                }
                 <Button style={{'width':'70%','margin':'30px auto'}} onClick={(e)=>route.push('/dashboard/shop/create')}
                 >Become a Seller</Button>
               </>

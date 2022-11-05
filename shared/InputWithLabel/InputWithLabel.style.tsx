@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 
 export const InputWithLableContainer = styled.div`
-
+position: relative;
 label{
   color: #4b5563;
   font-weight:500;
@@ -23,6 +23,14 @@ input,textarea{
   &:focus{
     border: 1px solid ${(props)=>props.theme.main_color};
   }
+}
+  svg{
+cursor: pointer ;
+  font-size: 1.5rem;
+  position: absolute;
+  left: 90%;
+  top: 50%;
+  /* transform: translateX(-90%); */
 }
 `
 

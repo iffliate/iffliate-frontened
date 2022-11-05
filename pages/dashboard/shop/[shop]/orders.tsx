@@ -14,7 +14,7 @@ const ShopOrder:NextPage =()=>{
         {label:'Product',route:''},
         {label:'Orders ',route:''},
         // {label:'Danloads',route:''},
-        {label:'Logout',route:''},
+        {label:'Logout',route:'/logout'},
       ]}
     >
 

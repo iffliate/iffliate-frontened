@@ -11,6 +11,7 @@ import { selectOrderHistory } from '../../../../../redux/OrderHistory/OrderHisto
 import { useEffect } from 'react';
 import { getOrderHistoryDetail, getorderHistoryList } from '../../../../../redux/OrderHistory/OrderHistoryApi';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import Preloader from '../../../../../shared/Preloader/Preloder';
 
 
 
@@ -63,11 +64,11 @@ const ShopOrder:NextPage = ()=>{
         {label:'Product',route:`/dashboard/shop/${shop}`},
         {label:'Orders ',route:`/dashboard/shop/${shop}/order`},
         // {label:'Danloads',route:''},
-        {label:'Logout',route:''},
+        {label:'Logout',route:'/logout'},
       ]}
     >
-      {status=='pending'&&<p>Loading Stuff</p>}
-      {status=='pending'&&route.isReady===false}
+      {/* {&&<Pr} */}
+      <Preloader loading={status=='pending'|| route.isReady===false} />
       <Pane>
         <h1>Shop Orders</h1>
         <br /><br />
@@ -96,7 +97,7 @@ const ShopOrder:NextPage = ()=>{
             <Tab>Order Processing</Tab>
             <Tab>Ready To Dispatch</Tab>
             <Tab>Delivered</Tab>
-          </TabList>
+          </TabList><br />
 
           <TabPanel>
             <Table prop_columns={prop_columns} custom_data={order_history_paystacks}/>

@@ -20,7 +20,7 @@ const Profile:NextPage = ()=>{
         // {label:'Danloads',route:''},
         {label:'My WishLists',route:''},
         {label:'My Refunds',route:''},
-        {label:'Logout',route:''},
+        {label:'Logout',route:'/logout'},
       ]}
     >
 

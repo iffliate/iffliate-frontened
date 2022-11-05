@@ -87,7 +87,7 @@ const ShopDetail:NextPage =()=>{
         {label:'Product',route:`/dashboard/shop/${shop}`},
         {label:'Orders ',route:`/dashboard/shop/${shop}/order`},
         // {label:'Danloads',route:''},
-        {label:'Logout',route:''},
+        {label:'Logout',route:'/logout'},
       ]}
     >
       <Pane>
