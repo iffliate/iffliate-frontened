@@ -6,7 +6,7 @@ import {BsEyeSlashFill} from 'react-icons/bs'
 
 
 const Wallet = ({amount}:{amount:number})=>{
-  const [show,setShow] = useState(false)
+  const [show,setShow] = useState(true)
   return (
     <WalletContainer>
       <h4>Balance</h4>

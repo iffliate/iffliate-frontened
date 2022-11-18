@@ -7,8 +7,13 @@ import { Transaction, TransactionInfo, TransactionName, TransactionsContainer,  
 import Wallet from '../../../../shared/Wallet/wallet';
 import Button from '../../../../shared/Button/Button';
 import CustomModal from '../../../../shared/Modal/CustomModal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import RequestWithdraw from '../../../../shared/RequestWithdraw/RequestWithdraw';
+import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
+import { clean_stateWallet, selectWallet } from '../../../../redux/Wallet/WalletSlice';
+import { getWallet } from '../../../../redux/Wallet/WalletApi';
+import useToast from '../../../../hooks/useToastify';
+import Preloader from '../../../../shared/Preloader/Preloder';
 
 
 
@@ -16,6 +21,24 @@ const WalletPage:NextPage = ()=>{
   const route = useRouter();
   const { shop } = route.query
   const [modalIsOpen,setModalIsOpen] = useState(false)
+  const dispatch = useAppDispatch();
+  const {notify}= useToast()
+  const {wallet_status,list_of_wallet_transactionStatus,wallet,message} = useAppSelector(selectWallet)
+  
+  useEffect(()=>{
+
+    if(shop){
+      if(typeof shop === 'string'){
+        dispatch(getWallet({'shop_id':parseInt(shop)}))
+      }
+    }
+  },[route.isReady])
+  useEffect(()=>{
+    if(message){
+      notify(message,'success')
+      dispatch(clean_stateWallet({}))
+    }
+  },[message])
   return (
     <DashboardLayout
       listOFLinks={[
@@ -25,7 +48,9 @@ const WalletPage:NextPage = ()=>{
         {label:'Logout',route:'/logout'},
       ]}
     >
-      <Wallet amount={200}/>
+      <Preloader loading={(wallet_status=='pending'||list_of_wallet_transactionStatus=='pending')}/>
+      
+      <Wallet amount={wallet?wallet:0.00}/>
       <br />
       <Button 
         onClick={e=>setModalIsOpen(true)}
