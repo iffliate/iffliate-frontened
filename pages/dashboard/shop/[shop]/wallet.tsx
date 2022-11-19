@@ -23,7 +23,7 @@ const WalletPage:NextPage = ()=>{
   const [modalIsOpen,setModalIsOpen] = useState(false)
   const dispatch = useAppDispatch();
   const {notify}= useToast()
-  const {wallet_status,list_of_wallet_transactionStatus,wallet,message} = useAppSelector(selectWallet)
+  const {wallet_status,list_of_wallet_transactionStatus,wallet,message,errMessage} = useAppSelector(selectWallet)
   
   useEffect(()=>{
 
@@ -36,6 +36,10 @@ const WalletPage:NextPage = ()=>{
   useEffect(()=>{
     if(message){
       notify(message,'success')
+      dispatch(clean_stateWallet({}))
+    }
+    if(errMessage){
+      notify(errMessage,'error')
       dispatch(clean_stateWallet({}))
     }
   },[message])

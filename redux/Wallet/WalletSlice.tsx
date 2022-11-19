@@ -14,13 +14,15 @@ type State = {
     wallet?:number;
     list_of_wallet_transaction:WalletTrasaction[],
     message:null|string;
+    errMessage:null|string;
 }
 const initialState:State={
   wallet_status:'idle',
   list_of_wallet_transactionStatus:'idle',
   wallet:undefined,
   list_of_wallet_transaction:[],
-  message:null
+  message:null,
+  errMessage:null
 } 
 const WalletSlice = createSlice({
   name:'wallet',
@@ -30,6 +32,7 @@ const WalletSlice = createSlice({
       state.message=null
       state.list_of_wallet_transactionStatus='idle'
       state.wallet_status='idle'
+      state.errMessage=null
     }
   },
   extraReducers:({addCase})=>{
@@ -47,7 +50,7 @@ const WalletSlice = createSlice({
     addCase(getWallet.rejected,(state,action:any)=>{
       state.wallet_status='error'
       if(action.payload.code=='ERR_NETWORK'){
-        state.message='Please Check Your Mobile Data'
+        state.errMessage='Please Check Your Mobile Data'
       }
       console.log({'error from getWallet':action.payload})
     })
@@ -63,19 +66,27 @@ const WalletSlice = createSlice({
       }else{
         state.list_of_wallet_transactionStatus='error'
         if(payload.data.shop_id){
-          state.message=payload.data.shop_id
+          state.errMessage=payload.data.shop_id
         }
         if(payload.data.error){
-          state.message='Insufficent Funds'
+          state.errMessage='Insufficent Funds'
         }
         // state.message
       }
     })
 
-    addCase(requestForPayment.rejected,(state,{payload})=>{
+    addCase(requestForPayment.rejected,(state,{payload}:any)=>{
       state.list_of_wallet_transactionStatus='error'
-      state.message= 'Somthing came up'
-      console.log({'requestForPaymentError':payload})
+      console.log({'requestForPaymentError':payload.response.data.data.shop_id})
+      if(payload.response.data.data.error){
+        state.errMessage=payload.response.data.data.error
+      }
+      if(payload.response.data.data.error){
+        state.errMessage=payload.response.data.data.error
+      }
+      else{
+        state.errMessage= 'Somthing came up'
+      }
     })
   
   }

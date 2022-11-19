@@ -18,7 +18,7 @@ export const getWallet = createAsyncThunk(
   })
 
 
-type requestForPaymentProp = {
+export type requestForPaymentProp = {
     'bank_name':string,
     'account_number':string,
     'amount':number,
