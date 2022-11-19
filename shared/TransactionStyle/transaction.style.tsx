@@ -1,7 +1,10 @@
 import styled from 'styled-components';
 
 
-export const TransactionsContainer = styled.div``
+export const TransactionsContainer = styled.div`
+
+max-height: 500px;
+`
 export const Transaction = styled.div`
     border-bottom: 1px solid #4b556349;
     margin: 0px auto;
@@ -17,7 +20,7 @@ export const TransactionName = styled.div`
  color: #4b5563;
 
 p{
-    background-color: ${(props)=>props.theme.main_color};
+    /* background-color: ${(props)=>props.theme.main_color}; */
     /* background-color: green; */
     /* background-color: red; */
     color: white;

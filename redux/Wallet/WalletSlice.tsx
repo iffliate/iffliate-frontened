@@ -1,18 +1,13 @@
 import { createSlice,PayloadAction } from '@reduxjs/toolkit';
 import { RootState, sliceStatus } from '../store';
-import { getWallet, getWalletResponse, requestForPayment, requestForPaymentResponse } from './WalletApi';
+import { getWallet, getWalletResponse, listWalletWithdraw, listWalletWithdrawType, requestForPayment, requestForPaymentResponse } from './WalletApi';
 
-type WalletTrasaction ={
-    'shop__name':string;
-    'amount':number,
-    'transfer_state':'success'|'failed'|'reversed'|'pending',
-    'created_at':string
-}
+
 type State = {
     wallet_status:sliceStatus,
     list_of_wallet_transactionStatus:sliceStatus,
     wallet?:number;
-    list_of_wallet_transaction:WalletTrasaction[],
+    list_of_wallet_transaction:listWalletWithdrawType[],
     message:null|string;
     errMessage:null|string;
 }
@@ -87,6 +82,15 @@ const WalletSlice = createSlice({
       else{
         state.errMessage= 'Somthing came up'
       }
+    })
+
+
+    addCase(listWalletWithdraw.pending,(state,action)=>{
+      state.list_of_wallet_transactionStatus='pending'
+    })
+    addCase(listWalletWithdraw.fulfilled,(state,{payload}:PayloadAction<listWalletWithdrawType[]>)=>{
+      state.list_of_wallet_transactionStatus='success'
+      state.list_of_wallet_transaction=payload
     })
   
   }

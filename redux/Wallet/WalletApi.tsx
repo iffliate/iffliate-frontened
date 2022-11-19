@@ -42,12 +42,21 @@ export const requestForPayment = createAsyncThunk(
   }
 )
 
+export type listWalletWithdrawType ={
+    'shop': {
+        'name':string,
+        'id': number
+    },
+    'amount': string,
+    'transfer_state':string,
+    'created_at': string
+}
 export const listWalletWithdraw = createAsyncThunk(
-  'wallet/listWalletWithdraw',async (data,thunkApi)=>{
+  'wallet/listWalletWithdraw',async (shop_id:number,thunkApi)=>{
     //
     try {
-      const resp = await api.get(`payment/handle_shop_payment/?shop_id=${data}`)
-      return resp.data.data
+      const resp = await api.get(`payment/handle_shop_payment/?shop_id=${shop_id}`)
+      return resp.data.data as listWalletWithdrawType[]
     } catch (err) {
         
       return thunkApi.rejectWithValue(err)

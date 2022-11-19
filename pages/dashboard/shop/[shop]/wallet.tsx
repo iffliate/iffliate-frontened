@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
 import RequestWithdraw from '../../../../shared/RequestWithdraw/RequestWithdraw';
 import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
 import { clean_stateWallet, selectWallet } from '../../../../redux/Wallet/WalletSlice';
-import { getWallet } from '../../../../redux/Wallet/WalletApi';
+import { getWallet, listWalletWithdraw } from '../../../../redux/Wallet/WalletApi';
 import useToast from '../../../../hooks/useToastify';
 import Preloader from '../../../../shared/Preloader/Preloder';
 
@@ -23,13 +23,15 @@ const WalletPage:NextPage = ()=>{
   const [modalIsOpen,setModalIsOpen] = useState(false)
   const dispatch = useAppDispatch();
   const {notify}= useToast()
-  const {wallet_status,list_of_wallet_transactionStatus,wallet,message,errMessage} = useAppSelector(selectWallet)
+  const {wallet_status,list_of_wallet_transactionStatus,wallet,message,errMessage,list_of_wallet_transaction} = useAppSelector(selectWallet)
   
   useEffect(()=>{
 
     if(shop){
       if(typeof shop === 'string'){
         dispatch(getWallet({'shop_id':parseInt(shop)}))
+        dispatch(listWalletWithdraw(parseInt(shop)))
+
       }
     }
   },[route.isReady])
@@ -43,6 +45,22 @@ const WalletPage:NextPage = ()=>{
       dispatch(clean_stateWallet({}))
     }
   },[message])
+
+  const ifStyles = (variant:string)=>{
+    if(variant == 'success'){
+      return 'green'
+    }
+
+    if(variant == 'failed'){
+      return 'red'
+    }
+    if(variant == 'reversed'){
+      return 'gray'
+    }
+    if(variant == 'pending'){
+      return '#f77305'
+    }
+  }
   return (
     <DashboardLayout
       listOFLinks={[
@@ -71,53 +89,29 @@ const WalletPage:NextPage = ()=>{
           <option value="">pending</option>
         </select> */}
         <TransactionsContainer>
-          <Transaction>
-            {/* icon */}
-            <TransactionName>
-              <h3>
-                    Transfer To Shop2
-              </h3>
-              <small><p>processing</p></small>
-            </TransactionName>
+          {
+            list_of_wallet_transaction.map((data,index)=>(
+              <div key={index}>
+                <Transaction>
+                  {/* icon */}
+                  <TransactionName>
+                    <h3>
+                      {data.shop.name}
+                    </h3>
+                    <small ><p style={{'backgroundColor':ifStyles(data.transfer_state)}}>{data.transfer_state}</p></small>
+                  </TransactionName>
 
-            <TransactionInfo>
-              <p><strong>₦ 190,000</strong></p>
-              <p><small>Oct 03, 2022</small></p>
-            </TransactionInfo>
-          </Transaction>
-          <br />
+                  <TransactionInfo>
+                    <p><strong>₦ {data.amount}</strong></p>
+                    <p><small>Oct 03, 2022</small></p>
+                  </TransactionInfo>
+                </Transaction>
+                <br />
 
-          <Transaction>
-            {/* icon */}
-            <TransactionName>
-              <h3>
-                    Transfer To Shop2
-              </h3>
-              <small><p>processing</p></small>
-            </TransactionName>
+              </div>
+            ))
+          }
 
-            <TransactionInfo>
-              <p><strong>₦ 190,000</strong></p>
-              <p><small>Oct 03, 2022</small></p>
-            </TransactionInfo>
-          </Transaction>
-          <br />
-
-          <Transaction>
-            {/* icon */}
-            <TransactionName>
-              <h3>
-                    Transfer To Shop2
-              </h3>
-              <small><p>processing</p></small>
-            </TransactionName>
-
-            <TransactionInfo>
-              <p><strong>₦ 190,000</strong></p>
-              <p><small>Oct 03, 2022</small></p>
-            </TransactionInfo>
-          </Transaction>
-          
         </TransactionsContainer>
       </Pane>
 
