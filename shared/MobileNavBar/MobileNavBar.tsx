@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { CartBagStyleInMobileNav, MobileNavBarContainer,MobileNavLinkContainer } from './MobileNavBar.style'
 import {FaBars, FaCut, FaTasks} from 'react-icons/fa'
-import {BiSearchAlt} from 'react-icons/bi'
+import {BiMoney, BiSearchAlt} from 'react-icons/bi'
 import {BiHomeCircle} from 'react-icons/bi'
 import {BsBagDash, BsFillMegaphoneFill}from 'react-icons/bs'
 import { AiOutlineShoppingCart, AiOutlineUser } from 'react-icons/ai'
@@ -15,6 +15,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { selectCart, toggleMobileSearch } from '../../redux/Cart/CartSlice'
 import FloatingCartBtn from '../FloatingCartBtn/FloatingCartBtn'
 import { decodeToken } from '../../utils/extraFunction'
+// import {BiMoney} from 'react-icons/bi';
 type Prop ={
   dragConstraints:any
 }
@@ -121,6 +122,7 @@ const MobileNavBar = ({dragConstraints}:Prop):React.ReactElement=>{
                 {
                   router.pathname.includes('/dashboard/shop/[shop]')?
                     <>
+                      <li><a  onClick={()=>handleRoute(`/dashboard/shop/${shop}/wallet`)}><BiMoney/>{' '}Wallet</a></li>
                       <li><a  onClick={()=>handleRoute(`/dashboard/shop/${shop}/`)}><AiOutlineShoppingCart/>{' '}Shop Products</a></li>
                       <li><a  onClick={()=>handleRoute(`/dashboard/shop/${shop}/order/`)}><AiOutlineShoppingCart/>{' '}Shop Orders</a></li>
                   
