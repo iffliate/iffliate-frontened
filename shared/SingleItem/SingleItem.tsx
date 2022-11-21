@@ -13,6 +13,7 @@ import { addCartLocally, selectCart,removeCartLocally, reduceCart } from '../../
 import { isAuth } from '../../utils/extraFunction';
 import { useEffect } from 'react';
 import { CartItem, createOrderApi, reduceOrderItemApi, removeOrderItemApi } from '../../redux/Cart/CartApi';
+import Preloader from '../Preloader/Preloder';
 // import PlaceholderImage from '../../assets/bags.webp'
 
 type Prop = {
@@ -58,7 +59,6 @@ const SingleItem = ({ onClick ,data}:Prop):React.ReactElement=>{
       }
     }
   }
-
   return (
     <SingleItemContainer >
       <PercentageBar>
@@ -77,6 +77,7 @@ const SingleItem = ({ onClick ,data}:Prop):React.ReactElement=>{
         {data.name}
       </ItemName>
       <br />
+      <Preloader loading={status=='pending'||status=='deleting'||status=='updating'} />
 
       {
         cartItem.map(d=>d.product.id).includes(data.id)?

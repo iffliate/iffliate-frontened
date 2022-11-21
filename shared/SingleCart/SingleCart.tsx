@@ -13,6 +13,7 @@ import { Product } from '../../redux/Product/ProductApi';
 import { isAuth } from '../../utils/extraFunction';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { addCartLocally, reduceCart, removeCartLocally, selectCart } from '../../redux/Cart/CartSlice';
+import Preloader from '../Preloader/Preloder';
 
 type Prop ={
   data:CartItem
@@ -62,6 +63,7 @@ const SingleCart=({data}:Prop):React.ReactElement=>{
   }
   return (
     <>
+      <Preloader loading={status=='pending'} />
       {
         data?
           <SingleCartContainer>
