@@ -60,7 +60,7 @@ const ShopOrder:NextPage = ()=>{
       listOFLinks={[
         {label:'Product',route:`/dashboard/shop/${shop}`},
         {label:'Orders ',route:`/dashboard/shop/${shop}/order`},
-        {label:'Wallet',route:`dashboard/shop/${shop}/wallet`},
+        {label:'Wallet',route:`/dashboard/shop/${shop}/wallet`},
         {label:'Logout',route:'/logout'},
       ]}
     >
