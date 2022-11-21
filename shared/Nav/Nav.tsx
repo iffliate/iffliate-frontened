@@ -18,7 +18,8 @@ import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { useSelector } from 'react-redux'
 import { selectProduct, setCurrentCategory } from '../../redux/Product/ProductSlice'
 import { getCategory, getProductApi } from '../../redux/Product/ProductApi'
-import { useAppDispatch } from '../../redux/hooks'
+import { useAppDispatch, useAppSelector } from '../../redux/hooks'
+import { selectCart, toggleMobileSearch } from '../../redux/Cart/CartSlice'
 
 const Nav = ():React.ReactElement=>{
   const isLaptop = useMediaQuery({ query: '(min-width: 700px)' })
@@ -28,7 +29,8 @@ const Nav = ():React.ReactElement=>{
   const route = useRouter()
   const path:string = route.pathname
   const user =  decodeToken()
-  const {category_list,status} = useSelector(selectProduct);
+  const {category_list,status} = useAppSelector(selectProduct);
+  const {isMobileSearch } = useAppSelector(selectCart)
   const dispatch = useAppDispatch()
   const handleRoute=(value:string)=>{
     route.push(value)
@@ -36,7 +38,7 @@ const Nav = ():React.ReactElement=>{
   const handleSignOut = ():void=>{
     window.localStorage.removeItem('iffilate_cred')
   }
-  
+
   useEffect(()=>{
     if(category_list.length == 0 ){
       dispatch(getCategory(''))
@@ -130,7 +132,7 @@ const Nav = ():React.ReactElement=>{
           :
           <>
             {
-              readyToSearch?
+              isMobileSearch?
                 <SearchBar/>
                 :
                 <div style={{'margin':'0 auto','width':'50%'}}>

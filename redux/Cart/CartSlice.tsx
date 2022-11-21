@@ -10,12 +10,14 @@ type State ={
     errMessage:any,
     cartItem:CartItem[];
     total:number;
+    isMobileSearch:boolean;
   }
 const initialState:State = {
   status:'idle',
   errMessage:null,
   cartItem:[],
-  total:0
+  total:0,
+  isMobileSearch:false
 }
 
 
@@ -76,6 +78,9 @@ const CartSlice= createSlice({
         state.cartItem= JSON.parse(localCart)
       }
 
+    },
+    toggleMobileSearch:(state,action)=>{
+      state.isMobileSearch=!state.isMobileSearch
     }
 
     
@@ -164,6 +169,6 @@ const CartSlice= createSlice({
 
 
 
-export const {addCartLocally,removeCartLocally,getCartLocally,reduceCart} = CartSlice.actions
+export const {addCartLocally,removeCartLocally,getCartLocally,reduceCart,toggleMobileSearch} = CartSlice.actions
 export const selectCart= (state:RootState)=>state.cart
 export default CartSlice.reducer

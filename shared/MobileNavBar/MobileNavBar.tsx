@@ -11,8 +11,8 @@ import { GiBossKey } from 'react-icons/gi'
 import SingleCart from '../SingleCart/SingleCart'
 import { useMediaQuery } from 'react-responsive'
 import Button from '../Button/Button'
-import { useAppSelector } from '../../redux/hooks'
-import { selectCart } from '../../redux/Cart/CartSlice'
+import { useAppDispatch, useAppSelector } from '../../redux/hooks'
+import { selectCart, toggleMobileSearch } from '../../redux/Cart/CartSlice'
 import FloatingCartBtn from '../FloatingCartBtn/FloatingCartBtn'
 import { decodeToken } from '../../utils/extraFunction'
 type Prop ={
@@ -26,6 +26,7 @@ const MobileNavBar = ({dragConstraints}:Prop):React.ReactElement=>{
   const {status,cartItem} = useAppSelector(selectCart);
   const user =  decodeToken()
   const route = useRouter()
+  const dispatch = useAppDispatch()
 
   const handleFloatingBtnClick=()=>{
     //
@@ -37,6 +38,13 @@ const MobileNavBar = ({dragConstraints}:Prop):React.ReactElement=>{
   const handleSignOut = ():void=>{
     window.localStorage.removeItem('iffilate_cred')
   }
+  const onSearch = ()=>{
+    //
+    dispatch(toggleMobileSearch({}))
+  
+
+  }
+
   return (
     <MobileNavBarContainer>
       <OffCanvas btnContrroller={<FaBars 
@@ -55,6 +63,8 @@ const MobileNavBar = ({dragConstraints}:Prop):React.ReactElement=>{
       <BiSearchAlt style={{'transform':'translateX(-10px)'}}
         onClick={e=>{
         //
+          onSearch()
+          console.log('search r2')
         }}
       />
       <BiHomeCircle style={{'transform':'translateX(-7px)'}}
