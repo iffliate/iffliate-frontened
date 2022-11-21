@@ -55,9 +55,7 @@ const myorders:NextPage = ()=>{
     dispatch(getorderHistoryList({'shopID':-1,is_for_shop:false,lookup:'?status=order_processing'}))
   },[])
 
-  console.log({
-    order_history_paystacks,order_historys
-  })
+
   return(
     <DashboardLayout
       listOFLinks={[
@@ -81,16 +79,13 @@ const myorders:NextPage = ()=>{
           <Tabs onSelect={(index: number, lastIndex: number, event: Event)=>{
             //
             if(index== 0){
-              console.log('order processing')
               dispatch(getorderHistoryList({'shopID':-1,is_for_shop:false,lookup:'?status=order_processing'}))
             }
             if(index== 1){
-              console.log('Ready to dispatch')
               dispatch(getorderHistoryList({'shopID':-1,is_for_shop:false,lookup:'?status=ready_to_dispatch'}))
 
             }
             if(index== 2){
-              console.log('Delivered')
               dispatch(getorderHistoryList({'shopID':-1,is_for_shop:false,lookup:'?status=delivered'}))
             }
           }}>

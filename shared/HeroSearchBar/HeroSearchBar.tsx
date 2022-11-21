@@ -14,7 +14,6 @@ const HeroSearchBar = ():React.ReactElement=>{
 
   const handleSearch = ()=>{
     if(!data) return
-    console.log(data)
     setData('')//to avoid duplicate search
 
     dispatch(getProductApi({'shopId':'',look_up:`&name=${data}`}))

@@ -62,8 +62,6 @@ const Checkout:NextPage = ()=>{
 
     } catch (err:any) {
       //
-      console.log(getUserTokenOr404())
-      console.log({err})
       notify('please check your internet','error')
       setIsLoading(false)
 

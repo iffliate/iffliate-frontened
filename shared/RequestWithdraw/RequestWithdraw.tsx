@@ -43,7 +43,6 @@ const RequestWithdraw= () =>{
   }
 
   const onSubmit = (data: requestForPaymentProp) => {
-    console.log('subbmited',data)
     dispatch(requestForPayment(data))
   }
   useEffect(()=>{
@@ -67,7 +66,6 @@ const RequestWithdraw= () =>{
 
   //   }
   // },[message,errMessage])
-  console.log({errors})
   return (
     <form  onSubmit={handleSubmit(onSubmit)}>
       <Preloader loading={isLoading}/>

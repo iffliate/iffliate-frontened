@@ -16,10 +16,8 @@ export const signUpApi = createAsyncThunk('sigup/signUpApi',async(data:dataType,
   //
   try {
     const resp = await api.post('/auth/users/',data)
-    console.log({'resp from signup api':resp})
     return resp.data  as signUpApiResponse
   } catch (err:any) {
-    console.log({err})
     return thunkApi.rejectWithValue(err)
   } 
 })

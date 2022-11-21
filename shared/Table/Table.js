@@ -64,7 +64,6 @@ const Table = ({ prop_columns=[],custom_data=[]}) =>{
 
   const handleRowRoute = (id)=>{
     //this would send the page to a detail page
-    console.log({id})
   }
   return(
     <div>

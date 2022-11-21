@@ -115,7 +115,6 @@ const Home: NextPage = () => {
     return HeroContent.filter(d=>d.type.toLocaleLowerCase()==name.toLocaleLowerCase())[0]
   }
   const hero_content:HeroContentType = getData(currentCategory)
-  console.log({'yo':getData(currentCategory),})
   return (
     
     <GeneralLayout>

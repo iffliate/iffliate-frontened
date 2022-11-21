@@ -62,10 +62,8 @@ export const createShop = createAsyncThunk(
 
     try {
       const resp = await api.post('/shop/',form)
-      console.log({resp})
       return resp.data  
     } catch (err:any) {
-      console.log({err})
       return thunkApi.rejectWithValue(err)
     }
   }

@@ -36,7 +36,6 @@ const ShopOrder:NextPage = ()=>{
       Cell:(tableProps:any)=>(
         // this is were we do onClick to call the orderHistory Detail
         <AiTwotoneEye style={{'color':'#f77305'}} onClick={e=>{
-          console.log(`/dashboard/shop/${shop}/order/${tableProps.row.original.paystack}`)
           if(typeof shop == 'string'){
             dispatch(getOrderHistoryDetail({
               'shopID':shop,
@@ -52,12 +51,10 @@ const ShopOrder:NextPage = ()=>{
 
   useEffect(()=>{
     if(typeof shop == 'string'){
-      console.log({shop})
       dispatch(getorderHistoryList({'shopID':parseInt(shop),lookup:'?status=order_processing'}))
     }
   },[route.isReady])
 
-  console.log({order_historys})
   return  (
     <DashboardLayout
       listOFLinks={[
@@ -78,17 +75,14 @@ const ShopOrder:NextPage = ()=>{
           //
           if(typeof shop == 'string'){
             if(index== 0){
-              console.log('order processing')
             
               dispatch(getorderHistoryList({'shopID':parseInt(shop),lookup:'?status=order_processing'}))
             }
             if(index== 1){
-              console.log('Ready to dispatch')
               dispatch(getorderHistoryList({'shopID':parseInt(shop),lookup:'?status=ready_to_dispatch'}))
 
             }
             if(index== 2){
-              console.log('Delivered')
               dispatch(getorderHistoryList({'shopID':parseInt(shop),lookup:'?status=delivered'}))
             }
           }

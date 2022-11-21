@@ -36,7 +36,6 @@ const signup:NextPage= ()=>{
   } = useForm<signUpApiResponse>({ resolver: yupResolver(schema) });
 
   const onSubmit: SubmitHandler<signUpApiResponse>=data=>{
-    console.log(data)
     dispatch(signUpApi(data))
   }
 

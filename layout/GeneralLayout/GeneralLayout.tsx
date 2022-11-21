@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useMediaQuery } from 'react-responsive'
 import { selectCart } from '../../redux/Cart/CartSlice'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
@@ -10,13 +10,14 @@ import Nav from '../../shared/Nav/Nav'
 import OffCanvas from '../../shared/OffCanvas/OffCanvas'
 import SingleCart from '../../shared/SingleCart/SingleCart'
 import { motion } from 'framer-motion';
-
+import { JwtVerify } from '../../utils/extraFunction'
+import useToast from '../../hooks/useToastify'
 
 
 type GeneralLayoutType = React.PropsWithChildren<{}>
 const GeneralLayout = ({children}:GeneralLayoutType):React.ReactElement=>{
   const constraintsRef = useRef(null);
-  
+  const {notify} = useToast()
   
   const router = useRouter()
   const isLaptop = useMediaQuery({ query: '(min-width: 700px)' });
@@ -24,8 +25,23 @@ const GeneralLayout = ({children}:GeneralLayoutType):React.ReactElement=>{
   const {status,cartItem} = useAppSelector(selectCart)
   const handleFloatingBtnClick=()=>{
     //
-    console.log(2*2)
   }
+  useEffect(()=>{
+    //
+
+
+    if(typeof  window  != 'undefined'){
+      if(router.pathname.includes('/dashboard') || router.pathname.includes('/shops') || router.pathname.includes('/shop')){
+        if(JwtVerify()){
+          //
+        }
+        else{
+          router.push('/signin')
+          notify('Expired Credentials','error')
+        }
+      }
+    }
+  },[])
   return (
     <motion.div ref={constraintsRef}>
       <Nav/>

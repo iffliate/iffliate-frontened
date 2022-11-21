@@ -26,7 +26,6 @@ const ShopDetail:NextPage =()=>{
   const isLaptop = useMediaQuery({ query: '(min-width: 700px)' });
 
   const handleDelete = (slug:string)=>{
-    console.log('Yooo')
     if (window.confirm('Do you really wanna delete it')){
       dispatch(deleteProductApi({slug}))
 

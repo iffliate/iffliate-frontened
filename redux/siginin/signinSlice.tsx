@@ -31,7 +31,6 @@ const sign_in = createSlice({
     addCase(sigininApi.fulfilled,(state,{payload}:PayloadAction<State['data']>)=>{
       // 
       state.status='success'
-      console.log({payload})
       state.data=payload
       localStorage.setItem('iffilate_cred',JSON.stringify(payload))
     })

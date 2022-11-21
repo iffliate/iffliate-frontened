@@ -7,6 +7,7 @@ import {
 }  from './DashboardLayoutStyle'
 import GeneralLayoutType from '../GeneralLayout/GeneralLayout'
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 
 type Prop = React.PropsWithChildren<{

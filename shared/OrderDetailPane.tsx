@@ -57,7 +57,6 @@ const OrderDetailPane = ({data,is_shop=false}:Prop):React.ReactElement=>{
   ]
   const handleStatusChange = ({value}:any)=>{
     if(window.confirm('Are Sure You want to change the status')){
-      console.log(value)
       if(data[0].paystack){
         dispatch(updateOrderHistoryStatus({'paystack':data[0].paystack,status:value}))
       }

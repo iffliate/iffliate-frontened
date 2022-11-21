@@ -90,7 +90,6 @@ const Create:NextPage = ()=>{
   useEffect(()=>{
     getBanks()
   },[])
-  console.log({errors})
   return (
     <DashboardLayout
       showDetail={true}

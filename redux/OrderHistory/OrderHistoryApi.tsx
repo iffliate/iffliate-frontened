@@ -37,7 +37,6 @@ export const getorderHistoryList = createAsyncThunk(
     }
     try {
       const resp = await api.get(url+`${lookup}`) 
-      console.log({resp})
       return resp.data.data as string[];
     } catch (err:any) {
       //

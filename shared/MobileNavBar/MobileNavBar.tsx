@@ -29,7 +29,6 @@ const MobileNavBar = ({dragConstraints}:Prop):React.ReactElement=>{
 
   const handleFloatingBtnClick=()=>{
     //
-    console.log(2*2)
   }
 
   const handleRoute=(value:string)=>{

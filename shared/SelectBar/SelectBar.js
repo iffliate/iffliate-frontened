@@ -18,7 +18,6 @@ const SelectBar = ({data,runAfterChange}) =>{
 
   // handle onChange event of the dropdown
   const handleChange = e => {
-    console.log({'result':e})
     setSelectedOption(e);
     if(runAfterChange){
       runAfterChange(e)

@@ -22,10 +22,8 @@ type Prop = {
 const SingleItem = ({ onClick ,data}:Prop):React.ReactElement=>{
   const dispatch = useAppDispatch()
   const {status,cartItem,total,} = useAppSelector(selectCart)
-  console.log({cartItem,total})
 
   const handleCart=(product:Product)=>{
-    console.log('clalled')
     if(isAuth()){
       //the user is logged in use the api
 
@@ -34,14 +32,12 @@ const SingleItem = ({ onClick ,data}:Prop):React.ReactElement=>{
       }
     }else{
       //the user is not logged in use the local storage
-      console.log('click')
       dispatch(addCartLocally(product))
     }
   }
   const handleRemoveCartItem = (fuccartItem:CartItem)=>{
     //
     if(isAuth()){
-      console.log('we are working on it',fuccartItem)
       if(fuccartItem.quantity===1){
         //endpoint to delete an item
         if(fuccartItem.id&&fuccartItem.orderID){

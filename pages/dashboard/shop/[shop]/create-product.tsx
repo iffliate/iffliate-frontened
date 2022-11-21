@@ -55,13 +55,11 @@ const CreateProduct:NextPage =()=>{
   const watchFields = watch(['out_of_stock'])
   const onSubmit: SubmitHandler<Product>=data=>{
     //
-    console.log({'submited':data})
     dispatch(productCreateApi(data))
   }
 
   useEffect(()=>{
     // setValue('category',15)
-    console.log(typeof shop === 'string',shop)
     if(typeof shop === 'string'){
       setValue('shop',parseInt(shop))
     }
@@ -144,7 +142,6 @@ const CreateProduct:NextPage =()=>{
 
           
             runAfterChange={e=>{
-              console.log({e})
 
               setValue('category',e.value)
             }}

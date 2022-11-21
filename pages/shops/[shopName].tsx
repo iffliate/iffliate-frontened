@@ -28,7 +28,6 @@ const Shop_name:NextPage= ()=>{
   // 1023
   const isLaptop = useMediaQuery({ query: '(min-width: 1023px)' })
   const {notify} = useToast() 
-  console.log({shopDetail})
 
   useEffect(()=>{
     if(typeof shopName === 'string' ){

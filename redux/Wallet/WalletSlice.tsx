@@ -47,7 +47,6 @@ const WalletSlice = createSlice({
       if(action.payload.code=='ERR_NETWORK'){
         state.errMessage='Please Check Your Mobile Data'
       }
-      console.log({'error from getWallet':action.payload})
     })
 
     addCase(requestForPayment.pending,(state,action)=>{
@@ -72,7 +71,6 @@ const WalletSlice = createSlice({
 
     addCase(requestForPayment.rejected,(state,{payload}:any)=>{
       state.list_of_wallet_transactionStatus='error'
-      console.log({'requestForPaymentError':payload.response.data.data.shop_id})
       if(payload.response.data.data.error){
         state.errMessage=payload.response.data.data.error
       }

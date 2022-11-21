@@ -11,7 +11,6 @@ const dataUrlToFile = (dataUrl: string, filename: string): File | undefined => {
   if (!mimeArr || mimeArr.length < 2) { return undefined; }
   const mime = mimeArr[1];
   const buff = Buffer.from(arr[1], 'base64');
-  console.log({mime})
   return new File([buff], filename, {type:mime});
 }
 
@@ -39,7 +38,7 @@ const UploadImage = ({height,width,setValue,name}:Prop):React.ReactElement=>{
       setValue(name,newImg)
       setImage(image.uri)
     } catch (err) {
-      console.log(err);
+      //
     }
   }
   return (

@@ -29,7 +29,6 @@ type productCreateApiResponse ={
 }
 export const productCreateApi = createAsyncThunk(
   'product/productCreateApi',async (data:Product,thunkAPi)=>{
-    console.log('sent fro real')
 
     const form = new FormData();
 
@@ -47,10 +46,8 @@ export const productCreateApi = createAsyncThunk(
 
     try{
       const resp = await api.post('/product/',form)
-      console.log({resp})
       return resp.data.data as Product
     }catch(err:any){
-      console.log({err})
       return thunkAPi.rejectWithValue(err)
     }
   }
@@ -68,10 +65,8 @@ export const getProductApi = createAsyncThunk(
 
     try{
       const resp = await api.get(`/product/?shop=${shopId}${look_up}`)
-      console.log({resp})
       return resp.data.data as Product[]
     }catch(err:any){
-      console.log({err})
       return thunkApi.rejectWithValue(err)
     }
 
@@ -85,10 +80,8 @@ export const deleteProductApi = createAsyncThunk(
     
     try{
       const resp = await api.delete(`/product/${slug}/`)
-      console.log({resp})
       return slug as string
     }catch(err:any){
-      console.log({err})
       return thunkApi.rejectWithValue(err)
     }
   }

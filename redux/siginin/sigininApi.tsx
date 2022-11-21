@@ -14,7 +14,6 @@ export const sigininApi = createAsyncThunk(
     //
     try {
       const resp = await api.post('/auth/jwt/create/',data);
-      console.log(resp)
       return resp.data
     } catch (err:any) {
       return thunkApi.rejectWithValue( err.response.data)

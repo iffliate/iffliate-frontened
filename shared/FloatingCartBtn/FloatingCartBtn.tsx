@@ -16,7 +16,6 @@ const FloatingCartBtn = ({dragConstraints}:Prop):React.ReactElement=>{
   const [total,setTotal]= useState<number>(0.00);
   const dispatch = useAppDispatch()
   useEffect(()=>{
-    console.log
     setTotal(cartItem.map(d=>d.quantity*d.product.actual_price).reduce((partialSum,a)=>partialSum+a,0))
   },[cartItem])
 

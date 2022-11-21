@@ -39,7 +39,6 @@ export const getOrderApi = createAsyncThunk(
   'Cart/getOrderApi',async (data,thunkApi)=>{
     try {
       const resp = await api.get('/order/?is_paid=False');
-      console.log({'order get resp':resp.data})
       return resp.data.data as createOrderApiResponse[]
     } catch (error) {
       return thunkApi.rejectWithValue(error)
@@ -56,11 +55,9 @@ export const createOrderApi= createAsyncThunk(
       const item:CartItem[] = cartItemState.filter(d=>d.product.id==product_id)
       dataToBesent = [{'product_id':product_id,quantity:item[0].quantity+1}]
     }
-    console.log({dataToBesent})
     // return 
     try{
       const resp = await api.post('/order/',{'items':dataToBesent})
-      console.log({'createOrderApi':resp})
       return resp.data.data   as createOrderApiResponse
     }
     catch(err:any){
@@ -107,7 +104,6 @@ export const bulkCreateOrderApi = createAsyncThunk(
     //
     try{
       const resp = await api.post('/order/',{'items':data})
-      console.log({'from bulk':resp})
       return resp.data.data   as createOrderApiResponse
     }
     catch(err:any){

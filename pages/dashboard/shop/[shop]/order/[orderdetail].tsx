@@ -33,10 +33,7 @@ const shopOrderDetails:NextPage = ()=>{
 
     }
     
-    console.log({
-      'shopID':shop,
-      'paystack':orderdetail
-    })
+ 
   },[route.isReady])
   return (
   

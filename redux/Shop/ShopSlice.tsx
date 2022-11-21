@@ -93,7 +93,6 @@ const shopSlice = createSlice({
       if(action.payload.code === 'ERR_NETWORK'){
         state.errMessage='Please Check your internet and refresh the page'
       }
-      console.log({'error':action.payload})
     })
   }
 })

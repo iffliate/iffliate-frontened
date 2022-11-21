@@ -71,7 +71,6 @@ export const decodeToken = ():decode_tokenResponse=>{
 
 
 export const resizeFile = (file:any,height:number,width:number) =>{
-  console.log({})
   return new Promise((resolve) => {
     Resizer.imageFileResizer(
       file,
@@ -87,4 +86,18 @@ export const resizeFile = (file:any,height:number,width:number) =>{
     );
   });
 }
-  
+
+
+export const JwtVerify = ():boolean=>{
+  if(typeof  window  != 'undefined'){
+    const user:any = decodeToken()
+    if(user){
+      const expiration:any = new Date(user.exp*1000 )
+      return expiration> new Date()
+    }else{
+      // redirect person to the login pagge
+      return  false  
+    }
+  }
+  return false
+}

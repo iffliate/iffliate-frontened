@@ -39,7 +39,6 @@ const signin:NextPage= ()=>{
   } = useForm<sigininApiPropType>({ resolver: yupResolver(schema) });
 
   const onSubmit: SubmitHandler<sigininApiPropType>=data=>{
-    console.log(data)
     dispatch(sigininApi(data))
   }
 
@@ -52,7 +51,6 @@ const signin:NextPage= ()=>{
       if(iffiliateLocalcart){
         //this means this user has been logged in before
         //we need to Register LocalCart to the database
-        console.log({iffiliateLocalcart})
         iffiliateLocalcart= JSON.parse(iffiliateLocalcart)
         const clean_data = iffiliateLocalcart.map((d:any)=>{
           return {
@@ -60,7 +58,6 @@ const signin:NextPage= ()=>{
             quantity:d.quantity
           }
         })
-        console.log({'clean_data local Cart':clean_data})
         dispatch(bulkCreateOrderApi(clean_data as bulkCreateOrderApiProp[]))
         window.localStorage.removeItem('iffiliate_cart')
       }

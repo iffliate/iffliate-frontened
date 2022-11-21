@@ -62,7 +62,6 @@ const Nav = ():React.ReactElement=>{
 
           
                     runAfterChange={e=>{
-                      console.log({e})
                       dispatch(setCurrentCategory(e.label))
                       //this is were we would search by categories
                       dispatch(getProductApi({shopId:'',look_up:`&category=${e.label}`}))

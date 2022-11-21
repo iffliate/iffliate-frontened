@@ -23,10 +23,9 @@ const MyordersDetail = ()=>{
           dispatch(getOrderHistoryDetail({'is_for_shop':false,'shopID':'-0,','paystack':query_param.id.toString()}))
         }
       }else{
-        console.log({status})
+        //
       }
 
-      console.log(query_param)
     }
 
   },[route.isReady])

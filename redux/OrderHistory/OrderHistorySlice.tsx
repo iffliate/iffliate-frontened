@@ -35,7 +35,6 @@ const OrderHistory = createSlice({
     })
     addCase(getorderHistoryList.rejected,(state,{payload})=>{
       //
-      console.log({'fail error for getorderHistoryList':payload})
       state.status='error'
       state.errMessage='Please Check your Internet'
     })
@@ -52,7 +51,6 @@ const OrderHistory = createSlice({
     })
 
     addCase(getOrderHistoryDetail.rejected,(state,{payload})=>{
-      console.log({'getOrderHistoryDetail failed':payload})
       state.status='error'
       state.errMessage='Please Check Your Internet'
     })
@@ -71,7 +69,6 @@ const OrderHistory = createSlice({
     addCase(updateOrderHistoryStatus.rejected,(state,{payload}:any)=>{
       state.status='error'
       state.errMessage='Please Check your internet'
-      console.log({'updateOrderHistoryStatus error':payload})
     })
   }
 })

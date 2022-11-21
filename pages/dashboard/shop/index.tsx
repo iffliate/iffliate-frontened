@@ -24,7 +24,6 @@ const index:NextPage=()=>{
   useEffect(()=>{
     dispatch(getShop())
   },[])
-  console.log({status,data})
   return (
     <GeneralLayout>
       <Preloader loading={status==='pending'} />

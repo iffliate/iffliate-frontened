@@ -59,7 +59,6 @@ const productSlice = createSlice({
 
     addCase(getProductApi.fulfilled,(state,{payload}:PayloadAction<Product[]>)=>{
       state.status='success';
-      console.log({payload})
       state.data = payload
     })
     addCase(getProductApi.rejected,(state,action:any)=>{
@@ -93,7 +92,6 @@ const productSlice = createSlice({
 
     addCase(getCategory.rejected,(state,{payload})=>{
       state.status='error'
-      console.log({'Get Category Error':payload})
       // state.category_list= payload
     })
     

@@ -26,12 +26,10 @@ const CartSlice= createSlice({
 
     addCartLocally:(state,{payload}:PayloadAction<Product>)=>{
       if(!state.cartItem.map(d=>d.product.id).includes(payload.id)){
-        console.log('is Zero:')
         //
         state.cartItem = [{id:state.cartItem.length+1,quantity:1,product:payload},...state.cartItem]
          
       }else{
-        console.log('is Not Zero:')
 
         state.cartItem =  state.cartItem.map((data,index)=>{
           // if(!payload.id){
@@ -40,14 +38,10 @@ const CartSlice= createSlice({
           // }
         
           if(payload.id==data.product.id){
-            console.log( {...data,quantity:data.quantity+1},'exist')
             // 'this handles the duplicate payload by incrementing the quantity only'
             return {...data,quantity:data.quantity+1}
           }
-          //   else{
-          //     console.log({id:state.cartItem.length+1,quantity:1,product:payload},'new')
-          //     return {id:state.cartItem.length+1,quantity:1,product:payload}
-          //   }
+
           return data
         })
 
@@ -104,7 +98,6 @@ const CartSlice= createSlice({
     addCase(getOrderApi.rejected,(state,action)=>{
       state.status='error'
       state.errMessage='Some Error Occured'
-      console.log({'getOrderApi error':action.payload})
 
     })
 
@@ -136,7 +129,6 @@ const CartSlice= createSlice({
     })
 
     addCase(createOrderApi.rejected,(state,action)=>{
-      console.log({'createOrderApi error':action.payload})
       state.status='error'
       state.errMessage='Some Error Occured Creating your order'
     })
