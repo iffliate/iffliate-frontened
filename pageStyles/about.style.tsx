@@ -62,4 +62,8 @@ export const Team= styled.div`
     h3{
         color:  ${({theme})=>theme.main_color};
     }
+    p{
+        color:#4b5563;
+
+    }
 `
