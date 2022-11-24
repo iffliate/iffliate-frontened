@@ -14,8 +14,10 @@ import { JwtVerify } from '../../utils/extraFunction'
 import useToast from '../../hooks/useToastify'
 
 
-type GeneralLayoutType = React.PropsWithChildren<{}>
-const GeneralLayout = ({children}:GeneralLayoutType):React.ReactElement=>{
+type GeneralLayoutType = React.PropsWithChildren<{
+  style?:React.CSSProperties
+}>
+const GeneralLayout = ({children,style={}}:GeneralLayoutType):React.ReactElement=>{
   const constraintsRef = useRef(null);
   const {notify} = useToast()
   
@@ -43,7 +45,7 @@ const GeneralLayout = ({children}:GeneralLayoutType):React.ReactElement=>{
     }
   },[])
   return (
-    <motion.div ref={constraintsRef}>
+    <motion.div ref={constraintsRef} style={style}>
       <Nav/>
       {
         children
