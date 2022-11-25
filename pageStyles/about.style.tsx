@@ -2,13 +2,63 @@ import styled from 'styled-components';
 
 
 
+export const AboutContainerImageFlunt = styled.div`
+display: grid;
+grid-template-areas:
+"first_img first_img"
+"sec_img third_img";
+gap: 30px;
+
+    img{
+        width: 100%;
+        border-radius:20px;
+        display: block;
+    }
+
+    img.first_img{
+        grid-area: first_img;
+    }
+    img.sec_img{
+        grid-area: sec_img;
+
+    }
+    img.third_img{
+        grid-area: third_img;
+
+    }
+
+    @media screen and (min-width:516px) {
+        max-width: 1200px;
+        margin: 0 auto;
+        grid-template-areas:
+"sec_img  first_img third_img"
+"sec_img  first_img third_img"
+".  first_img ."
+    }
+    img.first_img{
+        height: 700px;
+    }
+    img.sec_img{
+        height: 500px;
+    }
+    img.third_img{
+        height: 500px;
+
+
+    }
+
+`
 
 
 
 export const AboutContainer= styled.div`
  
     padding: 1rem;
-    &>div:nth-child(1){
+    li{
+        list-style-type: circle;
+        padding: .3rem 0;
+    }
+    &>.center{
         max-width: 600px;
     margin: 0 auto;
     }
@@ -31,6 +81,10 @@ export const AboutContainer= styled.div`
    &> p{
         color:#4b5563;
         padding: 1rem;
+    }
+   .about_container_content{
+        color:#4b5563;
+
     }
 `
 export const AboutTeamList= styled.div`
