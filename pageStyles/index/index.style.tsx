@@ -111,7 +111,7 @@ export const FilterBtnContainer = styled.div`
 position: sticky;
 background-color: white;
 top: 0;
-z-index: 100;
+z-index: 30;
   display: flex;
   justify-content: space-between;
   align-items: center;
