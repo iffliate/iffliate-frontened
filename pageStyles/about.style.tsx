@@ -13,6 +13,7 @@ gap: 30px;
         width: 100%;
         border-radius:20px;
         display: block;
+        object-fit: cover;
     }
 
     img.first_img{
