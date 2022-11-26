@@ -58,7 +58,7 @@ const signin:NextPage= ()=>{
             quantity:d.quantity
           }
         })
-        dispatch(bulkCreateOrderApi(clean_data as bulkCreateOrderApiProp[]))
+        // dispatch(bulkCreateOrderApi(clean_data as bulkCreateOrderApiProp[]))
         window.localStorage.removeItem('iffiliate_cart')
       }
       router.push('/')
