@@ -29,8 +29,8 @@ import ItemDetailMainBody from '../shared/CustomItemDetail/mainBody'
 import CustomModal from '../shared/Modal/CustomModal'
 import { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../redux/hooks'
-import { selectProduct } from '../redux/Product/ProductSlice'
-import { getProductApi } from '../redux/Product/ProductApi'
+import { selectProduct, setCurrentCategory } from '../redux/Product/ProductSlice'
+import { getCategory, getProductApi } from '../redux/Product/ProductApi'
 import { getCartLocally } from '../redux/Cart/CartSlice'
 import { isAuth } from '../utils/extraFunction'
 import { getOrderApi } from '../redux/Cart/CartApi'
@@ -98,7 +98,17 @@ const Home: NextPage = () => {
   const  [modalIsOpen,setModalIsOpen] = useState(false);
   const { data ,status,currentCategory} = useAppSelector(selectProduct)
   const dispatch = useAppDispatch();
+  const {category_list} = useAppSelector(selectProduct);
 
+
+  useEffect(()=>{
+    if(category_list.length == 0 ){
+      dispatch(getCategory(''))
+    }
+  },[])
+
+
+  
   useEffect(()=>{
     dispatch(getProductApi({shopId:''}))
 
@@ -179,17 +189,17 @@ const Home: NextPage = () => {
 
           </MobileNavLinkContainer>
         </OffCanvas> */}
-        <div style={{'width':'140px'}}>
-          <SelectBar data={[
-            {value:'Grocery',label:'Grocery',icon:<GiAppleSeeds color='#ff4f01'/>},
-            {value:'Bakery',label:'Bakery',icon:<GiSlicedBread color='#ff4f01'/>},
-            {value:'MakeUP',label:'Makeup',icon:<FaPaintBrush color='#ff4f01'/>},
-            {value:'Bags',label:'Bags',icon:<RiShoppingBagFill color='#ff4f01'/>},
-            {value:'Clothing',label:'Clothing',icon:<GiAmpleDress color='#ff4f01'/>},
-            {value:'Funiture',label:'Funiture',icon:<GiOfficeChair color='#ff4f01'/>},
-            {value:'Book',label:'Book',icon:<BiBookReader color='#ff4f01'/>},
+        <div style={{'width':'140px','marginLeft':'20px'}} >
+          <SelectBar data={category_list.map(data=>(
+            {value:data.id,label:data.name,icon:''}
+          )) }
 
-          ]}
+          
+          runAfterChange={e=>{
+            dispatch(setCurrentCategory(e.label))
+            //this is were we would search by categories
+            dispatch(getProductApi({shopId:'',look_up:`&category=${e.label}`}))
+          }}
           />
         </div>
       </FilterBtnContainer>

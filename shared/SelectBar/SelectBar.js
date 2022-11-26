@@ -13,7 +13,7 @@ import PropTypes from 'prop-types';
 //   data:{value:string,label:string}[]
 // }
 
-const SelectBar = ({data,runAfterChange}) =>{
+const SelectBar = ({data,runAfterChange,style}) =>{
   const [selectedOption, setSelectedOption] = useState(null);
 
   // handle onChange event of the dropdown
@@ -28,6 +28,7 @@ const SelectBar = ({data,runAfterChange}) =>{
   return (
  
     <Select
+      styles={style?style:{}}
       placeholder="Category"
       value={selectedOption}
       options={data}
@@ -47,8 +48,10 @@ SelectBar.propTypes={
     value:PropTypes.any.isRequired,
     label:PropTypes.string.isRequired,
     icon:PropTypes.any.isRequired,
+    
   })),
-  runAfterChange:PropTypes.func
+  runAfterChange:PropTypes.func,
+  style:PropTypes.any,
  
 }
 export default SelectBar
