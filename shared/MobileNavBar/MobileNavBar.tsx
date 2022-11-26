@@ -53,11 +53,9 @@ const MobileNavBar = ({dragConstraints}:Prop):React.ReactElement=>{
       />}
       >
         <MobileNavLinkContainer>
-          <li><a href=""><AiOutlineShoppingCart/>{' '}Shops</a></li>
-          <li><a href=""><GiBossKey/>{' '}Founders</a></li>
-          <li><a href=""><FaCut/> {' '}Offers</a></li>
-          <li><a href=""><FaTasks/>{' '}Faqs</a></li>
-          <li><a href=""><BsFillMegaphoneFill/>{' '}Contact</a></li>
+          <li><a href="" onClick={()=>handleRoute('/dashboard/shop/')}><AiOutlineShoppingCart/>{' '}Shops</a></li>
+          <li><a href="" onClick={(e)=>route.push('/about')}><GiBossKey/>{' '}About</a></li>
+          <li><a href="" onClick={(e)=>route.push('/dashboard/shop/create')}><FaCut/> {' '}Become a seller</a></li>
 
         </MobileNavLinkContainer>
       </OffCanvas >

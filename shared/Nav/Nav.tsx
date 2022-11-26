@@ -78,10 +78,9 @@ const Nav = ():React.ReactElement=>{
 
             <NavLinkContainer>
               <ul>
-                <li><a href="#">Faq</a></li>
                 <li><a onClick={()=>handleRoute('/dashboard/shop/')}>Shops</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="#" onClick={()=>handleRoute('/about/')}>About</a></li>
+                <li><a href="#"  onClick={(e)=>route.push('/dashboard/shop/create')}>Become a seller</a></li>
               </ul>
               <NavBtnContainer>
                 {
@@ -97,13 +96,14 @@ const Nav = ():React.ReactElement=>{
                             btnContrroller={<UserIconBtn/>}>
                             <div>
                               <MobileNavLinkContainer >
+                                <li><a onClick={()=>handleRoute('/dashboard/personal/myorders/')} ><AiOutlineShoppingCart/>{' '}Dasboard</a></li>
                                 {
                                   user?
                                     <li><a onClick={()=>handleRoute(`/dashboard/shop/${'?user='+user.user_id}`)}><AiOutlineShoppingCart/>{' '}Shops</a></li>
                                     :''
                                 }
                                 {/* <li><a onClick={()=>handleRoute('/dashboard/shop/')}><AiOutlineShoppingCart/>{' '}All Shops</a></li> */}
-                                <li><a href="" onClick={()=>handleRoute('/dashboard/personal/myorders/')}><AiOutlineShoppingCart/>{' '}My Orders</a></li>
+                                <li><a href="#" onClick={()=>handleRoute('/dashboard/personal/myorders/')}><AiOutlineShoppingCart/>{' '}My Orders</a></li>
                               
                                 <li><a onClick={()=>handleRoute('/checkout')} ><AiOutlineShoppingCart/>{' '}Checkout</a></li>
                                 <li><a href="" onClick={e=>{
