@@ -2,7 +2,7 @@ import axios from 'axios'
 import { getUserTokenOr404, isAuth } from '../utils/extraFunction';
 
 // http://iffilate.herokuapp.com
-const url = 'https://iffitiate-test.herokuapp.com'
+const url = 'https://web-production-a2ac.up.railway.app'
 // const url = 'http://localhost:8000'
 const api =axios.create({
   baseURL: url+'/api/v1',
