@@ -51,7 +51,7 @@ const Shop_name:NextPage= ()=>{
           shopDetail?
             <ShopDetailMobileNav>
               <div>
-                <img src={shopDetail.banner} alt="" />
+                <img src={shopDetail.logo} alt="" />
               </div>
               <div>
                 <p>{shopDetail.name}</p>

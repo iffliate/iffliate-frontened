@@ -7,7 +7,7 @@ export const ShopDetailMobileNav= styled.div`
   position: sticky;
   /* border-radius: 1px solid red; */
   background-color: white;
-  z-index: 100;
+  /* z-index: 100; */
   top: 0;
   left: 0;
   padding:  .8rem 1rem;
