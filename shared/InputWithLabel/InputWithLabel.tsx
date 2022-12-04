@@ -15,7 +15,7 @@ type Prop ={
 }
 const InputWithLabel = ({ type='text',errorMessage,label,placeholder='',isTextArea=false,register}:Prop):React.ReactElement=>{
 
-  const [show,setShow] = useState(false)
+  const [show,setShow] = useState(true)
   const RenderIcon = ()=>{
     return (
       <>
