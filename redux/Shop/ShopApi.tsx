@@ -97,6 +97,7 @@ export type ShopDetailType ={
     'info': string,
     'address_country':string,
     'address_city':string,
+    'address_zip':number,
     'street_address':string,
     'products': Product[],
     'phone':string;
@@ -115,5 +116,40 @@ export const getShopDetail= createAsyncThunk(
       
       return thunkApi.rejectWithValue(error)
     }
+  }
+)
+
+export const updateShopDetail = createAsyncThunk(
+  'shop/updateShopDetail',async({shopName,data}:{data:ShopDetailType,shopName:string},thunkApi)=>{
+    //
+
+
+    const form = new FormData()
+
+
+    form.append('name',data.name)
+    form.append('facebook',data.facebook?data.facebook:'')
+    form.append('twitter',data.twitter?data.twitter:'')
+    form.append('whatsapp',data.whatsapp?data.whatsapp:'')
+    form.append('instagram',data.instagram?data.instagram:'')
+    form.append('about',data.about)
+    form.append('info',data.info)
+    form.append('address_country',data.address_country)
+    form.append('address_city',data.address_city)
+    form.append('address_zip',data.address_zip.toString())
+    form.append('street_address',data.street_address)
+    form.append('phone',data.phone)
+
+
+    try {
+      const resp = await api.patch(`/shop/${shopName}/`,form)
+      console.log(resp)
+
+      return resp.data 
+    } catch (error) {
+      
+      return thunkApi.rejectWithValue(error)
+    }
+
   }
 )

@@ -11,6 +11,7 @@ import { useEffect } from 'react';
 import { getShop } from '../../../redux/Shop/ShopApi';
 import { useRouter } from 'next/router';
 import {AiFillEye,AiFillSetting} from 'react-icons/ai'
+import {GoPencil} from 'react-icons/go'
 import { decodeToken } from '../../../utils/extraFunction';
 import Preloader from '../../../shared/Preloader/Preloder';
 // import DummyImage from '../../assets/shopimage.webp'
@@ -50,7 +51,10 @@ const index:NextPage=()=>{
                   {
                     user?.user_id == item.user  
                       ?
-                      <AiFillSetting onClick={(e)=>route.push(`/dashboard/shop/${item.id}/`)}/>:
+                      <>
+                        <AiFillSetting onClick={(e)=>route.push(`/dashboard/shop/${item.id}/`)}/>
+                        <GoPencil  onClick={(e)=>route.push(`/dashboard/shop/${item.id}/${item.slug}/edit`)}/>
+                      </>:
                       ''
                   }
                   <AiFillEye onClick={(e)=>route.push(`/shops/${item.slug}/`)}/>
