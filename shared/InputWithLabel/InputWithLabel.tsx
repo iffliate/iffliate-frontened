@@ -15,7 +15,7 @@ type Prop ={
 }
 const InputWithLabel = ({ type='text',errorMessage,label,placeholder='',isTextArea=false,register}:Prop):React.ReactElement=>{
 
-  const [show,setShow] = useState(true)
+  const [show,setShow] = useState(false)
   const RenderIcon = ()=>{
     return (
       <>
@@ -28,6 +28,12 @@ const InputWithLabel = ({ type='text',errorMessage,label,placeholder='',isTextAr
       </>
     )
   }
+  const decideType =():string=>{
+    if(type=='password'){
+      return show?'text':'password'
+    }
+    return 'text'
+  }
   return (
     <InputWithLableContainer>
       <label htmlFor={label}>{label}</label> 
@@ -37,7 +43,7 @@ const InputWithLabel = ({ type='text',errorMessage,label,placeholder='',isTextAr
           <textarea name="label" id={label} placeholder={label}  cols={30} rows={5} {...register}></textarea>
           :
 
-          <input type={show?'password':'text'}  id={label} placeholder={placeholder} {...register}/>
+          <input type={decideType()}  id={label} placeholder={placeholder} {...register}/>
       }
       {
         errorMessage?
