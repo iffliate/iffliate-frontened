@@ -12,6 +12,7 @@ import Table from '../../../../shared/Table/Table';
 import {AiFillCloseCircle} from 'react-icons/ai'
 import {BsFillCalendar2CheckFill} from 'react-icons/bs'
 import useToast from '../../../../hooks/useToastify';
+import {GoPencil} from 'react-icons/go'
 
 export type prop_columnsType ={Header:string,accessor?:string,Cell?:any,id?:any}
 
@@ -49,11 +50,19 @@ const ShopDetail:NextPage =()=>{
       'accessor':'slashed_price'
     },
     {
-      Header:'Out of Stock',
-      accessor:'out_of_stock',
-      Cell :(tableProps:any)  =>tableProps.row.original.out_of_stock?<AiFillCloseCircle style={{'color':'red'}}/>:<BsFillCalendar2CheckFill style={{'color':'#f77305'}}/>
+      Header:'Edit',
+      accessor:'slug',
+      id:1,
+      Cell :(tableProps:any)  =><GoPencil 
+        onClick={()=>{
+        //
+        // 
+          route.push(`/dashboard/shop/${shop}/${tableProps.row.original.slug}/productupdate/`)
+        }}
+        style={{'color':'#f77305'}}/>
     },{
       Header:'Delete',
+      id:3,
       accessor:'slug',
       Cell:(tableProps:any)=> <AiFillCloseCircle style={{'color':'red'}} onClick={e=>handleDelete(tableProps.row.original.slug)}/> 
     }

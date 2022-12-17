@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { resizeFile } from '../../utils/extraFunction';
 import { UploadImageContainer } from './UploadImage.style'
 import {IoIosCloseCircle} from 'react-icons/io'
 import { Buffer } from 'buffer'; 
+import { useRouter } from 'next/router';
 
 const dataUrlToFile = (dataUrl: string, filename: string): File | undefined => {
   const arr = dataUrl.split(',');
@@ -19,12 +20,13 @@ type Prop = {
   width:number;
   setValue:any;
   name:string;
+  image_defualt_url?:string|null
 }
-const UploadImage = ({height,width,setValue,name}:Prop):React.ReactElement=>{
+const UploadImage = ({height,width,setValue,name,image_defualt_url=null}:Prop):React.ReactElement=>{
+  const route = useRouter();
   
   
   const [Image,setImage] = useState<any>(null);
-
   const CloseImg = ()=>{
     setValue(name,null)
     setImage(null)
@@ -41,6 +43,10 @@ const UploadImage = ({height,width,setValue,name}:Prop):React.ReactElement=>{
       //
     }
   }
+  useEffect(()=>{
+    setImage((value:any)=>image_defualt_url)
+  },[route.isReady])
+  console.log({Image,image_defualt_url})
   return (
     <UploadImageContainer>
       {

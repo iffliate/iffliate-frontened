@@ -1,6 +1,6 @@
 import {  createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, sliceStatus } from '../store';
-import { deleteProductApi, getCategory, getProductApi, Product, productCreateApi } from './ProductApi';
+import { deleteProductApi, getCategory, getProductApi, getProductDetail, Product, productCreateApi, updateProductDetail } from './ProductApi';
 
 
 
@@ -15,6 +15,7 @@ type State ={
   data:Product[];
   category_list:Category[]
   currentCategory:string;
+  productDetail:Product;
 }
 
 const initialState:State={
@@ -22,7 +23,8 @@ const initialState:State={
   data:[],
   errMessage:null,
   category_list:[],
-  currentCategory:'clothing'
+  currentCategory:'clothing',
+  productDetail: {} as Product
 }
 const productSlice = createSlice({
   name:'product',
@@ -30,6 +32,10 @@ const productSlice = createSlice({
   reducers:{
     setCurrentCategory:(state,{payload}:PayloadAction<string>)=>{
       state.currentCategory=payload
+    },
+    setProductDetail:(state,{payload}:PayloadAction<Product>)=>{
+      // this set detail without the need of getting from the endpoint
+      state.productDetail=payload
     }
   },
   extraReducers:({addCase})=>{
@@ -95,6 +101,49 @@ const productSlice = createSlice({
       // state.category_list= payload
     })
     
+
+
+    // get product detail
+
+    addCase(getProductDetail.pending,(state,action)=>{
+      //
+      state.status = 'pending'
+    })
+
+    addCase(getProductDetail.fulfilled,(state,{payload}:PayloadAction<Product>)=>{
+      //
+      state.status = 'success'
+      state.productDetail= payload
+    })
+
+
+    addCase(getProductDetail.rejected,(state,action)=>{
+      //
+      state.status='error'
+      console.log({
+        'error from Product DetailSLice':action.payload
+      })
+    })
+
+    addCase(updateProductDetail.pending,(state,action)=>{
+      state.status='updating'
+    })
+    addCase(updateProductDetail.fulfilled,(state,{payload}:PayloadAction<Product>)=>{
+      state.status='updated'
+
+      state.data = state.data.map(data=>{
+        if(data.id ==payload.id){
+          return payload
+        }
+        return data
+      })
+    })
+
+
+    addCase(updateProductDetail.rejected,(state,action)=>{
+      state.status='error'
+      console.log({'couldnot Update Product':action.payload})
+    })
   }
 })
 

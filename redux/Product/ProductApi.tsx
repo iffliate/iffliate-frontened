@@ -100,3 +100,56 @@ export const getCategory = createAsyncThunk('product/getCategory',async(data:any
     return thunkApi.rejectWithValue(error)
   }
 })
+
+
+export const getProductDetail= createAsyncThunk(
+  'product/getProductDetail',async (product_slug:string,thunkApi)=>{
+    try { 
+      const resp = await api.get(`/product/${product_slug}/`)
+      return resp.data as Product
+  
+    } catch (error) {
+    
+      return thunkApi.rejectWithValue(error)
+    }
+  })
+
+type updateProductDetailProp ={
+  data:Product,
+  product_slug:string
+}
+
+export const updateProductDetail= createAsyncThunk(
+  'product/updateProductDetail',async ({data,product_slug}:updateProductDetailProp,thunkApi)=>{
+    const form = new FormData();
+
+
+    form.append('name',data.name)
+    form.append('description',data.description)
+    form.append('slashed_price',data.slashed_price.toString())
+    form.append('actual_price',data.actual_price.toString())
+    form.append('shop',data.shop.toString())
+    form.append('category',data.category.toString())
+    form.append('out_of_stock',JSON.stringify(data.out_of_stock))
+
+    if(data.image_one){
+      form.append('image_one',data.image_one)
+    }
+    if(data.image_three){
+      form.append('image_three',data.image_three)
+    }
+    if(data.image_two){
+      form.append('image_two',data.image_two)
+    }
+    if(data.image_four){
+      form.append('image_four',data.image_four)
+    }
+    try { 
+      const resp = await api.patch(`/product/${product_slug}/`,form)
+      return resp.data as Product
+    
+    } catch (error) {
+      
+      return thunkApi.rejectWithValue(error)
+    }
+  })
