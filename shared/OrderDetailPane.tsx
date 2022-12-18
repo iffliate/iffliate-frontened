@@ -13,7 +13,7 @@ import { selectOrderHistory } from '../redux/OrderHistory/OrderHistorySlice';
 import Pane from './Pane/Pane';
 import SelectBar from './SelectBar/SelectBar';
 import Table from './Table/Table';
-
+import moment from 'moment'
 
 const prop_columns:prop_columnsType[]=[
   {
@@ -26,7 +26,7 @@ const prop_columns:prop_columnsType[]=[
     accessor:'quantity'
   },
   {
-    Header:'Total',
+    Header:'Amount',
     accessor:'amount'
   },{
     Header:'Buyer Phone',
@@ -34,7 +34,25 @@ const prop_columns:prop_columnsType[]=[
   }
 
 ]
+const user_props_columns:any = [
+  {
+    id:1,
+    Header:'Product Name',
+    accessor:'product_name'
+  },
+  {
+    Header:'Quantity',
+    accessor:'quantity'
+  },
+  {
+    Header:'Amount',
+    accessor:'amount'
+  },{
+    Header:'Shop Phone',
+    accessor:'shopPhone_number'
+  }
 
+]
 
 type Prop ={
     data: OrderHistoryType[]
@@ -51,7 +69,9 @@ const OrderDetailPane = ({data,is_shop=false}:Prop):React.ReactElement=>{
   const dispatch = useAppDispatch()
   const cards = [
     {label:'Order Number',value:data[0].paystack?data[0].paystack:''},
-    {label:'Date',value:data[0].created_at},
+    {label:'Date',value:
+    moment(data[0].created_at).format('MMMM d, YYYY')
+    },
     {label:'Total',value:'nil'},
     {label:'Payment Method',value:'Payment_Gate_Way'},
   ]
@@ -98,7 +118,7 @@ const OrderDetailPane = ({data,is_shop=false}:Prop):React.ReactElement=>{
       <br />
 
       <Table
-        prop_columns={prop_columns}
+        prop_columns={is_shop? prop_columns:user_props_columns}
         custom_data={data}
       />
 
@@ -109,26 +129,26 @@ const OrderDetailPane = ({data,is_shop=false}:Prop):React.ReactElement=>{
         <div>
           <h3>Total Amount</h3>
           <OrderDetailTotalContainter>
-            <p>Item Total</p>
+            <p>Item Amount</p>
             <p><span>:</ span> ${data.reduce((prev:any,current:any)=>{
               return parseInt(current.amount)+prev
-            },0)}</p>
+            },0) }</p>
           </OrderDetailTotalContainter>
           <OrderDetailTotalContainter>
             <p>Shipping Charge</p>
             <p><span>:</span> $0.00</p>
           </OrderDetailTotalContainter>
-          <OrderDetailTotalContainter>
+          {/* <OrderDetailTotalContainter>
             <p>Iffiliate Charge </p>
             <p><span>:</span> ${data.reduce((prev:any,current:any)=>{
               return parseInt(current.iffiliate_earning)+prev
             },0)}</p>
-          </OrderDetailTotalContainter>
-
+          </OrderDetailTotalContainter> */}
+          {/* 
           <OrderDetailTotalContainter>
             <p>Total </p>
             <p><span>:</span> $0.00</p>
-          </OrderDetailTotalContainter>
+          </OrderDetailTotalContainter> */}
         </div>
 
         <br />

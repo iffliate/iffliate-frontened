@@ -25,6 +25,8 @@ export type shopType = {
   'street_address':string,
   'created_at'?: string,
   'updated_at'?:string;
+  'phone_number':string;
+  
 }
 
 export const createShop = createAsyncThunk(
@@ -101,6 +103,7 @@ export type ShopDetailType ={
     'street_address':string,
     'products': Product[],
     'phone':string;
+    'phone_number':string;
 }
 
 export const getShopDetail= createAsyncThunk(
@@ -138,7 +141,7 @@ export const updateShopDetail = createAsyncThunk(
     form.append('address_city',data.address_city)
     form.append('address_zip',data.address_zip.toString())
     form.append('street_address',data.street_address)
-    form.append('phone',data.phone)
+    form.append('phone_number',data.phone_number)
 
 
     try {

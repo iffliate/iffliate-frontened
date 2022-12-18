@@ -36,6 +36,7 @@ const schema = yup.object().shape({
   address_city:yup.string().required(),
   address_zip:yup.number().required(),
   street_address:yup.string().required(),
+  phone_number:yup.string().required(),
 
   //
 
@@ -74,6 +75,7 @@ const EditShopProfile:NextPage = ()=>{
       setValue('address_zip',shopDetail.address_zip)
       setValue('address_city',shopDetail.address_city)
       setValue('street_address',shopDetail.street_address)
+      setValue('phone_number',shopDetail.phone_number)
 
       setValue('facebook',shopDetail.facebook)
       setValue('twitter',shopDetail.twitter)
@@ -214,6 +216,13 @@ Dimension of the cover image should be <strong> 1170 x 435px</strong></p>
           <InputWithLabel label='ZIP' 
             register={register('address_zip')}
             errorMessage={errors.address_zip?.message}
+            
+          />
+
+          <br />
+          <InputWithLabel label='Phone' 
+            register={register('phone_number')}
+            errorMessage={errors.phone_number?.message}
             
           />
 

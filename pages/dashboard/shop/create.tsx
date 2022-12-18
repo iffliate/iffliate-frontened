@@ -38,6 +38,7 @@ const schema = yup.object().shape({
   address_city:yup.string().required(),
   address_zip:yup.number().required(),
   street_address:yup.string().required(),
+  phone_number:yup.string().required(),
 
   //
 
@@ -88,7 +89,12 @@ const Create:NextPage = ()=>{
   },[status])
 
   useEffect(()=>{
-    getBanks()
+
+    //we dont need this value that why we prefill it with bull shit
+    setValue('account_holder_email','dumb@gmail.com')
+    setValue('account_holder_name','dumb@gmail.com')
+    setValue('bank_name','dumb@gmail.com')
+    setValue('account_number',243546)
   },[])
   return (
     <DashboardLayout
@@ -158,52 +164,7 @@ Dimension of the cover image should be <strong> 1170 x 435px</strong></p>
         </Pane>
       </ContentWithFormInput>
       
-      <ContentWithFormInput>
-        <div>
-          <h3>Payment Info</h3>
-          <p>Add your payment information from here</p>
-        </div>
-        <Pane>
-          <InputWithLabel
-            label='Account Holder Name'
-            register={register('account_holder_name')}
-            errorMessage={errors.account_holder_name?.message}
-          />
-          <br />
-          <InputWithLabel label='Account Holder Email'
-            register={register('account_holder_email')}
-            errorMessage={errors.account_holder_email?.message}
-
-          />
-          {/* <InputWithLabel label='Bank Name'
-            register={register('bank_name')}
-            errorMessage={errors.bank_name?.message}
-
-          /> */}
-          <br />
-          <br />
-          <label htmlFor={'label'}>Bank Name</label> 
-          <br />
-          <select {...register('bank_name')}>
-            {
-              banks?
-                banks.map((d:string,index:number)=> <option
-                  onChange={(e:any)=>{
-                    setValue('bank_name',e.target.value)
-                  }}
-                  key={index} value={d}>{d}</option>)
-                :''
-            }
-          </select>
-          <br />
-          <br />
-          <InputWithLabel label='Account Number'
-            register={register('account_number')}
-            errorMessage={errors.account_number?.message}
-          />
-
-        </Pane>
-      </ContentWithFormInput>
+    
       
       
       <ContentWithFormInput>
@@ -239,9 +200,13 @@ Dimension of the cover image should be <strong> 1170 x 435px</strong></p>
           <InputWithLabel label='Street Address' 
             register={register('street_address')}
             errorMessage={errors.street_address?.message}
-
             isTextArea={true}/>
-
+          <br />
+          <InputWithLabel label='Phone Number' 
+            register={register('phone_number')}
+            errorMessage={errors.address_zip?.message}
+            
+          />
         </Pane>
       </ContentWithFormInput>
       
