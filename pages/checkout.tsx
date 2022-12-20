@@ -132,7 +132,7 @@ const Checkout:NextPage = ()=>{
               // InitPayment
           
                 cartItem.length ==0?
-                  <Button styleType='sec' > No Order yey</Button>
+                  <Button styleType='sec' > No Order Yet</Button>
                   :
                   <Button > Place Order</Button>
             

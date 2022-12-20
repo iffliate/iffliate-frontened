@@ -27,7 +27,11 @@ export  type OrderHistoryType = {
 }
 
 
-
+export type getorderHistoryListResponse = {
+  'paystack': string,
+            'created_at': string,
+            'id': number
+}
 export const getorderHistoryList = createAsyncThunk(
   'orderhistory/getorderHistoryList',async ({shopID,is_for_shop=true,lookup=''}:{shopID:number,is_for_shop?:boolean;lookup?:string},thunkAPi)=>{
     //
@@ -37,7 +41,7 @@ export const getorderHistoryList = createAsyncThunk(
     }
     try {
       const resp = await api.get(url+`${lookup}`) 
-      return resp.data.data as string[];
+      return resp.data.data as getorderHistoryListResponse[];
     } catch (err:any) {
       //
       return thunkAPi.rejectWithValue(err)
@@ -52,7 +56,6 @@ type getOrderHistoryDetailType = {
 }
 export const getOrderHistoryDetail = createAsyncThunk(
   'orderhistory/getOrderHistoryDetail',async ({paystack,shopID,is_for_shop=true}:getOrderHistoryDetailType,thunkApi)=>{
-    //
     let url =`order-shop-management/${paystack}/?shop=${shopID}`
     if(is_for_shop == false){
       url = `order-shop-management/${paystack}/`

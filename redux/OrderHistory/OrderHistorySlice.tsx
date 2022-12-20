@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, sliceStatus } from '../store';
-import { getOrderHistoryDetail, getorderHistoryList, OrderHistoryType, updateOrderHistoryStatus } from './OrderHistoryApi';
+import { getOrderHistoryDetail, getorderHistoryList, getorderHistoryListResponse, OrderHistoryType, updateOrderHistoryStatus } from './OrderHistoryApi';
 
 
 
@@ -8,7 +8,7 @@ type State ={
     status:sliceStatus,
     errMessage:any,
     order_historys:OrderHistoryType[],
-    order_history_paystacks:{'paystack':string}[]
+    order_history_paystacks:getorderHistoryListResponse[]
 }
 
 const initialState:State = {
@@ -29,9 +29,9 @@ const OrderHistory = createSlice({
       state.status='pending'
     })
 
-    addCase(getorderHistoryList.fulfilled,(state,{payload}:PayloadAction<string[]>)=>{
+    addCase(getorderHistoryList.fulfilled,(state,{payload}:PayloadAction<getorderHistoryListResponse[]>)=>{
       state.status='success'
-      state.order_history_paystacks=payload.map(d=>({'paystack':d}))
+      state.order_history_paystacks=payload
     })
     addCase(getorderHistoryList.rejected,(state,{payload})=>{
       //

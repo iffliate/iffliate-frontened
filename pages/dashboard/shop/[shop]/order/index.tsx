@@ -12,6 +12,7 @@ import { useEffect } from 'react';
 import { getOrderHistoryDetail, getorderHistoryList } from '../../../../../redux/OrderHistory/OrderHistoryApi';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import Preloader from '../../../../../shared/Preloader/Preloder';
+import moment from 'moment';
 
 
 
@@ -29,6 +30,13 @@ const ShopOrder:NextPage = ()=>{
       accessor:'paystack',
       id:13
     },
+
+    
+    {
+      Header:'Order Date',
+      accessor:'created_at',
+      
+    },
     {
       Header:'View Detail',
       accessor:'paystack',
@@ -36,18 +44,18 @@ const ShopOrder:NextPage = ()=>{
       Cell:(tableProps:any)=>(
         // this is were we do onClick to call the orderHistory Detail
         <AiTwotoneEye style={{'color':'#f77305'}} onClick={e=>{
-          if(typeof shop == 'string'){
-            dispatch(getOrderHistoryDetail({
-              'shopID':shop,
-              paystack:tableProps.row.original.paystack
-            }))
-            route.push(`/dashboard/shop/${shop}/order/${tableProps.row.original.paystack}`)
-          }
-
+         
+          dispatch(getOrderHistoryDetail({
+            'shopID':'-1',
+            paystack:tableProps.row.original.paystack,
+            is_for_shop:false
+          }))
+          route.push(`/dashboard/personal/myorders/${tableProps.row.original.paystack}`)
         }} />
       )
-    }
+    },
   ] 
+
 
   useEffect(()=>{
     if(typeof shop == 'string'){

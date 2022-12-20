@@ -10,7 +10,7 @@ import { selectOrderHistory } from '../../../../redux/OrderHistory/OrderHistoryS
 import Pane from '../../../../shared/Pane/Pane';
 import Table from '../../../../shared/Table/Table';
 import { prop_columnsType } from '../../shop/[shop]';
-
+import moment from 'moment';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import Preloader from '../../../../shared/Preloader/Preloder';
 
@@ -32,6 +32,11 @@ const myorders:NextPage = ()=>{
       id:13
     },
 
+    
+    {
+      Header:'Order Date',
+      accessor:'created_at',
+    },
     {
       Header:'View Detail',
       accessor:'paystack',
@@ -48,7 +53,7 @@ const myorders:NextPage = ()=>{
           route.push(`/dashboard/personal/myorders/${tableProps.row.original.paystack}`)
         }} />
       )
-    }
+    },
   ] 
 
   useEffect(()=>{
@@ -69,50 +74,48 @@ const myorders:NextPage = ()=>{
     >
       <Preloader loading={status=='pending'|| route.isReady===false} />
 
+
+      {/* <Table/> */}
       <Pane>
+        <h1>Orders</h1>
+        <br /><br />
 
-        {/* <Table/> */}
-        <Pane>
-          <h1>Orders</h1>
-          <br /><br />
+        <Tabs onSelect={(index: number, lastIndex: number, event: Event)=>{
+          //
+          if(index== 0){
+            dispatch(getorderHistoryList({'shopID':-1,is_for_shop:false,lookup:'?status=order_processing'}))
+          }
+          if(index== 1){
+            dispatch(getorderHistoryList({'shopID':-1,is_for_shop:false,lookup:'?status=ready_to_dispatch'}))
 
-          <Tabs onSelect={(index: number, lastIndex: number, event: Event)=>{
-            //
-            if(index== 0){
-              dispatch(getorderHistoryList({'shopID':-1,is_for_shop:false,lookup:'?status=order_processing'}))
-            }
-            if(index== 1){
-              dispatch(getorderHistoryList({'shopID':-1,is_for_shop:false,lookup:'?status=ready_to_dispatch'}))
+          }
+          if(index== 2){
+            dispatch(getorderHistoryList({'shopID':-1,is_for_shop:false,lookup:'?status=delivered'}))
+          }
+        }}>
+          <TabList>
+            <Tab>Order Processing</Tab>
+            <Tab>Ready To Dispatch</Tab>
+            <Tab>Delivered</Tab>
+          </TabList>
 
-            }
-            if(index== 2){
-              dispatch(getorderHistoryList({'shopID':-1,is_for_shop:false,lookup:'?status=delivered'}))
-            }
-          }}>
-            <TabList>
-              <Tab>Order Processing</Tab>
-              <Tab>Ready To Dispatch</Tab>
-              <Tab>Delivered</Tab>
-            </TabList>
+          <TabPanel>
+            <Table prop_columns={prop_columns} custom_data={order_history_paystacks}/>
 
-            <TabPanel>
-              <Table prop_columns={prop_columns} custom_data={order_history_paystacks}/>
+          </TabPanel>
+          <TabPanel>
+            <Table prop_columns={prop_columns} custom_data={order_history_paystacks}/>
+          </TabPanel>
+          <TabPanel>
+            <Table prop_columns={prop_columns} custom_data={order_history_paystacks}/>
+          </TabPanel>
 
-            </TabPanel>
-            <TabPanel>
-              <Table prop_columns={prop_columns} custom_data={order_history_paystacks}/>
-            </TabPanel>
-            <TabPanel>
-              <Table prop_columns={prop_columns} custom_data={order_history_paystacks}/>
-            </TabPanel>
-
-            <TabPanel>
-              <Table prop_columns={prop_columns} custom_data={order_history_paystacks}/>
-            </TabPanel>
+          <TabPanel>
+            <Table prop_columns={prop_columns} custom_data={order_history_paystacks}/>
+          </TabPanel>
 
             
-          </Tabs>
-        </Pane>
+        </Tabs>
       </Pane>
 
     </DashboardLayout>

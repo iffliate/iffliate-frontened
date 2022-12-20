@@ -9,9 +9,10 @@ export const DashboardLayoutContainer = styled.div<DashboardLayoutContainerType>
 /* border:1px solid red; */
 background-color: #f3f4f6;
 min-height: 90vh;
-padding: 2rem;
+padding: 2rem .5rem;
 
 @media screen  and (min-width: 700px){
+  padding: 2rem;
   display: flex;
   /* border:1px solid green; */
   align-items: center;
