@@ -2,27 +2,13 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image, { StaticImageData } from 'next/image'
 import GeneralLayout from '../layout/GeneralLayout/GeneralLayout'
-import Offer from '../assets/offer-1.webp'
-import Offer2 from '../assets/offer-5.webp'
-import Offer3 from '../assets/offer-3.webp'
-import {AiOutlineArrowRight} from 'react-icons/ai'
-import {AiOutlineArrowLeft} from 'react-icons/ai'
-import Button from '../shared/Button/Button'
-import {RiFilterFill, RiShoppingBagFill} from 'react-icons/ri'
 import SelectBar from '../shared/SelectBar/SelectBar'
-import {GiAmpleDress, GiAppleSeeds, GiDiscGolfBag, GiOfficeChair} from 'react-icons/gi'
-import {GiSlicedBread} from 'react-icons/gi'
-import { FaPaintBrush } from 'react-icons/fa'
-import { BiBookReader } from 'react-icons/bi'
+
 import { useMediaQuery } from 'react-responsive'
-import { IndexIntroInfo,
-  ImageControllerContainer,FilterBtnContainer ,
-  HeroSection,HeroSectionContentBox,IndexPageMainArea
+import {FilterBtnContainer ,
+  HeroSection,HeroSectionContentBox,
 } from '../pageStyles/index/index.style'
 import HeroSearchBar from '../shared/HeroSearchBar/HeroSearchBar'
-import OffCanvas from '../shared/OffCanvas/OffCanvas'
-import { MobileNavLinkContainer } from '../shared/MobileNavBar/MobileNavBar.style'
-import StickySideNav from '../shared/StickySideNav/StickySideNav'
 import SingleItem from '../shared/SingleItem/SingleItem'
 import { GridForSingleItem } from '../shared/SingleItem/SingleItem.style'
 import ItemDetailMainBody from '../shared/CustomItemDetail/mainBody'
@@ -41,6 +27,8 @@ import HeroImageGrocery from '../assets/grocery.webp'
 import HeroImagebakery from '../assets/bakery.webp'
 import HeroImagemakeup from '../assets/makeup.webp'
 import HeroImageFuniture from '../assets/funiture.jpg'
+import img1 from '../assets/img1.jpg'
+import PhoneHeroSection from '../shared/PhoneHeroSection/PhoneHeroSection'
 
 
 type HeroContentType= {
@@ -145,7 +133,7 @@ const Home: NextPage = () => {
               <HeroSearchBar/>
             </HeroSectionContentBox>
           </HeroSection>
-          :''
+          :<PhoneHeroSection/>
       }
 
       <br />
