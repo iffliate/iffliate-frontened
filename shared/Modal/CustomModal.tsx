@@ -25,7 +25,8 @@ const customStyles = {
     // border:'1px solid red',
     borderRadius:'10px',
     'outline':'none',
-    // "margin":"0 auto"
+    // PointerEvent:''
+    // "margin":"0 auto",
     
   },
   
