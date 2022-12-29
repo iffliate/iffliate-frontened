@@ -8,8 +8,11 @@ import {
 
 import {BsCart3 } from 'react-icons/bs' 
 import { useMediaQuery } from 'react-responsive'
-
-const ItemDetail = () =>{
+import { Product } from '../../../redux/Product/ProductApi'
+type Prop = {
+  data:Product
+}
+const ItemDetail = ({data}:Prop) =>{
 
   const NotMobile = useMediaQuery({
     query: '(min-width: 900px)'
@@ -21,20 +24,19 @@ const ItemDetail = () =>{
   return (
     <ItemDetailContainer>
       <SmallHeading>
-                SNEAKER COMPANY
+        {data.shop} ..shop name
       </SmallHeading>
 
-      <h1>Fall Limited Edition Sneakers</h1>
+      <h1>{data.name}</h1>
 
       <Content>
-                These low-profile sneakers are your perfect casual wear companion. Featuring a durable rubber outer sole, they ill withstand everything
-                the weather can offer.
+        {data.description}
       </Content>
       <br />
       <PricingContainer>
         <ActualPriceAndPricePercent>
           <ActualPrice>
-            $125.00
+            {data.actual_price}
             
           </ActualPrice>
           <PricePercent>
@@ -45,7 +47,7 @@ const ItemDetail = () =>{
         <CrossedPrice>
           {/* this shoudld be a component */}
           <s>
-                    $250.00
+            {data.slashed_price}
           </s>
         </CrossedPrice>
       </PricingContainer>

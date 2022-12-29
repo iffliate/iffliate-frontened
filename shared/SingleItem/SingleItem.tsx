@@ -61,24 +61,26 @@ const SingleItem = ({ onClick ,data}:Prop):React.ReactElement=>{
   }
   return (
     <SingleItemContainer >
-      <PercentageBar>
-        {data.slash_percentage}%
-      </PercentageBar>
+      <div onClick={onClick}>
+        <PercentageBar>
+          {data.slash_percentage}%
+        </PercentageBar>
 
-      <img src={data.image_one} style={{'zIndex':'0'}}/>
-      <PriceContainer>
-        <p>{data.actual_price}₦</p>
-        {/* <p><strike>$2.00</strike></p> */}
-        <p><small>{data.slashed_price}</small></p>
+        <img src={data.image_one} style={{'zIndex':'0'}}/>
+        <PriceContainer>
+          <p>{data.actual_price}₦</p>
+          {/* <p><strike>$2.00</strike></p> */}
+          <p><small>{data.slashed_price}</small></p>
 
-      </PriceContainer>
+        </PriceContainer>
 
-      <ItemName>
-        {data.name}
-      </ItemName>
-      <br />
-      <Preloader loading={status=='pending'||status=='deleting'||status=='updating'} />
+        <ItemName>
+          {data.name}
+        </ItemName>
+        <br />
+        <Preloader loading={status=='pending'||status=='deleting'||status=='updating'} />
 
+      </div>
       {
         cartItem.map(d=>d.product.id).includes(data.id)?
           <SingleItemBtnContainer variant='fill'  >

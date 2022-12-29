@@ -3,8 +3,12 @@ import ItemImagePreview from './ItemImagePreview/ItemImagePreview'
 import {MainBodyContainer} from './mainBody.style'
 import { useState } from 'react'
 import { useMediaQuery } from 'react-responsive'
+import { Product } from '../../redux/Product/ProductApi'
 
-const ItemDetailMainBody = ()=>{
+type Prop = {
+  data?:Product
+}
+const ItemDetailMainBody = ({data={} as Product}:Prop)=>{
   const  [modalIsOpen,setModalIsOpen] = useState(false)
 
 
@@ -22,9 +26,11 @@ const ItemDetailMainBody = ()=>{
       <br />
       
       <MainBodyContainer>
-        <ItemImagePreview  openModalPic={handleOpenModal} />
-        <ItemDetail />
-
+        <ItemImagePreview images={[
+          data.image_one,data.image_two,data.image_three,data.image_four
+        ]} openModalPic={handleOpenModal} />
+        <ItemDetail data={data} />
+        
       </MainBodyContainer>
 
     </>

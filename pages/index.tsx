@@ -1,5 +1,4 @@
 import type { NextPage } from 'next'
-import Head from 'next/head'
 import Image, { StaticImageData } from 'next/image'
 import GeneralLayout from '../layout/GeneralLayout/GeneralLayout'
 import SelectBar from '../shared/SelectBar/SelectBar'
@@ -16,7 +15,7 @@ import CustomModal from '../shared/Modal/CustomModal'
 import { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../redux/hooks'
 import { selectProduct, setCurrentCategory } from '../redux/Product/ProductSlice'
-import { getCategory, getProductApi } from '../redux/Product/ProductApi'
+import { getCategory, getProductApi, Product } from '../redux/Product/ProductApi'
 import { getCartLocally } from '../redux/Cart/CartSlice'
 import { isAuth } from '../utils/extraFunction'
 import { getOrderApi } from '../redux/Cart/CartApi'
@@ -27,7 +26,6 @@ import HeroImageGrocery from '../assets/grocery.webp'
 import HeroImagebakery from '../assets/bakery.webp'
 import HeroImagemakeup from '../assets/makeup.webp'
 import HeroImageFuniture from '../assets/funiture.jpg'
-import img1 from '../assets/img1.jpg'
 import PhoneHeroSection from '../shared/PhoneHeroSection/PhoneHeroSection'
 
 
@@ -84,6 +82,7 @@ const HeroContent =[
 const Home: NextPage = () => {
   const isLaptop = useMediaQuery({ query: '(min-width: 700px)' })
   const  [modalIsOpen,setModalIsOpen] = useState(false);
+  const [currentDetail,setCurrentDetail] = useState<Product>()
   const { data ,status,currentCategory} = useAppSelector(selectProduct)
   const dispatch = useAppDispatch();
   const {category_list} = useAppSelector(selectProduct);
@@ -197,7 +196,10 @@ const Home: NextPage = () => {
       
         {
           data.map((d,i)=>
-            <SingleItem data={d} key={i} onClick={(e)=>setModalIsOpen(true)} />
+            <SingleItem data={d} key={i} onClick={(e)=>{
+              setCurrentDetail(d)
+              setModalIsOpen(true)
+            }} />
           )
         }
       </GridForSingleItem>
@@ -210,7 +212,7 @@ const Home: NextPage = () => {
         modalIsOpen={modalIsOpen}
         setModalIsOpen={setModalIsOpen}
         element={
-          <ItemDetailMainBody/> 
+          <ItemDetailMainBody data={currentDetail}/> 
         }
       />
     

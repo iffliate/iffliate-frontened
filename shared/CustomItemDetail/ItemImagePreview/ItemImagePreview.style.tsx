@@ -7,6 +7,7 @@ export const MakeImageFitpage= css`
         height: 100%;
 `
 export const Container = styled.div`
+        max-height: 600px;
 
 @media screen  and (min-width:900px){
     width: 40%;
@@ -20,6 +21,10 @@ export const MainImageContainer = styled.div`
     width: 100%;
     /* height: 50%; */
     position: relative;
+    .mainImage{
+        max-height: 500px;
+        object-fit: cover;
+    }
     img{
         ${MakeImageFitpage}
     }
@@ -48,8 +53,7 @@ border-radius:10px ;
         opacity: .8;
 }
 
-    
-&> span > img{
+     img{
     border-radius:10px !important;
     width: 100% !important;
     height: 100% !important;

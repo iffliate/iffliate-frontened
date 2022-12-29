@@ -14,6 +14,7 @@ import DummyImage from '../../../assets/offer-1.webp'
 export interface ItemImagePreviewType {
     openModalPic?:()=>void;
     isInModalState?:boolean;
+    images:string[]
 }
 
 export interface PreviewBoxContainerType{
@@ -26,16 +27,16 @@ export interface ThunbNailType{
     currentItem:number;   
 }
 
-const ItemImagePreview= ({isInModalState=false}:ItemImagePreviewType):React.ReactElement=>{
+const ItemImagePreview= ({isInModalState=false,images}:ItemImagePreviewType):React.ReactElement=>{
     
-  const [slideIndex, setSlideIndex] = useState(1)
-  const  MAX_PICS =4;
+  const [slideIndex, setSlideIndex] = useState(0)
+  const  MAX_PICS =5;
   const nextSlide = () => {
     if(slideIndex !==MAX_PICS){
       setSlideIndex(slideIndex + 1)
     } 
     else if (slideIndex === MAX_PICS){
-      setSlideIndex(1)
+      setSlideIndex(0)
     }
   }
 
@@ -53,7 +54,7 @@ const ItemImagePreview= ({isInModalState=false}:ItemImagePreviewType):React.Reac
   return(
     <Container>
       <MainImageContainer>
-        <Image  src={DummyImage} alt="mainImage"/>
+        <img  src={images[slideIndex]} alt="mainImage" className='mainImage'/>
         <PreviewBoxContainer isInModalState={isInModalState}>
           <BiChevronRight  onClick={()=>nextSlide()}/>
 
@@ -65,12 +66,12 @@ const ItemImagePreview= ({isInModalState=false}:ItemImagePreviewType):React.Reac
             the three images would appear hear when the time comes
             */}
       <ThumbNailImageContainer>
-        {[...new Array(4)].map((data,index)=>(
+        {images.map((data,index)=>(
           <ThunbNail key={index}
-            currentItem={slideIndex} 
-            onClick={()=>moveDot(index+1)}
+            currentItem={slideIndex+1} 
+            onClick={()=>moveDot(index)}
           >
-            <Image src={DummyImage} alt="" />
+            <img src={images[index]} alt="" />
           </ThunbNail>
         ))}
                 
