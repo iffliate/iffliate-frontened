@@ -20,6 +20,10 @@ export type Product ={
   image_three:any;
   image_four:any;
   slash_percentage:number;
+
+  shop_info?:{
+    'name':string,id:number;slug:string;
+  }
 }
 type productCreateApiResponse ={
   message:string;

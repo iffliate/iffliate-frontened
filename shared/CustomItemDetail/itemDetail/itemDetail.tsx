@@ -14,11 +14,12 @@ import { useAppDispatch, useAppSelector } from '../../../redux/hooks'
 import { addCartLocally, selectCart } from '../../../redux/Cart/CartSlice'
 import { createOrderApi } from '../../../redux/Cart/CartApi'
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 type Prop = {
   data:Product
 }
 const ItemDetail = ({data}:Prop) =>{
-  
+  const route = useRouter()
   const NotMobile = useMediaQuery({
     query: '(min-width: 900px)'
   })
@@ -49,8 +50,12 @@ const ItemDetail = ({data}:Prop) =>{
   }
   return (
     <ItemDetailContainer>
-      <SmallHeading>
-        {data.shop} ..shop name
+      <SmallHeading onClick={(e)=>{
+        if(data.shop_info){
+          route.push(`/shops/${data?.shop_info.slug}`)
+        }
+      }}>
+        {data?.shop_info?.name}
       </SmallHeading>
 
       <h1>{data.name}</h1>
