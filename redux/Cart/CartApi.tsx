@@ -14,7 +14,8 @@ export type CartItem = {
 
 type createOrderApiProp = {
     product_id:number;
-    cartItemState:CartItem[]
+    cartItemState:CartItem[],
+    custom_quantity?:number;
 }
 
 type reduceOrderApiProp = {
@@ -46,7 +47,7 @@ export const getOrderApi = createAsyncThunk(
   }
 )
 export const createOrderApi= createAsyncThunk(
-  'Cart/createOrderApi', async ({product_id,cartItemState}:createOrderApiProp,thunkApi)=>{
+  'Cart/createOrderApi', async ({product_id,cartItemState,custom_quantity}:createOrderApiProp,thunkApi)=>{
     //
     let dataToBesent:{'product_id'?:number,'quantity':number}[]=[]
     if(!cartItemState.map(d=>d.product.id).includes(product_id)){
@@ -55,7 +56,11 @@ export const createOrderApi= createAsyncThunk(
       const item:CartItem[] = cartItemState.filter(d=>d.product.id==product_id)
       dataToBesent = [{'product_id':product_id,quantity:item[0].quantity+1}]
     }
+    if(custom_quantity){
+      dataToBesent = [{'product_id':product_id,quantity:custom_quantity}]
+    }
     // return 
+    console.log({dataToBesent})
     try{
       const resp = await api.post('/order/',{'items':dataToBesent})
       return resp.data.data   as createOrderApiResponse

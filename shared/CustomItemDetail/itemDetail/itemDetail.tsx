@@ -9,17 +9,43 @@ import {
 import {BsCart3 } from 'react-icons/bs' 
 import { useMediaQuery } from 'react-responsive'
 import { Product } from '../../../redux/Product/ProductApi'
+import { isAuth } from '../../../utils/extraFunction'
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks'
+import { addCartLocally, selectCart } from '../../../redux/Cart/CartSlice'
+import { createOrderApi } from '../../../redux/Cart/CartApi'
+import { useState } from 'react'
 type Prop = {
   data:Product
 }
 const ItemDetail = ({data}:Prop) =>{
-
+  
   const NotMobile = useMediaQuery({
     query: '(min-width: 900px)'
   })
 
-  const handleAddTOCart = ()=>{
-    //
+  const dispatch = useAppDispatch()
+  const {status,cartItem,total,} = useAppSelector(selectCart)
+  const [dataCount,setDataCount] =useState<number>(
+    cartItem.map(d=>d.product.id).includes(data?.id)?
+      cartItem.filter(d=>d.product.id==data?.id)[0].quantity 
+      :0)
+
+
+
+  const handleAddTOCart =()=>{
+    if(isAuth()){
+      //the user is logged in use the api
+
+      if(data.id){
+        console.log('You are good')
+        dispatch(createOrderApi({product_id:data.id,cartItemState:cartItem,'custom_quantity':dataCount}))
+      }
+    }else{
+      //the user is not logged in use the local storage
+      if(data.id){
+        dispatch(addCartLocally(data))
+      }
+    }
   }
   return (
     <ItemDetailContainer>
@@ -36,7 +62,7 @@ const ItemDetail = ({data}:Prop) =>{
       <PricingContainer>
         <ActualPriceAndPricePercent>
           <ActualPrice>
-            {data.actual_price}
+            {data.actual_price}0
             
           </ActualPrice>
           <PricePercent>
@@ -57,6 +83,9 @@ const ItemDetail = ({data}:Prop) =>{
 
         <ItemCounter
           width={NotMobile?'35%':'100%'}
+          product={data}
+          dataCount={dataCount}
+          setDataCount={setDataCount}
         />
         <br />
         <Button 

@@ -15,6 +15,8 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { selectCart, toggleMobileSearch } from '../../redux/Cart/CartSlice'
 import FloatingCartBtn from '../FloatingCartBtn/FloatingCartBtn'
 import { decodeToken } from '../../utils/extraFunction'
+import {BsFillBagCheckFill} from 'react-icons/bs'
+
 // import {BiMoney} from 'react-icons/bi';
 type Prop ={
   dragConstraints:any
@@ -22,6 +24,7 @@ type Prop ={
 const MobileNavBar = ({dragConstraints}:Prop):React.ReactElement=>{
 
   const isLaptop = useMediaQuery({ query: '(min-width: 600px)' })
+  const gotterTo700px = useMediaQuery({ query: '(min-width: 700px)' })
   const router = useRouter()
   const { shop } = router.query
   const {status,cartItem} = useAppSelector(selectCart);
@@ -59,47 +62,89 @@ const MobileNavBar = ({dragConstraints}:Prop):React.ReactElement=>{
 
         </MobileNavLinkContainer>
       </OffCanvas >
-      <BiSearchAlt style={{'transform':'translateX(-10px)'}}
+      <BiSearchAlt className='nav_svg' style={{'transform':'translateX(-10px)'}}
         onClick={e=>{
         //
           onSearch()
           console.log('search r2')
         }}
       />
-      <BiHomeCircle style={{'transform':'translateX(-7px)'}}
+      <BiHomeCircle className='nav_svg' style={{'transform':'translateX(8px)'}}
         onClick={e=>handleRoute('/')}
       />
 
-      <OffCanvas
-        size={isLaptop?60:100}
-        btnClick={handleFloatingBtnClick}
-        btnContrroller={ 
-          <FloatingCartBtn dragConstraints={dragConstraints}/>
-        } >
-        <br /><br />
-        {/* children */}
-        <div style={{'position':'relative',
-          // 'border':'1px solid red',
-          'height':'80%','overflowY':'scroll','zIndex':'80px'}}>
-          {
-            cartItem.length==0?
-              '':
-              cartItem.map((data,index)=>(
-                <SingleCart data={data} key={index}/>
-              ))
-          }
+
+
+      {
+        !gotterTo700px?
+          <OffCanvas
+            size={isLaptop?60:100}
+            btnClick={handleFloatingBtnClick}
+            btnContrroller={ 
+              <BsFillBagCheckFill  className='nav_svg' style={{'transform':'translateX(27px)'}}/>
+            } >
+            <br /><br />
+            {/* children */}
+            <div style={{'position':'relative',
+              // 'border':'1px solid red',
+              'height':'80%','overflow':'scroll','zIndex':'80px'}}>
+              {
+                cartItem.length==0?
+                  '':
+                  cartItem.map((data,index)=>(
+                    <SingleCart data={data} key={index}/>
+                  ))
+              }
             
-          <Button style={{'padding':'.5rem 0','position':'absolute','bottom':'0'}} onClick={()=>router.push('/checkout')}>
+              <Button style={{'padding':'.5rem 0','position':'absolute','bottom':'0'}} onClick={()=>router.push('/checkout')}>
               Checkout
-            <p style={{'padding':'.6rem','backgroundColor':'white','color':'#f77305','borderRadius':'20px','margin':'0 .8rem'}}>
+                <p style={{'padding':'.6rem','backgroundColor':'white','color':'#f77305','borderRadius':'20px','margin':'0 .8rem'}}>
                   ${cartItem.map(d=>d.quantity*d.product.actual_price).reduce((partialSum,a)=>partialSum+a,0)}
-            </p>
-          </Button>
-          <br /><br /><br /><br />
-          <br /><br /><br /><br />
-          <br /><br /><br /><br />
-        </div>
-      </OffCanvas>
+                </p>
+              </Button>
+              <br /><br /><br /><br />
+              <br /><br /><br /><br />
+              <br /><br /><br /><br />
+            </div>
+          </OffCanvas>:
+
+          <OffCanvas
+            size={isLaptop?60:100}
+            btnClick={handleFloatingBtnClick}
+            btnContrroller={ 
+              <FloatingCartBtn dragConstraints={dragConstraints}/>
+            } >
+            <br /><br />
+            {/* children */}
+            <div style={{'position':'relative',
+              // 'border':'1px solid red',
+              'height':'80%','overflowY':'scroll','zIndex':'80px'}}>
+              {
+                cartItem.length==0?
+                  '':
+                  cartItem.map((data,index)=>(
+                    <SingleCart data={data} key={index}/>
+                  ))
+              }
+            
+              <Button style={{'padding':'.5rem 0','position':'absolute','bottom':'0'}} onClick={()=>router.push('/checkout')}>
+              Checkout
+                <p style={{'padding':'.6rem','backgroundColor':'white','color':'#f77305','borderRadius':'20px','margin':'0 .8rem'}}>
+                  ${cartItem.map(d=>d.quantity*d.product.actual_price).reduce((partialSum,a)=>partialSum+a,0)}
+                </p>
+              </Button>
+              <br /><br /><br /><br />
+              <br /><br /><br /><br />
+              <br /><br /><br /><br />
+            </div>
+          </OffCanvas>
+      }
+
+
+
+
+
+
      
     
       <OffCanvas btnContrroller={<AiOutlineUser style={{'transform':'translateX(10px)'}}/>}>

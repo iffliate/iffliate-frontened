@@ -24,6 +24,10 @@ svg{
  
 }
 
+.nav_svg:hover,.nav_svg:active{
+  color: ${({theme})=>theme.main_color};
+}
+
 
 
 
