@@ -76,38 +76,10 @@ const MobileNavBar = ({dragConstraints}:Prop):React.ReactElement=>{
 
 
       {
-        !gotterTo700px?
-          <OffCanvas
-            size={isLaptop?60:100}
-            btnClick={handleFloatingBtnClick}
-            btnContrroller={ 
-              <BsFillBagCheckFill  className='nav_svg' style={{'transform':'translateX(27px)'}}/>
-            } >
-            <br /><br />
-            {/* children */}
-            <div style={{'position':'relative',
-              // 'border':'1px solid red',
-              'height':'80%','overflow':'scroll','zIndex':'80px'}}>
-              {
-                cartItem.length==0?
-                  '':
-                  cartItem.map((data,index)=>(
-                    <SingleCart data={data} key={index}/>
-                  ))
-              }
-            
-              <Button style={{'padding':'.5rem 0','position':'absolute','bottom':'0'}} onClick={()=>router.push('/checkout')}>
-              Checkout
-                <p style={{'padding':'.6rem','backgroundColor':'white','color':'#f77305','borderRadius':'20px','margin':'0 .8rem'}}>
-                  ${cartItem.map(d=>d.quantity*d.product.actual_price).reduce((partialSum,a)=>partialSum+a,0)}
-                </p>
-              </Button>
-              <br /><br /><br /><br />
-              <br /><br /><br /><br />
-              <br /><br /><br /><br />
-            </div>
-          </OffCanvas>:
-
+        gotterTo700px?
+        
+        
+        
           <OffCanvas
             size={isLaptop?60:100}
             btnClick={handleFloatingBtnClick}
@@ -126,11 +98,11 @@ const MobileNavBar = ({dragConstraints}:Prop):React.ReactElement=>{
                     <SingleCart data={data} key={index}/>
                   ))
               }
-            
+        
               <Button style={{'padding':'.5rem 0','position':'absolute','bottom':'0'}} onClick={()=>router.push('/checkout')}>
-              Checkout
+          Checkout
                 <p style={{'padding':'.6rem','backgroundColor':'white','color':'#f77305','borderRadius':'20px','margin':'0 .8rem'}}>
-                  ${cartItem.map(d=>d.quantity*d.product.actual_price).reduce((partialSum,a)=>partialSum+a,0)}
+              ${cartItem.map(d=>d.quantity*d.product.actual_price).reduce((partialSum,a)=>partialSum+a,0)}
                 </p>
               </Button>
               <br /><br /><br /><br />
@@ -138,6 +110,43 @@ const MobileNavBar = ({dragConstraints}:Prop):React.ReactElement=>{
               <br /><br /><br /><br />
             </div>
           </OffCanvas>
+        
+        
+
+          :
+
+
+          <OffCanvas
+            size={isLaptop?60:100}
+            btnClick={handleFloatingBtnClick}
+            btnContrroller={ 
+              <BsFillBagCheckFill  className='nav_svg' style={{'transform':'translateX(27px)'}}/>
+            } >
+            <br /><br />
+            {/* children */}
+            <div style={{'position':'relative',
+            // 'border':'1px solid red',
+              'height':'80%','overflow':'scroll','zIndex':'80px'}}>
+              {
+                cartItem.length==0?
+                  '':
+                  cartItem.map((data,index)=>(
+                    <SingleCart data={data} key={index}/>
+                  ))
+              }
+            
+              <Button style={{'padding':'.5rem 0','position':'absolute','bottom':'0'}} onClick={()=>router.push('/checkout')}>
+            Checkout
+                <p style={{'padding':'.6rem','backgroundColor':'white','color':'#f77305','borderRadius':'20px','margin':'0 .8rem'}}>
+                ${cartItem.map(d=>d.quantity*d.product.actual_price).reduce((partialSum,a)=>partialSum+a,0)}
+                </p>
+              </Button>
+              <br /><br /><br /><br />
+              <br /><br /><br /><br />
+              <br /><br /><br /><br />
+            </div>
+          </OffCanvas>
+                
       }
 
 
