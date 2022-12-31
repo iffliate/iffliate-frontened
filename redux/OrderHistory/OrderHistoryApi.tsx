@@ -73,7 +73,8 @@ export const getOrderHistoryDetail = createAsyncThunk(
 
 type updateOrderHistoryStatus ={
     'status':OrderHistoryType['status'],
-    'paystack':string
+    'paystack':string;
+    'shop_id':number
 }
 
 export const updateOrderHistoryStatus = createAsyncThunk(

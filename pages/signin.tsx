@@ -103,7 +103,7 @@ const signin:NextPage= ()=>{
           <br /><br />
           <Button
             isLoading={status==='pending'}
-          >SignIn</Button>
+          >Sign In</Button>
         </form>
       </LoginContentContainer>
       <br />

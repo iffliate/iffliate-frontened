@@ -1,11 +1,12 @@
 import styled from 'styled-components'
 
+import { motion } from 'framer-motion'
 
 
 
 
 
-export const MainBodyContainer = styled.div`
+export const MainBodyContainer = styled(motion.div)`
     /* border: 1px solid red; */
     max-height: 700px;
     overflow-y: scroll;

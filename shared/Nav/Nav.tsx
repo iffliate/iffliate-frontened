@@ -37,6 +37,7 @@ const Nav = ():React.ReactElement=>{
   }
   const handleSignOut = ():void=>{
     window.localStorage.removeItem('iffilate_cred')
+    route.push('/signin')
   }
 
   useEffect(()=>{

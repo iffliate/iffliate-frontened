@@ -40,7 +40,11 @@ const ItemDetailMainBody = ({data={} as Product}:Prop)=>{
     <>        
       <br />
       
-      <MainBodyContainer>
+      <MainBodyContainer
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 50 }}
+      >
         <ItemImagePreview images={[
           data.image_one,data.image_two,data.image_three,data.image_four
         ]} openModalPic={handleOpenModal} />

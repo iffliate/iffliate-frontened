@@ -50,7 +50,7 @@ const ShopOrder:NextPage = ()=>{
             paystack:tableProps.row.original.paystack,
             is_for_shop:false
           }))
-          route.push(`/dashboard/personal/myorders/${tableProps.row.original.paystack}`)
+          route.push(`/dashboard/shop/${shop}/order/${tableProps.row.original.paystack}/`)
         }} />
       )
     },
