@@ -63,14 +63,14 @@ const SingleItem = ({ onClick ,data}:Prop):React.ReactElement=>{
     <SingleItemContainer >
       <div onClick={onClick}>
         <PercentageBar>
-          {data.slash_percentage}%
+          {data.actual_price}₦
         </PercentageBar>
 
         <img src={data.image_one} style={{'zIndex':'0'}}/>
         <PriceContainer>
           <p>{data.actual_price}₦</p>
           {/* <p><strike>$2.00</strike></p> */}
-          <p><small>{data.slashed_price}</small></p>
+          {/* <p><small>{data.slashed_price}</small></p> */}
 
         </PriceContainer>
 
