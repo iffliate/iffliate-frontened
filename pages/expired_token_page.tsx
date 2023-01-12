@@ -21,7 +21,7 @@ const ExpiredTokenPage:NextPage = ()=>{
     <GeneralLayout>
       <div style={{'display':'flex','alignItems':'center','justifyContent':'center','height':'100vh','textAlign':'center'}}>
         <div style={{'maxWidth':'700px',}}>
-          <h1 style={{'fontSize':'2.5rem','textAlign':'center'}}>Hey!! Your Token has<span style={{'color':'#f77305'}}> Expired</span></h1>
+          <h1 style={{'fontSize':'2.5rem','textAlign':'center'}}>Hey!! Your Credentials has<span style={{'color':'#f77305'}}> Expired</span></h1>
           <br />
           <p>Dont worry just sign back in</p> 
           <br />

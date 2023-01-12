@@ -16,6 +16,7 @@ type State ={
   category_list:Category[]
   currentCategory:string;
   productDetail:Product;
+  upload_state?:number
 }
 
 const initialState:State={
@@ -24,12 +25,16 @@ const initialState:State={
   errMessage:null,
   category_list:[],
   currentCategory:'clothing',
-  productDetail: {} as Product
+  productDetail: {} as Product,
+  upload_state:0
 }
 const productSlice = createSlice({
   name:'product',
   initialState:initialState,
   reducers:{
+    setUploadState:(state,{payload}:PayloadAction<number>)=>{
+      state.upload_state = parseInt(`${payload}`)
+    },
     setCurrentCategory:(state,{payload}:PayloadAction<string>)=>{
       state.currentCategory=payload
     },
@@ -53,8 +58,9 @@ const productSlice = createSlice({
       
     })
     addCase(productCreateApi.rejected,(state,action:any)=>{
+      console.log({'errorsLICE':action.payload})
       state.status='error'
-      if(action.payload.code === 'ERR_NETWORK'){
+      if(action.payload.code == 'ERR_NETWORK'){
         state.errMessage='Please Check your internet and refresh the page'
       }
     })
@@ -142,11 +148,12 @@ const productSlice = createSlice({
 
     addCase(updateProductDetail.rejected,(state,action)=>{
       state.status='error'
+      state.errMessage='Something went wrong please check your internet'
       console.log({'couldnot Update Product':action.payload})
     })
   }
 })
 
-export const {setCurrentCategory} = productSlice.actions
+export const {setCurrentCategory,setUploadState} = productSlice.actions
 export const selectProduct = (state:RootState)=>state.product
 export default productSlice.reducer

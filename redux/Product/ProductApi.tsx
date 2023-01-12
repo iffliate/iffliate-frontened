@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import api from '../../service/axios';
-import { Category } from './ProductSlice';
+import { Category, setUploadState } from './ProductSlice';
 
 
 
@@ -31,8 +31,12 @@ type productCreateApiResponse ={
   data:Product,
   success:boolean;
 }
+type ProductCreateProp = {
+  data:Product,
+  dispatch:any,
+}
 export const productCreateApi = createAsyncThunk(
-  'product/productCreateApi',async (data:Product,thunkAPi)=>{
+  'product/productCreateApi',async ({data,dispatch}:ProductCreateProp,thunkAPi)=>{
 
     const form = new FormData();
 
@@ -49,10 +53,20 @@ export const productCreateApi = createAsyncThunk(
     form.append('image_four',data.image_four)
 
     try{
-      const resp = await api.post('/product/',form)
+      const resp = await api.post('/product/',form,{
+        onUploadProgress: (progressEvent) => {
+          const progress:number = (progressEvent.loaded / progressEvent.total) * 50;
+          console.log({progress})
+          // setProgress(progress);
+          dispatch(setUploadState(progress))
+        },
+      })
       return resp.data.data as Product
     }catch(err:any){
-      return thunkAPi.rejectWithValue(err)
+      if(err.response.status==503){
+        console.log('Service Terminated')
+      }
+      return thunkAPi.rejectWithValue(err as any)
     }
   }
 )

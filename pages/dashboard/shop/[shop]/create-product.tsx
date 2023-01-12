@@ -19,7 +19,7 @@ import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
 import { selectProduct } from '../../../../redux/Product/ProductSlice';
 import useToast from '../../../../hooks/useToastify';
 import { getCategory, Product, productCreateApi } from '../../../../redux/Product/ProductApi';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import CheckBoxWithLabel from '../../../../shared/CheckBoxWithLabel/CheckBoxWithLabel';
 import { useRouter } from 'next/router'
 import Preloader from '../../../../shared/Preloader/Preloder';
@@ -40,7 +40,7 @@ const schema = yup.object().shape({
 
 const CreateProduct:NextPage =()=>{
   const dispatch  = useAppDispatch();
-  const {status,errMessage,category_list} = useAppSelector(selectProduct);
+  const {status,errMessage,category_list,upload_state} = useAppSelector(selectProduct);
   const {notify} = useToast();
   const router = useRouter()
   const { shop } = router.query
@@ -51,11 +51,14 @@ const CreateProduct:NextPage =()=>{
     formState: { errors },watch
   } = useForm<Product>({ resolver: yupResolver(schema) });
   
-  
+  const [progress,setProgress] = useState(0)
   const watchFields = watch(['out_of_stock'])
   const onSubmit: SubmitHandler<Product>=data=>{
     //
-    dispatch(productCreateApi(data))
+    dispatch(productCreateApi({
+      data,
+      dispatch
+    }))
   }
 
   useEffect(()=>{
@@ -73,13 +76,20 @@ const CreateProduct:NextPage =()=>{
       notify('Created Succefully','success')
       router.push(`/dashboard/shop/${shop}/`)
     }
+    if(status==='deleted'){
+      notify(errMessage,'error')
+    }
+    if(status=='error'){
+      notify(errMessage,'error')
+    }
   },[status])
+  console.log({'from error':errors})
   return (
     <DashboardLayout
       listOFLinks={[]}
       showDetail={true}
     >
-      <Preloader loading={status=='pending'}/>
+      <Preloader loading={status=='pending'} text={`Please Hold On ${upload_state!=0?upload_state:''}%`}/>
       <h1>Create Product</h1>
 
       <ContentWithFormInput>

@@ -26,6 +26,8 @@ api.interceptors.request.use((config)=>{
 
   }
   return config
+}, function (error){
+  console.log({'requestErr':error})
 })
 
 api.interceptors.response.use(function (response) {
@@ -34,13 +36,16 @@ api.interceptors.response.use(function (response) {
   console.log({response})
   return response;
 }, function (error) {
-  const code:any = error.response.data.code
-  if(code === 'token_not_valid') {
-    if (window.location.pathname !=='/expired_token_page'){
-      window.location.reload()
-      window.location.href='/expired_token_page'
-    }
-  } 
+  console.log({'from intercept':error})
+  const data:any = error?.response.data
+  if(data){
+    if(data.code === 'token_not_valid') {
+      if (window.location.pathname !=='/expired_token_page'){
+        window.location.reload()
+        window.location.href='/expired_token_page'
+      }
+    } 
+  }
   // Any status codes that falls outside the range of 2xx cause this function to trigger
   // Do something with response error
   return Promise.reject(error);

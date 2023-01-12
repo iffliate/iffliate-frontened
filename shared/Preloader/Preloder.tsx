@@ -4,6 +4,7 @@ import HashLoader from 'react-spinners/HashLoader';
 type PropType={
   loading:boolean;
   color?:string
+  text?:string;
 }
 const override: CSSProperties = {
   position: 'fixed',
@@ -20,7 +21,7 @@ const override: CSSProperties = {
 
 };
 
-const Preloader = ({loading=false,color='#f77305'}:PropType)=>{
+const Preloader = ({loading=false,color='#f77305',text}:PropType)=>{
 
 
 
@@ -30,6 +31,13 @@ const Preloader = ({loading=false,color='#f77305'}:PropType)=>{
         color={color} loading={loading}  size={150}
         // cssOverride={override}
       />
+      {
+        text?
+          <>
+            <br />
+            <h4 style={{'color':'#f77305'}}>{text}</h4></>
+          :''
+      }
     </div>
   )
 }

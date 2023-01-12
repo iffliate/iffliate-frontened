@@ -46,7 +46,6 @@ const UploadImage = ({height,width,setValue,name,image_defualt_url=null}:Prop):R
   useEffect(()=>{
     setImage((value:any)=>image_defualt_url)
   },[route.isReady])
-  console.log({Image,image_defualt_url})
   return (
     <UploadImageContainer>
       {
